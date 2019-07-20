@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 15:02:28 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/19 20:35:03 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/20 20:57:01 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ SRC =	ft_arraydel.c \
 		ft_strcskp.c \
 		ft_strdel.c \
 		ft_strdup.c \
+		ft_strndup.c \
 		ft_strequ.c \
 		ft_striter.c \
 		ft_striteri.c \

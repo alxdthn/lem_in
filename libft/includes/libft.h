@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 01:55:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/17 20:44:07 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/20 20:50:47 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int					ft_strnequ(char const *s1, char const *s2, size_t n);
 
 size_t				ft_strlen(const char *str);
 char				*ft_strdup(const char *s1);
+char				*ft_strndup(const char *s1, size_t size);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *str, const char *str2);

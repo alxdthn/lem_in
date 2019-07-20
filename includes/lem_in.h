@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/20 18:10:07 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/20 21:30:29 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,39 @@
 # define LEM_IN_H
 # define LEM_IN 42
 # define ERROR "Error"
+# define START 1
+# define END 2
 # include "libft.h"
+# include "ft_printf.h"
+
+typedef struct	s_switchs
+{
+	char		start : 1;
+	char		end : 1;
+	char		started : 1;
+	char		ended : 1;
+}				t_switchs;
+
+typedef struct	s_room
+{
+	int			x;
+	int			y;
+	char		*name;
+	t_list 		*ways;
+	char		type;
+}				t_room;
+
+typedef struct	s_tmp
+{
+	char		*line;
+	t_room		*room;
+}				t_tmp;
 
 typedef struct	s_all
 {
-	char		*line;
+	t_tmp		tmp;
+	t_list		*rooms;
+	t_switchs	switchs;
 	char		prog;
 	void		(*exit)(struct s_all *, char *, int);
 }				t_all;
