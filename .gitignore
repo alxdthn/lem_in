@@ -1,0 +1,5 @@
+*.dSYM
+*obj
+/lem-in
+*.a
+*out
