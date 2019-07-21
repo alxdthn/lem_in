@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 05:36:40 by nalexand          #+#    #+#             */
-/*   Updated: 2019/06/27 02:17:14 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 12:10:41 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*lst;
 
-	if (!(lst = (t_list *)malloc(sizeof(*lst))))
+	if (!(lst = (t_list *)malloc(sizeof(t_list))))
 		return (NULL);
 	if (!content)
 	{

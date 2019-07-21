@@ -1,5 +1,7 @@
 *.dSYM
 *obj
+*.txt
 /lem-in
+v_checker
 *.a
 *out

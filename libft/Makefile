@@ -6,12 +6,12 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 15:02:28 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/20 20:57:01 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/21 12:33:38 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-C_FLAGS = -Wall -Werror -Wextra
+C_FLAGS = -g -Wall -Werror -Wextra
 HEADER = -I includes
 
 SRC_DIR = src/

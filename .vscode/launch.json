@@ -21,11 +21,11 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
-		"args": [],
+		"args": [" < maps/model_1"],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}",
 		"environment": [],
-		"externalConsole": false,
+		"externalConsole": true,
 		"MIMode": "lldb"
 	}
 	]

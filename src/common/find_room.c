@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   find_room.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/03 04:28:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 12:34:54 by nalexand         ###   ########.fr       */
+/*   Created: 2019/07/21 18:27:39 by nalexand          #+#    #+#             */
+/*   Updated: 2019/07/21 18:27:53 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lem_in.h"
 
-void	*ft_memalloc(size_t size)
+t_room	*find_room(t_all *all, char *name)
 {
-	void	*src;
+	t_list	*tmp;
 
-	if (!(src = malloc(size)) && size)
-		return (NULL);
-	ft_bzero(src, size);
-	return (src);
+	tmp = all->rooms;
+	while (tmp)
+	{
+		if (ft_strequ(((t_room *)tmp->content)->name, name))
+			return (tmp->content);
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
