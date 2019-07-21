@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 18:31:12 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 21:04:25 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ void		parce_map(t_all *all)
 		if (ret < 0 || !all->tmp.line)
 			all->exit(all, ERROR, 2);
 		parce_line(all);
-		ft_lstadd(&all->out, ft_lstnew(all->tmp.line,
-		1 + ft_strlen(all->tmp.line)));
-		if (!all->out)
-			all->exit(all, ERROR, 2);
+		if (all->prog == LEM_IN)
+		{
+			ft_lstadd(&all->out, ft_lstnew(all->tmp.line,
+			1 + ft_strlen(all->tmp.line)));
+			if (!all->out)
+				all->exit(all, ERROR, 2);
+		}
 		ft_strdel(&all->tmp.line);
 	}
 	if (!all->switchs.start || !all->switchs.end)

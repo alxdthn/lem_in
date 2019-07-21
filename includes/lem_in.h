@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 20:21:17 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 22:45:40 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERROR "Error"
 # define START 1
 # define END 2
+# define ABS(x) ((x) > 0 ? (x) : -(x))
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx_keys.h"
@@ -45,6 +46,7 @@ typedef struct	s_door
 {
 	t_room		*room;
 	char		is_close;
+	char		is_print;
 }				t_door;
 
 typedef struct	s_tmp
@@ -65,10 +67,12 @@ typedef struct  s_img
 typedef struct	s_mlx
 {
 	t_img		logo;
+	t_img		img;
 	void		*ptr;
 	void		*win;
 	int			width;
 	int			height;
+	int			size;
 }				t_mlx;
 
 typedef struct	s_all

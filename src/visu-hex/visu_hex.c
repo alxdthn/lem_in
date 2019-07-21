@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 20:29:25 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 22:27:50 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 int		main(void)
 {
-	t_all	all;
+	t_all	*all;
 
-	bzero(&all, sizeof(t_all));
-	all.prog = VISU_HEX;
-	all.exit = &visu_hex_clear_exit;
-	visualisation_init(&all);
-	render(&all);
-	parce_map(&all);
-	mlx_loop(&all.mlx.ptr);
+	all = (t_all *)ft_memalloc(sizeof(t_all));
+	//bzero(&all, sizeof(t_all));
+	all->prog = VISU_HEX;
+	all->exit = &visu_hex_clear_exit;
+	visualisation_init(all);
+	parce_map(all);
+	render(all);
+	//print(all);
+	mlx_loop(&all->mlx.ptr);
 	return (0);
 }

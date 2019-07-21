@@ -3,5 +3,6 @@
 *.txt
 /lem-in
 v_checker
+/visu-hex
 *.a
 *out

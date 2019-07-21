@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 20:27:47 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 21:07:34 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 	{
 		if (all->mlx.logo.ptr)
 			mlx_destroy_image(all->mlx.ptr, all->mlx.logo.ptr);
+		if (all->mlx.img.ptr)
+			mlx_destroy_image(all->mlx.ptr, all->mlx.img.ptr);
 		mlx_destroy_window(all->mlx.ptr, all->mlx.win);
 		ft_memdel((void **)&all->mlx.ptr);
 	}
 	if (all->rooms)
 		ft_lstdel(&all->rooms, clear_room);
+	ft_memdel((void **)&all);
 	if (message)
 		ft_putendl_fd(message, fd);
 	if (fd == 1)

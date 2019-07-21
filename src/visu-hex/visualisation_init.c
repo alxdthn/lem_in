@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:07:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 20:13:53 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 21:33:51 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ static void	mlx_init_params(t_all *all)
 	read_ini(all);
 	all->mlx.ptr = mlx_init();
 	all->mlx.win = mlx_new_window(all->mlx.ptr,
-	all->mlx.width, all->mlx.height, "push_swap by nalexand");
+	all->mlx.width, all->mlx.height, "visu-hex by nalexand");
 	all->mlx.logo.ptr = mlx_xpm_file_to_image(all->mlx.ptr,
 	"src/logo2.xpm", &all->mlx.logo.bpp, &all->mlx.logo.bpp);
+	all->mlx.img.ptr = mlx_new_image(all->mlx.ptr, all->mlx.width, all->mlx.height);
+	all->mlx.img.data = (int *)mlx_get_data_addr(all->mlx.img.ptr,
+	&all->mlx.img.bpp, &all->mlx.img.size_line, &all->mlx.img.endian);
+	all->mlx.img.size_line /= 4;
+	all->mlx.size = all->mlx.width * all->mlx.height;
 }
 
 void		visualisation_init(t_all *all)
