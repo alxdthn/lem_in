@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 13:40:43 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 17:32:30 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:48:09 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ char	*get_cmd(char *cmd_body, char *line, char **val)
 
 	cmd = ft_strjoin(cmd_body, line);
 	*val = ft_strdup(cmd);
-	tmp = ft_strjoin(cmd, " &> log.txt");
+	tmp = ft_strjoin(cmd, " &> out.txt");
 	ft_strdel(&cmd);
 	cmd = tmp;
 	tmp = ft_strjoin("valgrind --leak-check=full --log-file=\"val.txt\" ", *val);
-	free(*val);
+	ft_strdel(val);
 	*val = tmp;
 	tmp = ft_strjoin(*val, " 2> tmp.txt");
-	free(*val);
+	ft_strdel(val);
 	*val = tmp;
 	return (cmd);
 }
@@ -82,12 +82,11 @@ static void	make_test(char *cmd, char *test, char *val)
 	errors = 0;
 	read_leaks(&leaks, &errors);
 	system(cmd);
-	fd = open("log.txt", O_RDONLY);
-	ft_read_to_str(fd, &log, 60);
+	fd = open("out.txt", O_RDONLY);
+	ft_read_to_str(fd, &log, 256);
 	close(fd);
-	ft_printf("[%s] ", test);
-	ft_printf("leaks: %d errors: %d\n", leaks, errors);
-	if (ft_strequ("Error", log))
+	ft_printf("[%s] leaks: %d errors: %d\n", test, leaks, errors);
+	if (!ft_strequ("Error\n", log))
 		ft_printf("\033[31m[ KO ]\033[0m\n");
 	else
 		ft_printf("\033[32m[ OK ]\033[0m\n");

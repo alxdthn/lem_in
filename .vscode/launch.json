@@ -5,6 +5,18 @@
 	"version": "0.2.0",
 	"configurations": [
 	{
+		"name": "(lldb) lem-in",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/lem-in",
+		"args": [" < maps/model_1"],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "lldb"
+	},
+	{
 		"name": "(lldb) test",
 		"type": "cppdbg",
 		"request": "launch",
@@ -17,13 +29,25 @@
 		"MIMode": "lldb"
 	},
 	{
-		"name": "(lldb) lem-in",
+		"name": "(lldb) v_checker",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "${workspaceFolder}/lem-in",
-		"args": [" < maps/model_1"],
+		"program": "${workspaceFolder}/valid_checker/v_checker",
+		"args": [],
 		"stopAtEntry": false,
-		"cwd": "${workspaceFolder}",
+		"cwd": "${workspaceFolder}/valid_checker",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "lldb"
+	},
+	{
+		"name": "(lldb) visu-hex",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/visu-hex",
+		"args": [],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}/",
 		"environment": [],
 		"externalConsole": true,
 		"MIMode": "lldb"

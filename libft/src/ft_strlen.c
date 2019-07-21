@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 18:12:29 by nalexand          #+#    #+#             */
-/*   Updated: 2019/04/12 00:25:01 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:28:42 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ size_t		ft_strlen(const char *str)
 	size_t i;
 
 	i = 0;
-	while (str[i])
-		i++;
+	if (str)
+		while (str[i])
+			i++;
 	return (i);
 }

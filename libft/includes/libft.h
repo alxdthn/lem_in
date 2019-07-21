@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 01:55:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/20 20:50:47 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 19:17:48 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char				*ft_strcskp(const char *str, char c);
 char				*ft_strsskp(const char *str, char *c);
 void				*ft_memjoin(void *dst, void *src,
 					size_t s_dst, size_t s_src);
-ssize_t				ft_read_to_str(int fd, char **str, int b_size);
+ssize_t				ft_read_to_str(int fd, char **str, size_t b_size);
 void				ft_arraydel(void ***array);
 char				*ft_strrev(char *str);
 char				*ft_btoa(__int128_t bits, size_t len, char param);

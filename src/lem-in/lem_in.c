@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 18:31:01 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/21 20:31:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			main(void)
 	all.exit = &lem_in_clear_exit;
 	parce_map(&all);
 	print_out(all.out);
-	print(&all);
+//	print(&all);
 	all.exit(&all, NULL, 1);
 	return (0);
 }
