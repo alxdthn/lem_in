@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 22:45:40 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/22 23:07:33 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,28 @@
 # define START 1
 # define END 2
 # define ABS(x) ((x) > 0 ? (x) : -(x))
+# define WAY_COLOR 0xffffff
+# define ROOM_FIL_COLOR 0x000000
+# define ROOM_BORDER 0xffffff
+# define START_ROOM_COLOR 0xfc03f0
+# define END_ROOM_COLOR 0x7b09e6
+# define BACKGROUND_COLOR 0
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx_keys.h"
 # include <mlx.h>
+
+typedef struct	s_line_params
+{
+	int			x1;
+	int			y1;
+	int			x2;
+	int			y2;
+	int			delta_x;
+	int			delta_y;
+	int			dir_x;
+	int			dir_y;
+}				t_line_params;
 
 typedef struct	s_switchs
 {
@@ -31,7 +49,6 @@ typedef struct	s_switchs
 	char		ended : 1;
 	char		ants : 1;
 }				t_switchs;
-
 
 typedef struct	s_room
 {
@@ -73,6 +90,16 @@ typedef struct	s_mlx
 	int			width;
 	int			height;
 	int			size;
+	int			pixel_size;
+	int			radius;
+	int			color;
+	int			min_x;
+	int			max_x;
+	int			min_y;
+	int			max_y;
+	int			map_size;
+	int			map_position_x;
+	int			map_position_y;
 }				t_mlx;
 
 typedef struct	s_all
@@ -102,5 +129,7 @@ void 			print(t_all *all);
 void			visualisation_init(t_all *all);
 int				deal_key(int key, t_all *all);
 void			render(t_all *all);
+void			draw_line(t_all *all, t_line_params *params);
+void			draw_circle(t_all *all, t_line_params *params);
 
 #endif

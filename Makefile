@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/21 20:22:04 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/22 20:18:27 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
 			key_handle.c \
-			render.c
+			render.c \
+			draw_functions.c
 
 COM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(COM_SRC)))
 LEM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(LEM_SRC)))

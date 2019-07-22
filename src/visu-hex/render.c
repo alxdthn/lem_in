@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:10:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 22:57:05 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/22 23:08:28 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,73 +17,6 @@ static void	put_logo(t_all *all)
 	if (all->mlx.logo.ptr)
 		mlx_put_image_to_window(all->mlx.ptr,
 		all->mlx.win, all->mlx.logo.ptr, 10, 10);
-}
-
-static void	drawpixel(t_all *all, int x, int y)
-{
-	size_t	point;
-
-	point = y * all->mlx.img.size_line + x;
-	if (point > 0 && point < all->mlx.size)
-		all->mlx.img.data[point] = 0xfc4242;
-}
-
-static void	print_circle(t_all *all, int R, int X1, int Y1)
-{
-   int x = 0;
-   int y = R;
-   int delta = 1 - 2 * R;
-   int error = 0;
-   while (y >= 0)
-   {
-		drawpixel(all, X1 + x, Y1 + y);
-		drawpixel(all, X1 + x, Y1 - y);
-		drawpixel(all, X1 - x, Y1 + y);
-		drawpixel(all, X1 - x, Y1 - y);
-		error = 2 * (delta + y) - 1;
-       if ((delta < 0) && (error <= 0))
-	   {
-           delta += 2 * ++x + 1;
-           continue ;
-	   }
-       if ((delta > 0) && (error > 0))
-	   {
-           delta -= 2 * --y + 1;
-           continue ;
-	   }
-       delta += 2 * (++x - y--);
-	}
-}
-
-void	bresenhem(t_all *all, int x1, int y1, int x2, int y2)
-{
-	int		error;
-	int		error2;
-	int		delta_x;
-	int		delta_y;
-	int		dir_x;
-	int		dir_y;
-
-	delta_x = ABS(x2 - x1);
-	delta_y = ABS(y2 - y1);
-	error = delta_x - delta_y;
-	dir_x = x1 < x2 ? 1 : -1;
-	dir_y = y1 < y2 ? 1 : -1;
-	while (x1 != x2 || y1 != y2)
-	{
-		drawpixel(all, x1, y1);
-		error2 = error * 2;
-		if (error2 > -delta_y)
-		{
-			error -= delta_y;
-			x1 += dir_x;
-		}
-		else if (error2 < delta_x)
-		{
-			error += delta_x;
-			y1 += dir_y;
-		}
-	}
 }
 
 static t_door	*get_door_by_room_name(t_all *all, t_room *room, char *name)
@@ -100,32 +33,78 @@ static t_door	*get_door_by_room_name(t_all *all, t_room *room, char *name)
 	return (NULL);
 }
 
-static void	print_lines(t_all *all, t_room *room, t_list *doors)
+static void	draw_ways(t_all *all, t_room *room)
 {
+	t_line_params	params;
+	t_list			*doors;
+
+	all->mlx.color = WAY_COLOR;
+	doors = room->doors;
 	while (doors)
 	{
 		if (!((t_door *)doors->content)->is_print)
 		{
-			bresenhem(all, room->x * 50, room->y * 50, ((t_door *)doors->content)->room->x * 50, ((t_door *)doors->content)->room->y * 50);
-			get_door_by_room_name(all, ((t_door *)doors->content)->room, room->name)->is_print = 1;			
+			params.x1 = room->x * all->mlx.map_size + all->mlx.map_position_x;
+			params.y1 = room->y * all->mlx.map_size + all->mlx.map_position_y;
+			params.x2 = ((t_door *)doors->content)->room->x * all->mlx.map_size + all->mlx.map_position_x;
+			params.y2 = ((t_door *)doors->content)->room->y * all->mlx.map_size + all->mlx.map_position_y;
+			params.delta_x = ABS(params.x2 - params.x1);
+			params.delta_y = ABS(params.y2 - params.y1);
+			params.dir_x = (params.x1 < params.x2) ? 1 : -1;
+			params.dir_y = (params.y1 < params.y2) ? 1 : -1;
+			draw_line(all, &params);
+			get_door_by_room_name(all, ((t_door *)doors->content)->room,
+			room->name)->is_print = 1;
 		}
 		doors = doors->next;
 	}
 }
 
+static void	draw_room(t_all *all, t_room *room)
+{
+	t_line_params	params;
+	int				radius;
+
+	all->mlx.color = ROOM_BORDER;
+	params.x1 = room->x * all->mlx.map_size + all->mlx.map_position_x;
+	params.y1 = room->y * all->mlx.map_size + all->mlx.map_position_y;
+	params.x2 = 0;
+	params.y2 = all->mlx.radius;
+   	params.delta_x = 1 - 2 * all->mlx.radius;
+	draw_circle(all, &params);
+	radius = all->mlx.radius - all->mlx.pixel_size + 1;
+	while (--radius)
+	{
+		if (room->type == START)
+			all->mlx.color = START_ROOM_COLOR;
+		else if (room->type == END)
+			all->mlx.color = END_ROOM_COLOR;
+		else
+			all->mlx.color = ROOM_FIL_COLOR;
+		params.x2 = 0;
+		params.y2 = radius;
+	   	params.delta_x = 1 - 2 * radius;
+		draw_circle(all, &params);
+	}
+}
+
 void		render(t_all *all)
 {
-	int i;
 	t_list *tmp;
+	int 	i;
+	int		pixel_size;
 
 	i = 0;
-	while (i < all->mlx.img.size_line * all->mlx.height - 1)
-		all->mlx.img.data[i++] = 0xFFFFFF;
+	if (BACKGROUND_COLOR)
+		while (i < all->mlx.img.size_line * all->mlx.height - 1)
+			all->mlx.img.data[i++] = BACKGROUND_COLOR;
 	tmp = all->rooms;
+	all->mlx.radius = 30;
+	all->mlx.pixel_size = 7;
 	while (tmp)
 	{
-		print_circle(all, 10, ((t_room *)tmp->content)->x * 50, ((t_room *)tmp->content)->y * 50);
-		print_lines(all, (t_room *)tmp->content, ((t_room *)tmp->content)->doors);
+		draw_ways(all, (t_room *)tmp->content);
+		draw_room(all, (t_room *)tmp->content);
 		tmp = tmp->next;
 	}
 	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->mlx.img.ptr, 0, 0);
