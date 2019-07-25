@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:10:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/22 23:08:28 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:05:15 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	draw_room(t_all *all, t_room *room)
    	params.delta_x = 1 - 2 * all->mlx.radius;
 	draw_circle(all, &params);
 	radius = all->mlx.radius - all->mlx.pixel_size + 1;
-	while (--radius)
+	while (--radius >= 0)
 	{
 		if (room->type == START)
 			all->mlx.color = START_ROOM_COLOR;
@@ -99,8 +99,6 @@ void		render(t_all *all)
 		while (i < all->mlx.img.size_line * all->mlx.height - 1)
 			all->mlx.img.data[i++] = BACKGROUND_COLOR;
 	tmp = all->rooms;
-	all->mlx.radius = 30;
-	all->mlx.pixel_size = 7;
 	while (tmp)
 	{
 		draw_ways(all, (t_room *)tmp->content);

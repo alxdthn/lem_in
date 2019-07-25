@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 20:17:43 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/22 23:04:40 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/25 21:15:15 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,32 @@ static void	draw_pixel(t_all *all, int x, int y)
 		all->mlx.img.data[point] = all->mlx.color;
 }
 
+void	draw_pixel_circle(t_all *all, t_line_params *params)
+{
+	int error;
+
+	error = 0;
+	while (params->y2 >= 0)
+	{
+		draw_pixel(all, params->x1 + params->x2, params->y1 + params->y2);
+		draw_pixel(all, params->x1 + params->x2, params->y1 - params->y2);
+		draw_pixel(all, params->x1 - params->x2, params->y1 + params->y2);
+		draw_pixel(all, params->x1 - params->x2, params->y1 - params->y2);
+		error = 2 * (params->delta_x + params->y2);
+       	if ((params->delta_x < 0) && (error <= 0))
+			params->delta_x += 2 * ++params->x2;
+		else if ((params->delta_x > 0) && (error > 0))
+			params->delta_x -= 2 * --params->y2;
+		else
+			params->delta_x += 2 * (++params->x2 - --params->y2);
+	}
+}
+
 static void	draw_pixel_block(t_all* all, int x, int y)
 {
 	int		block_x;
 	int		block_y;
-
+	/*
 	if (all->mlx.pixel_size == 1)
 		draw_pixel(all, x, y);
 	else
@@ -37,6 +58,25 @@ static void	draw_pixel_block(t_all* all, int x, int y)
 			while (block_x)
 				draw_pixel(all, x + block_x--, y + block_y);
 			--block_y;
+		}
+	}
+	*/
+	int radius;
+	t_line_params	params;
+
+	if (all->mlx.pixel_size == 1)
+		draw_pixel(all, x, y);
+	else
+	{
+		radius = all->mlx.pixel_size;
+		while (--radius >= 0)
+		{
+			params.x1 = x;
+			params.y1 = y;
+			params.x2 = 0;
+			params.y2 = radius;
+			params.delta_x = 1 - 2 * radius;
+			draw_pixel_circle(all, &params);
 		}
 	}
 }
@@ -70,22 +110,17 @@ void	draw_circle(t_all *all, t_line_params *params)
 
 	error = 0;
 	while (params->y2 >= 0)
-   {
+	{
 		draw_pixel_block(all, params->x1 + params->x2, params->y1 + params->y2);
 		draw_pixel_block(all, params->x1 + params->x2, params->y1 - params->y2);
 		draw_pixel_block(all, params->x1 - params->x2, params->y1 + params->y2);
 		draw_pixel_block(all, params->x1 - params->x2, params->y1 - params->y2);
-		error = 2 * (params->delta_x + params->y2) - 1;
+		error = 2 * (params->delta_x + params->y2);
        	if ((params->delta_x < 0) && (error <= 0))
-		{
-			params->delta_x += 2 * ++params->x2 + 1;
-			continue ;
-		}
-		if ((params->delta_x > 0) && (error > 0))
-		{
-			params->delta_x -= 2 * --params->y2 + 1;
-			continue ;
-		}
-		params->delta_x += 2 * (++params->x2 - params->y2--);
+			params->delta_x += 2 * ++params->x2;
+		else if ((params->delta_x > 0) && (error > 0))
+			params->delta_x -= 2 * --params->y2;
+		else
+			params->delta_x += 2 * (++params->x2 - --params->y2);
 	}
 }
