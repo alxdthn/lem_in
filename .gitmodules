@@ -1,3 +1,6 @@
 [submodule "libftprintf"]
 	path = libftprintf
 	url = https://github.com/gglegend/libftprintf.git
+[submodule "v_checker"]
+	path = v_checker
+	url = https://github.com/gglegend/v_checker.git

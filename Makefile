@@ -6,10 +6,11 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/25 15:34:35 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/25 16:03:55 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+HEAD = ./includes/lem_in.h
 LEM = lem-in
 VIS = visu-hex
 
@@ -68,13 +69,13 @@ $(LEM_LIB): $(LEM_OBJ)
 $(VIS_LIB): $(VIS_OBJ) 
 	@ar rc $@ $^
 
-$(OBJ_DIR)%.o: $(SRC_DIR)$(COM_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)$(COM_DIR)%.c $(HEAD)
 	@mkdir -p $(OBJ_DIR)
 	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
-$(OBJ_DIR)%.o: $(SRC_DIR)$(LEM_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)$(LEM_DIR)%.c $(HEAD)
 	@mkdir -p $(OBJ_DIR)
 	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
-$(OBJ_DIR)%.o: $(SRC_DIR)$(VIS_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)$(VIS_DIR)%.c $(HEAD)
 	@mkdir -p $(OBJ_DIR)
 	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
 
