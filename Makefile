@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/22 20:18:27 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/25 15:34:35 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,14 @@ VIS = visu-hex
 COM_LIB = common.a
 LEM_LIB = lem-in.a
 VIS_LIB = visu-hex.a
-LIBFT = libft/libft.a
-FTPRINTF = libft/ft_printf/libftprintf.a
+LIBFT = libftprintf/libftprintf.a
 
 MLX_LIB = -L /usr/local/lib/ -lmlx
 MLX_HEAD = -I /usr/local/include
 FRAMEWORK = -framework OpenGL -framework AppKit
 
 C_FLAGS = -g
-HEADER = -I includes -I libft/includes -I libft/ft_printf/includes
+HEADER = -I includes -I libftprintf/includes
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -54,15 +53,13 @@ VIS_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(VIS_SRC)))
 
 all: $(LEM) $(VIS)
 
-$(LEM): $(LIBFT) $(FTPRINTF) $(COM_LIB) $(LEM_LIB)
-	gcc $(C_FLAGS) -o $@ $(COM_LIB) $(LEM_LIB) $(LIBFT) $(FTPRINTF)
-$(VIS): $(LIBFT) $(FTPRINTF) $(COM_LIB) $(VIS_LIB)
-	gcc $(C_FLAGS) -o $@ $(COM_LIB) $(VIS_LIB) $(LIBFT) $(FTPRINTF) $(MLX_LIB) $(MLX_HEAD) $(FRAMEWORK)
+$(LEM): $(LIBFT) $(COM_LIB) $(LEM_LIB)
+	gcc $(C_FLAGS) -o $@ $(COM_LIB) $(LEM_LIB) $(LIBFT)
+$(VIS): $(LIBFT) $(COM_LIB) $(VIS_LIB)
+	gcc $(C_FLAGS) -o $@ $(COM_LIB) $(VIS_LIB) $(LIBFT) $(MLX_LIB) $(MLX_HEAD) $(FRAMEWORK)
 
 $(LIBFT):
-	make -C libft/
-$(FTPRINTF):
-	make -C libft/ft_printf/
+	make -C libftprintf/
 
 $(COM_LIB): $(COM_OBJ) 
 	@ar rc $@ $^
@@ -91,13 +88,11 @@ fclean: clean
 	rm -f $(LEM)
 	rm -f $(VIS)
 	rm -rf *.dSYM
+
 fclean_all: fclean
-	make -C libft/ fclean
-	make -C libft/ft_printf fclean
+	make -C libftprintf/ fclean
+
 re: fclean all
-re_all: re
-	make -C libft/ re
-	make -C libft/ft_printf re	
+
 relib:
-	make -C libft/ re
-	make -C libft/ft_printf re
+	make -C libftprintf/ re

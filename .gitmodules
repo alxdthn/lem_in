@@ -1,0 +1,3 @@
+[submodule "libftprintf"]
+	path = libftprintf
+	url = https://github.com/gglegend/libftprintf.git
