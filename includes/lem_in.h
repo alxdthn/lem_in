@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/25 21:18:46 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/25 22:35:52 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ typedef struct	s_mlx
 	int			map_size;
 	int			map_position_x;
 	int			map_position_y;
-	int			size_x_sum;
-	int			size_y_sum;
+	int			room_count;
 }				t_mlx;
 
 typedef struct	s_all
