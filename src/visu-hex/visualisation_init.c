@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:07:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 21:33:51 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:52:56 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,15 @@ static void	mlx_init_params(t_all *all)
 	all->mlx.width, all->mlx.height, "visu-hex by nalexand");
 	all->mlx.logo.ptr = mlx_xpm_file_to_image(all->mlx.ptr,
 	"src/logo2.xpm", &all->mlx.logo.bpp, &all->mlx.logo.bpp);
-	all->mlx.img.ptr = mlx_new_image(all->mlx.ptr, all->mlx.width, all->mlx.height);
-	all->mlx.img.data = (int *)mlx_get_data_addr(all->mlx.img.ptr,
-	&all->mlx.img.bpp, &all->mlx.img.size_line, &all->mlx.img.endian);
-	all->mlx.img.size_line /= 4;
-	all->mlx.size = all->mlx.width * all->mlx.height;
+	all->mlx.map.ptr = mlx_new_image(all->mlx.ptr, all->mlx.width, all->mlx.height);
+	all->mlx.map.data = (int *)mlx_get_data_addr(all->mlx.map.ptr,
+	&all->mlx.map.bpp, &all->mlx.map.size_line, &all->mlx.map.endian);
+	all->mlx.map.size_line /= 4;
+	all->mlx.map.size = all->mlx.width * all->mlx.height;
+	all->mlx.ants.ptr = mlx_new_image(all->mlx.ptr, all->mlx.width, all->mlx.height);
+	all->mlx.ants.data = (int *)mlx_get_data_addr(all->mlx.ants.ptr, &all->mlx.ants.bpp, &all->mlx.ants.size_line, &all->mlx.ants.endian);
+	all->mlx.ants.size_line /= 4;
+	all->mlx.ants.size = all->mlx.width * all->mlx.height;
 }
 
 void		visualisation_init(t_all *all)

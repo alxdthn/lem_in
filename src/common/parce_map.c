@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 21:04:25 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/26 15:52:11 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	parce_line(t_all *all)
 		all->exit(all, ERROR, 2);
 }
 
-void		parce_map(t_all *all)
+void		parce_input(t_all *all)
 {
 	int		ret;
 
@@ -39,6 +39,11 @@ void		parce_map(t_all *all)
 	{
 		if (ret < 0 || !all->tmp.line)
 			all->exit(all, ERROR, 2);
+		if (all->prog == VISU_HEX && !*all->tmp.line)
+		{
+			ft_strdel(&all->tmp.line);
+			return ;
+		}
 		parce_line(all);
 		if (all->prog == LEM_IN)
 		{

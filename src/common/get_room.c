@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 18:29:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/26 17:08:00 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ void		get_room(t_all *all)
 
 	ft_bzero(&clear_room, sizeof(t_room));
 	ft_lstadd(&all->rooms, ft_lstnew(&clear_room, sizeof(t_room)));
-	if (!all->rooms)
-		all->exit(all, ERROR, 2);
 	get_start_end(all, (t_room *)all->rooms->content);
 	i = ft_strclen(all->tmp.line, ' ');
-	if (!(((t_room *)all->rooms->content)->name = ft_strndup(all->tmp.line, i))
-	|| ((t_room *)all->rooms->content)->name[0] == 'L')
+	((t_room *)all->rooms->content)->name = ft_strndup(all->tmp.line, i);
+	((t_room *)all->rooms->content)->name_len = i;
+	if (((t_room *)all->rooms->content)->name[0] == 'L')
 		all->exit(all, ERROR, 2);
 	check_name_match(all, ((t_room*)all->rooms->content)->name);
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))

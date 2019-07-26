@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 18:30:32 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/26 20:23:47 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,19 @@ static void	print_rooms_list(t_list *tmp)
 	ft_putchar('\n');
 }
 
+void	print_ants_list(t_list *ants)
+{
+	while (ants)
+	{
+		ft_printf("name: %d x: %d y: %d\n", ((t_ant *)ants->content)->name, ((t_ant *)ants->content)->x, ((t_ant *)ants->content)->x);
+		ants = ants->next;
+	}
+}
+
 void		print(t_all *all)
 {
 	ft_printf("|___name___|___x___|___y___|\n");
 	print_rooms_list(all->rooms);
 	ft_printf("|__________|_______|_______|\n");
-	ft_printf("ants: %d\n", all->ants);
+	ft_printf("ants: %d\n", all->ant_count);
 }

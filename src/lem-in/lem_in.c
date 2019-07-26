@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/25 16:04:27 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/26 23:22:01 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ int			main(void)
 	ft_bzero(&all, sizeof(t_all));
 	all.prog = LEM_IN;
 	all.exit = &lem_in_clear_exit;
-	parce_map(&all);
+	parce_input(&all);
 	print_out(all.out);
-//	print(&all);
+	ft_printf("\n");
+	ft_printf("L1-1 L2-3\nL1-4 L2-4 L3-1 L4-3\nL3-4 L4-4\n");
 	all.exit(&all, NULL, 1);
 	return (0);
 }
