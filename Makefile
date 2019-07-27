@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/26 21:11:18 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/27 15:48:10 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,9 @@ VIS_SRC =	visu_hex.c \
 			parce_ants.c \
 			key_handle.c \
 			render.c \
-			put_map.c \
-			put_ants.c \
+			render_map.c \
+			render_ants.c \
+			render_info.c \
 			draw_functions.c
 
 COM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(COM_SRC)))

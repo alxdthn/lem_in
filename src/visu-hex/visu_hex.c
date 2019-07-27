@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 23:45:50 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 16:47:16 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	init_map(t_all *all)
 	all->mlx.ant_radius = 20;
 	all->mlx.map_position_x = all->mlx.width / 2 - ((all->mlx.max_x - all->mlx.min_x) * all->mlx.map_size) / 2;
 	all->mlx.map_position_y = all->mlx.height / 2 - ((all->mlx.max_y - all->mlx.min_y) * all->mlx.map_size) / 2;
-	all->mlx.pixel_size = 2;
+	all->mlx.pixel_size = 5;
 	all->mlx.speed = 10;
 	reset_crds(all);
 }
@@ -122,11 +122,13 @@ int		main(void)
 	parce_input(&all);
 	init_map(&all);
 	parce_ants(&all);
-	//ft_printf("start room x: %d y: %d\n", all.mlx.start_room_x, all.mlx.start_room_y);
+	print_ant_path(all.ants, 1);
+	render_map(&all);
+	render_info(&all);
 	put_map(&all);
-	put_ants(&all);
-	//print_iterations(&all);
-	print_ants_list(all.ants);
+	put_names(&all);
+	put_info(&all);
+	put_logo(&all);
 	mlx_loop_hook(all.mlx.ptr, loop_hook, &all);
 	mlx_loop(all.mlx.ptr);
 	return (0);

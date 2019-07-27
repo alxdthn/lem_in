@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 15:46:24 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 16:05:11 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 		ft_lstdel(&all->rooms, clear_room);
 	if (all->ants)
 		ft_lstdel(&all->rooms, ft_lstclear);
+	if (all->iterations)
+		ft_arraydel((void ***)&all->iterations);
 	if (message)
 		ft_putendl_fd(message, fd);
 	if (fd == 1)

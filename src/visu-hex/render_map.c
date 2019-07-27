@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:07:21 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 21:08:27 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 15:43:56 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	draw_room(t_all *all, t_room *room)
 	}
 }
 
-void	put_map(t_all *all)
+void	render_map(t_all *all)
 {
 	t_list *tmp;
 	int 	i;
@@ -84,5 +84,4 @@ void	put_map(t_all *all)
 		draw_room(all, (t_room *)tmp->content);
 		tmp = tmp->next;
 	}
-	mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->mlx.map.ptr, 0, 0);
 }

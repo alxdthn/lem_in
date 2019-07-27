@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 22:57:46 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 17:11:49 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct	s_ant
 	int				dir_x;
 	int				dir_y;
 	char			is_counted;
+	char			in_place;
 }					t_ant;
 
 typedef struct	s_tmp
@@ -109,6 +110,8 @@ typedef struct	s_mlx
 	t_img		ants;
 	void		*ptr;
 	void		*win;
+	char		*info_iter;
+	char		*info_ant_in_end;
 	int			width;
 	int			height;
 	int			size;
@@ -127,6 +130,7 @@ typedef struct	s_mlx
 	int			start_room_y;
 	int			cur_iter;
 	int			speed;
+	int			ants_in_end;
 	char		working;
 }				t_mlx;
 
@@ -134,9 +138,13 @@ typedef struct	s_all
 {
 	t_mlx		mlx;
 	t_tmp		tmp;
+
 	t_list		*rooms;
+	
 	t_list		*ants;
+
 	t_switchs	switchs;
+	
 	t_list		*out;
 	t_ant		***iterations;
 	int			ant_count;
@@ -158,6 +166,7 @@ void			get_door(t_all *all);
 
 void 			print(t_all *all);
 void			print_ants_list(t_list *ants);
+void			print_ant_path(t_list *ants, int name);
 
 void			parce_ants(t_all *all);
 void			visualisation_init(t_all *all);
@@ -165,8 +174,14 @@ int				loop_hook(t_all *all);
 int				deal_key(int key, t_all *all);
 
 void			render(t_all *all);
+void			render_map(t_all *all);
+void			render_ants(t_all *all);
+void			render_info(t_all *all);
+void			put_logo(t_all *all);
 void			put_map(t_all *all);
 void			put_ants(t_all *all);
+void			put_info(t_all *all);
+void			put_names(t_all *all);
 
 void			draw_line(t_img *img, t_line_params *params);
 void			draw_circle(t_img *img, t_line_params *params);

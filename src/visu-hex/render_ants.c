@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_ants.c                                         :+:      :+:    :+:   */
+/*   render_ants.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:10:26 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 23:45:41 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 15:55:36 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,35 @@ static void get_new_crds(t_all *all, t_ant *ant)
 	}
 }
 
-static void	get_next_point(t_ant *ant)
+static void	get_next_iteration(t_all *all)
 {
+	size_t	i;
 	t_list	*tmp;
+	t_ant	*ant;
 
-	tmp = ant->path->next;
-	free(ant->path);
-	ant->path = tmp;
-	ant->is_counted = 0;
+	i = 0;
+	while ((ant = all->iterations[all->mlx.cur_iter][i]))
+	{
+		tmp = ant->path->next;
+		free(ant->path);
+		ant->path = tmp;
+		ant->is_counted = 0;
+		ant->in_place = 0;
+		i++;
+	}
+	all->mlx.cur_iter++;
+	render_info(all);
 }
 
-void	put_ants(t_all *all)
+void	render_ants(t_all *all)
 {
 	size_t	j;
 	int		x;
 	int		y;
 	t_ant	*ant;
+	char	flag;
 
+	flag = 0;
 	if (all->iterations[all->mlx.cur_iter])
 	{
 		j = 0;
@@ -84,7 +96,7 @@ void	put_ants(t_all *all)
 		while (all->iterations[all->mlx.cur_iter][j])
 		{
 			ant = all->iterations[all->mlx.cur_iter][j++];
-			if (ant->path)// && ant->x != ((t_room *)ant->path->content)->x && ant->y != ((t_room *)ant->path->content)->y)
+			if (ant->path && !ant->in_place)
 			{
 				draw_ant(all, ant->x, ant->y);
 				x = ((t_room *)ant->path->content)->x;
@@ -92,12 +104,16 @@ void	put_ants(t_all *all)
 				if (!ant->is_counted)
 					count_ant_params(ant, x, y);
 				get_new_crds(all, ant);
-				//if (ant->x == x && ant->y == y)
-			//		get_next_point(ant);
+				if (ant->x == x && ant->y == y)
+				{
+					ant->in_place = 1;
+					if (((t_room *)ant->path->content)->type == END)
+						all->mlx.ants_in_end++;
+				}
+				flag = 1;
 			}
 		}
-		//if (!flag)
-		//	all->mlx.cur_iter++;
-		mlx_put_image_to_window(all->mlx.ptr, all->mlx.win, all->mlx.ants.ptr, 0, 0);
+		if (!flag)
+			get_next_iteration(all);
 	}
 }

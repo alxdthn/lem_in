@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 23:38:06 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 15:08:25 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 		new_ant.x = all->mlx.start_room_x;
 		new_ant.y = all->mlx.start_room_y;
 		new_ant.is_counted = 0;
+		new_ant.in_place = 0;
 		new_ant.path = NULL;
 		ft_lstadd(&all->ants, ft_lstnew(&new_ant, sizeof(t_ant)));
 		ant = (t_ant *)all->ants->content;
