@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/27 15:48:10 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/27 22:05:17 by skrystin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ COM_SRC = 	parce_map.c \
 			get_room.c \
 			get_door.c \
 			find_functions.c \
-			debug.c
+			debug.c \
+			ft_bfs.c \
+			ft_queue.c
 LEM_SRC =	lem_in.c \
 			lem_in_clear_exit.c
 VIS_SRC =	visu_hex.c \

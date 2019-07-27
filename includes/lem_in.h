@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 17:11:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 22:02:25 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct	s_room
 	int			nb;
 	int			x;
 	int			y;
+	int			visit;
+	struct s_room	*parent;
 	size_t		name_len;
 	char		*name;
 	t_list 		*doors;
@@ -68,6 +70,12 @@ typedef struct	s_door
 	char		is_close;
 	char		is_print;
 }				t_door;
+
+typedef struct		s_que
+{
+	t_room			*room;
+	struct s_que	*next;
+}					t_que;
 
 typedef struct	s_ant
 {
@@ -144,10 +152,11 @@ typedef struct	s_all
 	t_list		*ants;
 
 	t_switchs	switchs;
-	
+	t_room		**mas_rom;
 	t_list		*out;
 	t_ant		***iterations;
 	int			ant_count;
+	int			room_count;
 	char		prog;
 	void		(*exit)(struct s_all *, char *, int);
 }				t_all;
@@ -187,5 +196,9 @@ void			draw_line(t_img *img, t_line_params *params);
 void			draw_circle(t_img *img, t_line_params *params);
 void			draw_pixel_circle(t_img *img, t_line_params *params);
 void			draw_point(t_img *img, int x, int y);
+
+void			ft_bfs(t_all *all, t_list *begin);
+void			ft_push_back(t_room *room, t_que **q, t_all *all);
+void			ft_del_first(t_que **q);
 
 #endif
