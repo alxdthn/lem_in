@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 15:08:25 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:41:40 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 	if (!(ant = find_ant_by_name(all->ants, name)))
 	{
 		new_ant.name = name;
-		new_ant.x = all->mlx.start_room_x;
-		new_ant.y = all->mlx.start_room_y;
 		new_ant.is_counted = 0;
 		new_ant.in_place = 0;
-		new_ant.path = NULL;
+		new_ant.path = node = ft_lstnew(NULL, 0);
+		new_ant.path->content = all->mlx.start_room;
 		ft_lstadd(&all->ants, ft_lstnew(&new_ant, sizeof(t_ant)));
 		ant = (t_ant *)all->ants->content;
 	}
@@ -70,19 +69,17 @@ void	read_ants_to_list(t_all *all, t_list *lines, size_t size)
 
 void	parce_ants(t_all *all)
 {
-	t_list	*ant_lines;
 	t_list	*node;
 	size_t	iterations;
 
 	iterations = 0;
-	ant_lines = NULL;
 	while (get_next_line(0, &all->tmp.line) > 0)
 	{
-		node = ft_lstnew(NULL, 0);
+		if (!(node = ft_lstnew(NULL, 0)))
+			all->exit(all, ERROR, 2);
 		node->content = all->tmp.line;
-		ft_lstpushback(&ant_lines, node);
+		ft_lstpushback(&all->out, node);
 		iterations++;
 	}
-	read_ants_to_list(all, ant_lines, iterations);
-	ft_lstdel(&ant_lines, ft_lstclear);
+	read_ants_to_list(all, all->out, iterations);
 }

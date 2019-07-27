@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 16:46:45 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:38:36 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,29 @@ static void	print_doors_list(t_list *tmp)
 {
 	if (tmp->next)
 		print_doors_list(tmp->next);
-	ft_printf(" %s,", ((t_door *)tmp->content)->room->name);
+	ft_printf(" %.*s,", ((t_door *)tmp->content)->room->name_len,
+	((t_door *)tmp->content)->room->name);
 }
 
 static void	print_rooms_list(t_list *tmp)
 {
+	size_t	name_len;
 	char	*name;
 	int		x;
 	int		y;
 
 	if (tmp->next)
 		print_rooms_list(tmp->next);
+	name_len = ((t_room *)tmp->content)->name_len;
 	name = ((t_room *)tmp->content)->name;
 	x = ((t_room *)tmp->content)->x;
 	y = ((t_room *)tmp->content)->y;
 	if (((t_room *)tmp->content)->type == START)
-		ft_printf("|%{gre}10s|%{gre}7d|%{gre}7d|", name, x, y);
+		ft_printf("|%{blu}10.*s|%{blu}7d|%{blu}7d|", name_len, name, x, y);
 	else if (((t_room *)tmp->content)->type == END)
-		ft_printf("|%{yel}10s|%{yel}7d|%{yel}7d|", name, x, y);
+		ft_printf("|%{red}10.*s|%{red}7d|%{red}7d|", name_len, name, x, y);
 	else
-		ft_printf("|%10s|%7d|%7d|", name, x, y);
+		ft_printf("|%10.*s|%7d|%7d|", name_len, name, x, y);
 	print_doors_list(((t_room *)tmp->content)->doors);
 	ft_putchar('\n');
 }
@@ -44,11 +47,13 @@ void	print_ants_list(t_list *ants)
 {
 	while (ants)
 	{
-		ft_printf("name: %d x: %d y: %d\n", ((t_ant *)ants->content)->name, ((t_ant *)ants->content)->x, ((t_ant *)ants->content)->x);
+		ft_printf("name: %d x: %d y: %d\n",
+		((t_ant *)ants->content)->name,
+		((t_ant *)ants->content)->x1,
+		((t_ant *)ants->content)->y1);
 		ants = ants->next;
 	}
 }
-
 
 void		print(t_all *all)
 {

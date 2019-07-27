@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:27:39 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 17:23:57 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:13:34 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_room	*find_room_by_name(t_list *rooms, char *name)
 	tmp = rooms;
 	while (tmp)
 	{
-		if (!ft_strncmp(((t_room *)tmp->content)->name, name, ((t_room *)tmp->content)->name_len))
+		if (ft_strnequ(((t_room *)tmp->content)->name, name, ((t_room *)tmp->content)->name_len))
 			return (tmp->content);
 		tmp = tmp->next;
 	}

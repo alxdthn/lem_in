@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 17:11:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:34:17 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 # define START 1
 # define END 2
 # define ABS(x) ((x) > 0 ? (x) : -(x))
-# define ANT_COLOR 0x4287f5
+# define ANT_COLOR 0x34abeb
 # define WAY_COLOR 0xffffff
 # define ROOM_FIL_COLOR 0x000000
 # define ROOM_BORDER 0xffffff
-# define START_ROOM_COLOR 0xeb4034
-# define END_ROOM_COLOR 0x7b09e6
+# define START_ROOM_COLOR 0x34abeb
+# define END_ROOM_COLOR 0xeb4034
 # define BACKGROUND_COLOR 0
 # include "libft.h"
 # include "ft_printf.h"
@@ -48,7 +48,8 @@ typedef struct	s_switchs
 	char		end : 1;
 	char		started : 1;
 	char		ended : 1;
-	char		ants : 4;
+	char		rooms : 1;
+	char		ants : 3;
 }				t_switchs;
 
 typedef struct	s_room
@@ -71,24 +72,25 @@ typedef struct	s_door
 
 typedef struct	s_ant
 {
-	t_list			*path;
-	int				name;
-	int				x;
-	int				y;
-	int				error;
-	int				error2;
-	int				delta_x;
-	int				delta_y;
-	int				dir_x;
-	int				dir_y;
-	char			is_counted;
-	char			in_place;
-}					t_ant;
+	t_list		*path;
+	double		x1;
+	double		y1;
+	double		x2;
+	double		y2;
+	double		delta_x;
+	double		delta_y;
+	double		speed_x;
+	double		speed_y;
+	int			dir_x;
+	int			dir_y;
+	int			name;
+	char		is_counted;
+	char		in_place;
+}				t_ant;
 
 typedef struct	s_tmp
 {
 	char		*line;
-	char		*name;
 }				t_tmp;
 
 typedef struct  s_img
@@ -108,6 +110,7 @@ typedef struct	s_mlx
 	t_img		logo;
 	t_img		map;
 	t_img		ants;
+	t_room		*start_room;
 	void		*ptr;
 	void		*win;
 	char		*info_iter;
@@ -126,8 +129,6 @@ typedef struct	s_mlx
 	int			map_size;
 	int			map_position_x;
 	int			map_position_y;
-	int			start_room_x;
-	int			start_room_y;
 	int			cur_iter;
 	int			speed;
 	int			ants_in_end;
@@ -138,13 +139,9 @@ typedef struct	s_all
 {
 	t_mlx		mlx;
 	t_tmp		tmp;
-
 	t_list		*rooms;
-	
 	t_list		*ants;
-
 	t_switchs	switchs;
-	
 	t_list		*out;
 	t_ant		***iterations;
 	int			ant_count;

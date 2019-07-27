@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 17:08:00 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:34:58 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,39 +27,45 @@ static void	get_start_end(t_all *all, t_room *room)
 	}
 }
 
-static void	check_name_match(t_all *all, char *name)
+static int	check_name_match(t_all *all, char *name)
 {
-	t_list	*tmp;
-
-	tmp = all->rooms->next;
-	while (tmp)
+	if (find_room_by_name(all->rooms, name))
 	{
-		if (ft_strequ(((t_room *)tmp->content)->name, name))
+		if (all->switchs.ants && all->switchs.start && all->switchs.end)
+		{
+			all->switchs.rooms = 1;
+			return (1);
+		}
+		else
 			all->exit(all, ERROR, 2);
-		tmp = tmp->next;
 	}
+	return (0);
 }
 
 void		get_room(t_all *all)
 {
 	size_t	i;
-	t_room	clear_room;
+	t_room	new_room;
+	t_list	*node;
 
-	ft_bzero(&clear_room, sizeof(t_room));
-	ft_lstadd(&all->rooms, ft_lstnew(&clear_room, sizeof(t_room)));
-	get_start_end(all, (t_room *)all->rooms->content);
+	if (all->tmp.line[0] == 'L')
+		all->exit(all, ERROR, 2);
+	if (check_name_match(all, all->tmp.line))
+		return ;
+	ft_bzero(&new_room, sizeof(t_room));
+	new_room.name = all->tmp.line;
 	i = ft_strclen(all->tmp.line, ' ');
-	((t_room *)all->rooms->content)->name = ft_strndup(all->tmp.line, i);
-	((t_room *)all->rooms->content)->name_len = i;
-	if (((t_room *)all->rooms->content)->name[0] == 'L')
-		all->exit(all, ERROR, 2);
-	check_name_match(all, ((t_room*)all->rooms->content)->name);
+	new_room.name_len = i;
+	get_start_end(all, &new_room);
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
 		all->exit(all, ERROR, 2);
-	((t_room *)all->rooms->content)->x = ft_satoi(all->tmp.line, &i);
+	new_room.x = ft_satoi(all->tmp.line, &i);
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
 		all->exit(all, ERROR, 2);
-	((t_room *)all->rooms->content)->y = ft_satoi(all->tmp.line, &i);
+	new_room.y = ft_satoi(all->tmp.line, &i);
 	if (all->tmp.line[i])
 		all->exit(all, ERROR, 2);
+	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
+		all->exit(all, ERROR, 2);		
+	ft_lstadd(&all->rooms, node);
 }

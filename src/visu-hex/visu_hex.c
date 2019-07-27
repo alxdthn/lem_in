@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 16:47:16 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 20:42:00 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	print_iterations(t_all *all)
 		while (all->iterations[i][j])
 		{
 			ft_printf("name: %d\n", all->iterations[i][j]->name);
-			ft_printf("x1: %d\n", all->iterations[i][j]->x);
-			ft_printf("y1: %d\n", all->iterations[i][j]->y);
+			ft_printf("x1: %d\n", all->iterations[i][j]->x1);
+			ft_printf("y1: %d\n", all->iterations[i][j]->y1);
 			j++;
 		}
 		ft_printf("---------------\n");
@@ -84,10 +84,7 @@ static void	reset_crds(t_all *all)
 		((t_room *)tmp->content)->x = ((t_room *)tmp->content)->x * all->mlx.map_size + all->mlx.map_position_x;
 		((t_room *)tmp->content)->y = ((t_room *)tmp->content)->y * all->mlx.map_size + all->mlx.map_position_y;
 		if (((t_room *)tmp->content)->type == START)
-		{
-			all->mlx.start_room_x = ((t_room *)tmp->content)->x;
-			all->mlx.start_room_y = ((t_room *)tmp->content)->y;
-		}
+			all->mlx.start_room = (t_room *)tmp->content;
 		tmp = tmp->next;
 	}
 }
@@ -107,7 +104,7 @@ static void	init_map(t_all *all)
 	all->mlx.map_position_x = all->mlx.width / 2 - ((all->mlx.max_x - all->mlx.min_x) * all->mlx.map_size) / 2;
 	all->mlx.map_position_y = all->mlx.height / 2 - ((all->mlx.max_y - all->mlx.min_y) * all->mlx.map_size) / 2;
 	all->mlx.pixel_size = 5;
-	all->mlx.speed = 10;
+	all->mlx.speed = 80;
 	reset_crds(all);
 }
 
@@ -122,13 +119,13 @@ int		main(void)
 	parce_input(&all);
 	init_map(&all);
 	parce_ants(&all);
-	print_ant_path(all.ants, 1);
 	render_map(&all);
 	render_info(&all);
 	put_map(&all);
 	put_names(&all);
-	put_info(&all);
 	put_logo(&all);
+	all.mlx.ants.pixel_color = ANT_COLOR;
+	all.mlx.ants.pixel_size = all.mlx.pixel_size;
 	mlx_loop_hook(all.mlx.ptr, loop_hook, &all);
 	mlx_loop(all.mlx.ptr);
 	return (0);

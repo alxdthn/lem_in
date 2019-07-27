@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/26 15:52:11 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 22:54:34 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ static void	parce_line(t_all *all)
 	{
 		if (all->tmp.line[0] == '#')
 			get_sharp(all);
-		else if (all->tmp.line[0] && !all->switchs.end)
-			get_room(all);
-		else if (all->tmp.line[0])
-			get_door(all);
 		else
-			all->exit(all, ERROR, 2);
+		{
+			if (all->tmp.line[0] && !all->switchs.rooms)
+				get_room(all);
+			if (all->tmp.line[0] && all->switchs.rooms)
+				get_door(all);
+		}
 	}
 	else
 		all->exit(all, ERROR, 2);
@@ -34,25 +35,22 @@ static void	parce_line(t_all *all)
 void		parce_input(t_all *all)
 {
 	int		ret;
+	t_list	*node;
 
 	while ((ret = get_next_line(0, &all->tmp.line)))
 	{
 		if (ret < 0 || !all->tmp.line)
 			all->exit(all, ERROR, 2);
 		if (all->prog == VISU_HEX && !*all->tmp.line)
-		{
-			ft_strdel(&all->tmp.line);
 			return ;
-		}
 		parce_line(all);
 		if (all->prog == LEM_IN)
 		{
-			ft_lstadd(&all->out, ft_lstnew(all->tmp.line,
-			1 + ft_strlen(all->tmp.line)));
-			if (!all->out)
+			if (!(node = ft_lstnew(NULL, 0)))
 				all->exit(all, ERROR, 2);
+			node->content = all->tmp.line;
+			ft_lstadd(&all->out, node);
 		}
-		ft_strdel(&all->tmp.line);
 	}
 	if (!all->switchs.start || !all->switchs.end)
 		all->exit(all, ERROR, 2);
