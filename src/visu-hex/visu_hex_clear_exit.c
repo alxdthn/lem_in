@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 16:05:11 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:42:59 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	clear_room(void *room, size_t size)
 
 void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 {
-	ft_strdel(&all->tmp.line);
-	ft_strdel(&all->tmp.name);
 	if (all->mlx.ptr)
 	{
 		if (all->mlx.logo.ptr)
@@ -34,12 +32,11 @@ void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 		mlx_destroy_window(all->mlx.ptr, all->mlx.win);
 		ft_memdel((void **)&all->mlx.ptr);
 	}
-	if (all->rooms)
-		ft_lstdel(&all->rooms, clear_room);
-	if (all->ants)
-		ft_lstdel(&all->rooms, ft_lstclear);
-	if (all->iterations)
-		ft_arraydel((void ***)&all->iterations);
+	ft_strdel(&all->tmp.line);
+	ft_lstdel(&all->rooms, clear_room);
+	ft_lstdel(&all->ants, ft_lstclear);
+	ft_lstdel(&all->out, ft_lstclear);
+	ft_arraydel((void ***)&all->iterations);
 	if (message)
 		ft_putendl_fd(message, fd);
 	if (fd == 1)

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:05:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/21 20:06:05 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 05:38:13 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@
 # define LEFT 123
 # define UP 126
 # define DOWN 125
+# define SPACE 49
 #endif

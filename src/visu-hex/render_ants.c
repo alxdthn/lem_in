@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:10:26 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 15:55:36 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/27 23:49:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,34 @@ static void draw_ant(t_all *all, int x, int y)
 	}
 }
 
-static void	count_ant_params(t_ant *ant, int x2, int y2)
+static void	count_ant_params(t_all *all, t_ant *ant)
 {
-	ant->delta_x = ABS(x2 - ant->x);
-	ant->delta_y = ABS(y2 - ant->y);
-	ant->dir_x = (ant->x < x2) ? 1 : -1;
-	ant->dir_y = (ant->y < y2) ? 1 : -1;
-	ant->error = ant->delta_x - ant->delta_y;
+	ant->x1 = ((t_room *)ant->path->content)->x;
+	ant->y1 = ((t_room *)ant->path->content)->y;
+	if (ant->path->next)
+	{
+		ant->x2 = ((t_room *)ant->path->next->content)->x;
+		ant->y2 = ((t_room *)ant->path->next->content)->y;
+	}
+	ant->delta_x = ABS(ant->x2 - ant->x1);
+	ant->delta_y = ABS(ant->y2 - ant->y1);
+	ant->dir_x = (ant->x1 < ant->x2) ? 1 : -1 ;
+	ant->dir_y = (ant->y1 < ant->y2) ? 1 : -1 ;
+	ant->speed_x = ant->delta_x / all->mlx.speed;
+	ant->speed_y = ant->delta_y / all->mlx.speed;
 	ant->is_counted = 1;
 }
 
-static void get_new_crds(t_all *all, t_ant *ant)
+static void moove_ant(t_all *all, t_ant *ant)
 {
-	if (ant->x == ((t_room *)ant->path->content)->x
-	&& ant->y == ((t_room *)ant->path->content)->y)
-		return ;
-	ant->error2 = ant->error * 2;
-	if (ant->error2 > -ant->delta_y)
-	{
-		ant->error -= ant->delta_y;
-		ant->x += ant->dir_x * all->mlx.speed;
-	}
-	if (ant->error2 < ant->delta_x)
-	{
-		ant->error += ant->delta_x;
-		ant->y += ant->dir_y * all->mlx.speed;
-	}
+	if (ABS(ant->x1 - ant->x2) < 1.0)
+		ant->x1 = ant->x2;
+	else
+		ant->x1 += ant->speed_x * ant->dir_x;
+	if (ABS(ant->y1 - ant->y2) < 1.0)
+		ant->y1 = ant->y2;
+	else
+		ant->y1 += ant->speed_y * ant->dir_y;
 }
 
 static void	get_next_iteration(t_all *all)
@@ -67,6 +69,7 @@ static void	get_next_iteration(t_all *all)
 	i = 0;
 	while ((ant = all->iterations[all->mlx.cur_iter][i]))
 	{
+		draw_ant(all, ant->x1, ant->y1);
 		tmp = ant->path->next;
 		free(ant->path);
 		ant->path = tmp;
@@ -81,39 +84,30 @@ static void	get_next_iteration(t_all *all)
 void	render_ants(t_all *all)
 {
 	size_t	j;
-	int		x;
-	int		y;
 	t_ant	*ant;
 	char	flag;
 
+	j = 0;
 	flag = 0;
-	if (all->iterations[all->mlx.cur_iter])
+	ft_memset(all->mlx.ants.data, 0xFF000000, sizeof(int) * all->mlx.ants.size);
+	while (all->iterations[all->mlx.cur_iter][j])
 	{
-		j = 0;
-		ft_memset(all->mlx.ants.data, 0xFF000000, sizeof(int) * all->mlx.ants.size);
-		all->mlx.ants.pixel_color = ANT_COLOR;
-		all->mlx.ants.pixel_size = all->mlx.pixel_size;
-		while (all->iterations[all->mlx.cur_iter][j])
+		ant = all->iterations[all->mlx.cur_iter][j++];
+		if (ant->path && !ant->in_place)
 		{
-			ant = all->iterations[all->mlx.cur_iter][j++];
-			if (ant->path && !ant->in_place)
+			if (!ant->is_counted)
+				count_ant_params(all, ant);
+			draw_ant(all, ant->x1, ant->y1);
+			moove_ant(all, ant);
+			if (ant->x1 == ant->x2 && ant->y1 == ant->y2)
 			{
-				draw_ant(all, ant->x, ant->y);
-				x = ((t_room *)ant->path->content)->x;
-				y = ((t_room *)ant->path->content)->y;
-				if (!ant->is_counted)
-					count_ant_params(ant, x, y);
-				get_new_crds(all, ant);
-				if (ant->x == x && ant->y == y)
-				{
-					ant->in_place = 1;
-					if (((t_room *)ant->path->content)->type == END)
-						all->mlx.ants_in_end++;
-				}
-				flag = 1;
+				ant->in_place = 1;
+				if (((t_room *)ant->path->next->content)->type == END)
+					all->mlx.ants_in_end++;
 			}
+			flag = 1;
 		}
-		if (!flag)
-			get_next_iteration(all);
 	}
+	if (!flag)
+		get_next_iteration(all);
 }

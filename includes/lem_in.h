@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/07/28 17:20:33 by skrystin         ###   ########.fr       */
+=======
+/*   Updated: 2019/07/28 05:57:11 by nalexand         ###   ########.fr       */
+>>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +22,12 @@
 # define START 1
 # define END 2
 # define ABS(x) ((x) > 0 ? (x) : -(x))
-# define ANT_COLOR 0x4287f5
+# define ANT_COLOR 0x34abeb
 # define WAY_COLOR 0xffffff
 # define ROOM_FIL_COLOR 0x000000
 # define ROOM_BORDER 0xffffff
-# define START_ROOM_COLOR 0xeb4034
-# define END_ROOM_COLOR 0x7b09e6
+# define START_ROOM_COLOR 0x34abeb
+# define END_ROOM_COLOR 0xeb4034
 # define BACKGROUND_COLOR 0
 # include "libft.h"
 # include "ft_printf.h"
@@ -44,11 +48,12 @@ typedef struct	s_line_params
 
 typedef struct	s_switchs
 {
-	char		start : 1;
-	char		end : 1;
-	char		started : 1;
-	char		ended : 1;
-	char		ants : 4;
+	char		start;
+	char		end;
+	char		started;
+	char		ended;
+	char		rooms;
+	char		ants;
 }				t_switchs;
 
 typedef struct	s_room
@@ -85,24 +90,25 @@ typedef	struct		s_ways
 
 typedef struct	s_ant
 {
-	t_list			*path;
-	int				name;
-	int				x;
-	int				y;
-	int				error;
-	int				error2;
-	int				delta_x;
-	int				delta_y;
-	int				dir_x;
-	int				dir_y;
-	char			is_counted;
-	char			in_place;
-}					t_ant;
+	t_list		*path;
+	double		x1;
+	double		y1;
+	double		x2;
+	double		y2;
+	double		delta_x;
+	double		delta_y;
+	double		speed_x;
+	double		speed_y;
+	int			dir_x;
+	int			dir_y;
+	int			name;
+	char		is_counted;
+	char		in_place;
+}				t_ant;
 
 typedef struct	s_tmp
 {
 	char		*line;
-	char		*name;
 }				t_tmp;
 
 typedef struct  s_img
@@ -140,27 +146,28 @@ typedef struct	s_mlx
 	int			map_size;
 	int			map_position_x;
 	int			map_position_y;
-	int			start_room_x;
-	int			start_room_y;
 	int			cur_iter;
 	int			speed;
 	int			ants_in_end;
 	char		working;
+	char		names;
 }				t_mlx;
 
 typedef struct	s_all
 {
 	t_mlx		mlx;
 	t_tmp		tmp;
-
 	t_list		*rooms;
-	
 	t_list		*ants;
+<<<<<<< HEAD
 	t_ways		**ways;
+=======
+>>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
 	t_switchs	switchs;
 	t_room		**mas_rom;
 	t_list		*out;
 	t_ant		***iterations;
+	t_room		*start_room;
 	int			ant_count;
 	int			room_count;
 	char		prog;
@@ -171,6 +178,7 @@ void			lem_in_clear_exit(t_all *all, char *message, int fd);
 void			visu_hex_clear_exit(t_all *all, char *message, int fd);
 void			parce_input(t_all *all);
 
+t_room			*find_room_in_doors_list_by_nb(t_list *rooms, int nb);
 t_room			*find_room_by_name(t_list *rooms, char *name);
 t_door			*find_door_by_room_nb(t_room *room, int nb);
 t_ant			*find_ant_by_name(t_list *ants, int name);
