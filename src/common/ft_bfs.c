@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/27 23:10:38 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/28 17:39:23 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,53 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 	*q = new;
 }
 
+void		ft_clean_index(t_all *all)
+{
+	int		nbr;
+
+	nbr = 0;
+	while (all->mas_rom[nbr])
+		all->mas_rom[nbr++]->visit = -1;
+}
+
+void		ft_create_ways(t_all *all, int i, int end)
+{
+	t_ways	*new;
+	t_list	*tmp;
+	t_door	*door;
+
+	if (!(new = (t_ways *)malloc(sizeof(t_ways))))
+		all->exit(all, ERROR, 2);
+	new->len = all->mas_rom[end]->visit;
+	new->next = 0;
+	new->way = ft_push_front_way(all->mas_rom[end]);
+	while (i > 0)
+	{
+		tmp = new->way[0]->doors;
+		door = tmp->content;
+		while (door->room->visit != i - 1)
+		{
+			tmp = tmp->next;
+			door = tmp->content;
+		}
+		new->way = ft_push_front_way(door->room);
+		i--;
+	}
+	ft_add_way(all, new);
+}
+
 void		ft_bfs(t_all *all, t_list *begin)
 {
 	t_que	*q;
 	int		nbr;
 
 	nbr = 0;
-	ft_create_mas(all, begin);
 	q = 0;
 	ft_push_back(all->mas_rom[0], &q, all);
 	while (q)
 		ft_go_to_graph(&q, all, &nbr);
+	ft_create_ways(all, all->mas_rom[all->room_count - 1]->visit,
+	all->room_count - 1);
 	nbr = 0;
 	while (all->mas_rom[nbr])
 	{
@@ -81,4 +117,5 @@ void		ft_bfs(t_all *all, t_list *begin)
 		ft_putnbr(all->mas_rom[nbr++]->visit);
 		ft_putchar('\n');
 	}
+	ft_clean_index(all);
 }

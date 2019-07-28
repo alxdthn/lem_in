@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 18:33:21 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/28 14:32:58 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			main(void)
 	all.prog = LEM_IN;
 	all.exit = &lem_in_clear_exit;
 	parce_input(&all);
+	ft_create_mas(&all, all.rooms);
 	ft_bfs(&all, all.rooms);
 	print_out(all.out);
 	ft_printf("\n");
