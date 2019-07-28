@@ -6,7 +6,11 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2019/07/28 17:20:33 by skrystin         ###   ########.fr       */
+=======
 /*   Updated: 2019/07/28 05:57:11 by nalexand         ###   ########.fr       */
+>>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +62,6 @@ typedef struct	s_room
 	int			x;
 	int			y;
 	int			visit;
-	struct s_room	*parent;
 	size_t		name_len;
 	char		*name;
 	t_list 		*doors;
@@ -77,6 +80,13 @@ typedef struct		s_que
 	t_room			*room;
 	struct s_que	*next;
 }					t_que;
+
+typedef	struct		s_ways
+{
+	t_room			**way;
+	int				len;
+	struct s_ways	*next;
+}					t_ways;
 
 typedef struct	s_ant
 {
@@ -149,6 +159,10 @@ typedef struct	s_all
 	t_tmp		tmp;
 	t_list		*rooms;
 	t_list		*ants;
+<<<<<<< HEAD
+	t_ways		**ways;
+=======
+>>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
 	t_switchs	switchs;
 	t_room		**mas_rom;
 	t_list		*out;
@@ -200,5 +214,6 @@ void			draw_point(t_img *img, int x, int y);
 void			ft_bfs(t_all *all, t_list *begin);
 void			ft_push_back(t_room *room, t_que **q, t_all *all);
 void			ft_del_first(t_que **q);
+void			ft_create_mas(t_all *all, t_list *begin);
 
 #endif
