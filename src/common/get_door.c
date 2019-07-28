@@ -6,13 +6,13 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:21:46 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:17:10 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 03:17:57 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	get_rooms_from_name(t_all *all, t_room **room_a, t_room **room_b)
+static void	get_rooms(t_all *all, t_room **room_a, t_room **room_b)
 {
 	size_t	len_a;
 	size_t	len_b;
@@ -31,17 +31,21 @@ void		get_door(t_all *all)
 {
 	t_room	*room_a;
 	t_room	*room_b;
-	t_door	clear_door;
+	t_door	new_door;
 	t_list	*node;
 
-	ft_bzero(&clear_door, sizeof(t_door));
-	get_rooms_from_name(all, &room_a, &room_b);
-	clear_door.room = room_b;
-	if (!(node = ft_lstnew(&clear_door, sizeof(t_door))))
+	get_rooms(all, &room_a, &room_b);
+	if (find_room_in_doors_list_by_nb(room_a->doors, room_b->nb)
+	|| find_room_in_doors_list_by_nb(room_b->doors, room_a->nb)
+	|| room_a->nb == room_b->nb)
+		return ;
+	ft_bzero(&new_door, sizeof(t_door));
+	new_door.room = room_b;
+	if (!(node = ft_lstnew(&new_door, sizeof(t_door))))
 		all->exit(all, ERROR, 2);
 	ft_lstadd(&room_a->doors, node);
-	clear_door.room = room_a;
-	if (!(node = ft_lstnew(&clear_door, sizeof(t_door))))
+	new_door.room = room_a;
+	if (!(node = ft_lstnew(&new_door, sizeof(t_door))))
 		all->exit(all, ERROR, 2);		
 	ft_lstadd(&room_b->doors, node);
 }

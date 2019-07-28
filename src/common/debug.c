@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:38:36 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 06:03:52 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,39 @@ static void	print_rooms_list(t_list *tmp)
 	x = ((t_room *)tmp->content)->x;
 	y = ((t_room *)tmp->content)->y;
 	if (((t_room *)tmp->content)->type == START)
-		ft_printf("|%{blu}10.*s|%{blu}7d|%{blu}7d|", name_len, name, x, y);
+		ft_printf("|%{blu}-25.*s|%{blu}-7d|%{blu}-7d|", name_len, name, x, y);
 	else if (((t_room *)tmp->content)->type == END)
-		ft_printf("|%{red}10.*s|%{red}7d|%{red}7d|", name_len, name, x, y);
+		ft_printf("|%{red}-25.*s|%{red}-7d|%{red}-7d|", name_len, name, x, y);
 	else
-		ft_printf("|%10.*s|%7d|%7d|", name_len, name, x, y);
-	print_doors_list(((t_room *)tmp->content)->doors);
+		ft_printf("|%-25.*s|%-7d|%-7d|", name_len, name, x, y);
+	if (((t_room *)tmp->content)->doors)
+		print_doors_list(((t_room *)tmp->content)->doors);
 	ft_putchar('\n');
 }
 
 void	print_ants_list(t_list *ants)
 {
+	t_list	*tmp;
 	while (ants)
 	{
-		ft_printf("name: %d x: %d y: %d\n",
-		((t_ant *)ants->content)->name,
-		((t_ant *)ants->content)->x1,
-		((t_ant *)ants->content)->y1);
+		ft_printf("name: %d ", ((t_ant *)ants->content)->name);
+		tmp = ((t_ant *)ants->content)->path;
+		while (tmp)
+		{
+			ft_printf("%.*s ", ((t_room *)tmp->content)->name_len,
+			((t_room *)tmp->content)->name);
+			tmp = tmp->next;
+		}
+		ft_printf("\n");
 		ants = ants->next;
 	}
 }
 
 void		print(t_all *all)
 {
-	ft_printf("|___name___|___x___|___y___|\n");
+	ft_printf("|___________name__________|___x___|___y___|\n");
 	print_rooms_list(all->rooms);
-	ft_printf("|__________|_______|_______|\n");
+	ft_printf("|_________________________|_______|_______|\n");
 	ft_printf("ants: %d\n", all->ant_count);
 }
 

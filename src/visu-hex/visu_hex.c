@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 20:42:00 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 05:59:49 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,54 @@ static void	get_min_max(t_all *all)
 	}
 }
 
-static void	normalize_by_min(t_all *all)
+static int	pre_size(t_all *all)
+{
+	int		res;
+	int		min_x;
+	int		max_x;
+	int		min_y;
+	int		max_y;
+
+	res = 1;
+	min_x = all->mlx.min_x;
+	max_x = all->mlx.max_x;
+	min_y = all->mlx.min_y;
+	max_y = all->mlx.max_y;
+	while (max_x - min_x >= all->mlx.width && max_y - min_y >= all->mlx.height)
+	{
+		min_x = all->mlx.min_x / res;
+		max_x = all->mlx.max_x / res;
+		min_y = all->mlx.min_y / res;
+		max_y = all->mlx.max_y / res;
+		res++;
+	}
+	return (res);
+}
+
+static void	normalize(t_all *all)
 {
 	t_list	*tmp;
 	int		nb;
+	int		size;
 
+	size = pre_size(all);
 	tmp = all->rooms;
 	nb = 0;
 	while (tmp)
 	{
 		((t_room *)tmp->content)->x -= all->mlx.min_x;
 		((t_room *)tmp->content)->y -= all->mlx.min_y;
+		((t_room *)tmp->content)->x /= size;
+		((t_room *)tmp->content)->y /= size;
 		((t_room *)tmp->content)->nb = nb++;
 		tmp = tmp->next;
 	}
+	all->mlx.max_x -= all->mlx.min_x;
+	all->mlx.max_y -= all->mlx.min_y;
+	all->mlx.max_x /= size;
+	all->mlx.max_y /= size;
+	all->mlx.min_x = 0;
+	all->mlx.min_y = 0;
 }
 
 static void	reset_crds(t_all *all)
@@ -83,8 +117,6 @@ static void	reset_crds(t_all *all)
 	{
 		((t_room *)tmp->content)->x = ((t_room *)tmp->content)->x * all->mlx.map_size + all->mlx.map_position_x;
 		((t_room *)tmp->content)->y = ((t_room *)tmp->content)->y * all->mlx.map_size + all->mlx.map_position_y;
-		if (((t_room *)tmp->content)->type == START)
-			all->mlx.start_room = (t_room *)tmp->content;
 		tmp = tmp->next;
 	}
 }
@@ -95,15 +127,21 @@ static void	init_map(t_all *all)
 	int		y_size;
 
 	get_min_max(all);
-	normalize_by_min(all);
+	normalize(all);
 	x_size = (all->mlx.width - all->mlx.width / 5) / (all->mlx.max_x - all->mlx.min_x);
 	y_size = (all->mlx.height - all->mlx.height / 5) / (all->mlx.max_y - all->mlx.min_y);
 	all->mlx.map_size = (x_size > y_size) ? y_size : x_size;
+	if (!all->mlx.map_size)
+		all->mlx.map_size = 1;
 	all->mlx.room_radius = 50;
-	all->mlx.ant_radius = 20;
+	all->mlx.ant_radius = 25;
 	all->mlx.map_position_x = all->mlx.width / 2 - ((all->mlx.max_x - all->mlx.min_x) * all->mlx.map_size) / 2;
 	all->mlx.map_position_y = all->mlx.height / 2 - ((all->mlx.max_y - all->mlx.min_y) * all->mlx.map_size) / 2;
-	all->mlx.pixel_size = 5;
+	if (all->mlx.map_position_x < 0)
+		all->mlx.map_position_x = 0;
+	if (all->mlx.map_position_y < 0)
+		all->mlx.map_position_y = 0;
+	all->mlx.pixel_size = 3;
 	all->mlx.speed = 80;
 	reset_crds(all);
 }
@@ -117,12 +155,15 @@ int		main(void)
 	all.exit = &visu_hex_clear_exit;
 	visualisation_init(&all);
 	parce_input(&all);
-	init_map(&all);
 	parce_ants(&all);
+	init_map(&all);
+	print(&all);
+	print_ants_list(all.ants);
+
+
 	render_map(&all);
 	render_info(&all);
 	put_map(&all);
-	put_names(&all);
 	put_logo(&all);
 	all.mlx.ants.pixel_color = ANT_COLOR;
 	all.mlx.ants.pixel_size = all.mlx.pixel_size;

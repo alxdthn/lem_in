@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:41:40 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 06:15:56 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 		new_ant.is_counted = 0;
 		new_ant.in_place = 0;
 		new_ant.path = node = ft_lstnew(NULL, 0);
-		new_ant.path->content = all->mlx.start_room;
+		new_ant.path->content = all->start_room;
 		ft_lstadd(&all->ants, ft_lstnew(&new_ant, sizeof(t_ant)));
 		ant = (t_ant *)all->ants->content;
 	}
 	node = ft_lstnew(NULL, 0);
-	node->content = find_room_by_name(all->rooms, line + *i);
+	if (!(node->content = find_room_by_name(all->rooms, line + *i)))
+		all->exit(all, ERROR, 2);
 	ft_lstpushback(&ant->path, node);
 	return (ant);
 }

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:34:58 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 06:13:45 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	get_start_end(t_all *all, t_room *room)
 	{
 		room->type = START;
 		all->switchs.started = 0;
+		all->start_room = room;
 	}
 	else if (all->switchs.ended)
 	{
@@ -54,9 +55,9 @@ void		get_room(t_all *all)
 		return ;
 	ft_bzero(&new_room, sizeof(t_room));
 	new_room.name = all->tmp.line;
+	new_room.nb = all->room_count++;
 	i = ft_strclen(all->tmp.line, ' ');
 	new_room.name_len = i;
-	get_start_end(all, &new_room);
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
 		all->exit(all, ERROR, 2);
 	new_room.x = ft_satoi(all->tmp.line, &i);
@@ -67,5 +68,6 @@ void		get_room(t_all *all)
 		all->exit(all, ERROR, 2);
 	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
 		all->exit(all, ERROR, 2);		
+	get_start_end(all, node->content);
 	ft_lstadd(&all->rooms, node);
 }

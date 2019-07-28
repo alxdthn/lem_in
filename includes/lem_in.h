@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:54:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 05:57:11 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ typedef struct	s_line_params
 
 typedef struct	s_switchs
 {
-	char		start : 1;
-	char		end : 1;
-	char		started : 1;
-	char		ended : 1;
-	char		rooms : 1;
-	char		ants : 3;
+	char		start;
+	char		end;
+	char		started;
+	char		ended;
+	char		rooms;
+	char		ants;
 }				t_switchs;
 
 typedef struct	s_room
@@ -118,7 +118,6 @@ typedef struct	s_mlx
 	t_img		logo;
 	t_img		map;
 	t_img		ants;
-	t_room		*start_room;
 	void		*ptr;
 	void		*win;
 	char		*info_iter;
@@ -141,6 +140,7 @@ typedef struct	s_mlx
 	int			speed;
 	int			ants_in_end;
 	char		working;
+	char		names;
 }				t_mlx;
 
 typedef struct	s_all
@@ -153,6 +153,7 @@ typedef struct	s_all
 	t_room		**mas_rom;
 	t_list		*out;
 	t_ant		***iterations;
+	t_room		*start_room;
 	int			ant_count;
 	int			room_count;
 	char		prog;
@@ -163,6 +164,7 @@ void			lem_in_clear_exit(t_all *all, char *message, int fd);
 void			visu_hex_clear_exit(t_all *all, char *message, int fd);
 void			parce_input(t_all *all);
 
+t_room			*find_room_in_doors_list_by_nb(t_list *rooms, int nb);
 t_room			*find_room_by_name(t_list *rooms, char *name);
 t_door			*find_door_by_room_nb(t_room *room, int nb);
 t_ant			*find_ant_by_name(t_list *ants, int name);
