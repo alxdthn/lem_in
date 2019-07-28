@@ -20,7 +20,7 @@
 		"name": "(lldb) test",
 		"type": "cppdbg",
 		"request": "launch",
-		"program": "${workspaceFolder}/libftprintf/a.out",
+		"program": "${workspaceFolder}/a.out",
 		"args": [],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}",
