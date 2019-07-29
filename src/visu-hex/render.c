@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:10:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 05:36:57 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 07:06:45 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void		render(t_all *all)
 		put_names(all);
 	if (all->iterations[all->mlx.cur_iter])
 	{
-		render_ants(all);
+		if (all->mlx.working)
+			render_ants(all);
 		put_ants(all);
 	}
 	put_info(all);

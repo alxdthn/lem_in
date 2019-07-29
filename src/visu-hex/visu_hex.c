@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 05:59:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 06:18:22 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,29 @@ static void	init_map(t_all *all)
 	reset_crds(all);
 }
 
+static void	count_ants_paths(t_all *all)
+{
+	t_list	*tmp_ant;
+	t_list	*tmp_path;
+
+	tmp_ant = all->ants;
+	while (tmp_ant)
+	{
+		tmp_path = ((t_ant *)tmp_ant->content)->path;
+		while (tmp_path)
+		{
+			if (tmp_path->next)
+				((t_ant *)tmp_ant->content)->end_point
+				+= ABS(((t_room *)tmp_path->content)->x
+				- ((t_room *)tmp_path->next->content)->x)
+				+ ABS(((t_room *)tmp_path->content)->y
+				- ((t_room *)tmp_path->next->content)->y);
+			tmp_path = tmp_path->next;
+		}
+		tmp_ant = tmp_ant->next;
+	}
+}
+
 int		main(void)
 {
 	t_all	all;
@@ -157,10 +180,9 @@ int		main(void)
 	parce_input(&all);
 	parce_ants(&all);
 	init_map(&all);
-	print(&all);
-	print_ants_list(all.ants);
-
-
+	count_ants_paths(&all);
+	//print(&all);
+	//print_ants_list(all.ants);
 	render_map(&all);
 	render_info(&all);
 	put_map(&all);

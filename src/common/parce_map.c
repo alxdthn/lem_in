@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 04:39:13 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 06:00:10 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void		parce_input(t_all *all)
 		if (ret < 0 || !all->tmp.line)
 			all->exit(all, ERROR, 2);
 		if (all->prog == VISU_HEX && !*all->tmp.line)
+		{
+			ft_strdel(&all->tmp.line);
 			return ;
+		}
 		if (!(node = ft_lstnew(NULL, 0)))
 			all->exit(all, ERROR, 2);
 		node->content = all->tmp.line;

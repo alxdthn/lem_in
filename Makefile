@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+         #
+#    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/28 23:19:20 by skrystin         ###   ########.fr        #
+#    Updated: 2019/07/29 06:33:50 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ VIS_SRC =	visu_hex.c \
 			render_ants.c \
 			render_info.c \
 			put_functions.c \
-			draw_functions.c
+			draw_functions.c \
+			gradient.c
 
 COM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(COM_SRC)))
 LEM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(LEM_SRC)))

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:03:35 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 04:24:23 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 07:06:05 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int			deal_key(int key, t_all *all)
 		all->mlx.working = (all->mlx.working) ? 0 : 1;
 	else if (key == SPACE)
 		all->mlx.names = (all->mlx.names) ? 0 : 1;
+	render(all);
 	return (0);
 }

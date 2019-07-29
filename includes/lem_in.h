@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 04:43:38 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 06:59:54 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # define END 2
 # define ABS(x) ((x) > 0 ? (x) : -(x))
 # define ANT_COLOR 0x34abeb
-# define WAY_COLOR 0xffffff
-# define ROOM_FIL_COLOR 0x000000
-# define ROOM_BORDER 0xffffff
-# define START_ROOM_COLOR 0x34abeb
+# define WAY_COLOR 0x000000
+# define ROOM_BORDER WAY_COLOR
+# define START_ROOM_COLOR 0xff9d00
 # define END_ROOM_COLOR 0xeb4034
-# define BACKGROUND_COLOR 0
+# define BACKGROUND_COLOR 0xFFFFFF
+# define ROOM_FIL_COLOR BACKGROUND_COLOR
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx_keys.h"
@@ -97,6 +97,9 @@ typedef struct	s_ant
 	double		delta_y;
 	double		speed_x;
 	double		speed_y;
+	double		start_point;
+	double		end_point;
+	double		cur_point;
 	int			dir_x;
 	int			dir_y;
 	int			name;
@@ -202,6 +205,7 @@ void			put_map(t_all *all);
 void			put_ants(t_all *all);
 void			put_info(t_all *all);
 void			put_names(t_all *all);
+int				get_gradient(double start, double end, double cur);
 
 void			draw_line(t_img *img, t_line_params *params);
 void			draw_circle(t_img *img, t_line_params *params);

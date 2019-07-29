@@ -6,19 +6,21 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:10:26 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:49:19 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 06:40:54 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void draw_ant(t_all *all, int x, int y)
+static void draw_ant(t_all *all, t_ant *ant)
 {
 	t_line_params	params;
 	int				radius;
 
-	params.x1 = x;
-	params.y1 = y;
+	all->mlx.ants.pixel_color = get_gradient(ant->start_point,
+	ant->end_point, ant->cur_point);
+	params.x1 = ant->x1;
+	params.y1 = ant->y1;
 	radius = all->mlx.ant_radius;
 	while (radius >= 0)
 	{
@@ -58,6 +60,7 @@ static void moove_ant(t_all *all, t_ant *ant)
 		ant->y1 = ant->y2;
 	else
 		ant->y1 += ant->speed_y * ant->dir_y;
+	ant->cur_point += ant->speed_x + ant->speed_y;
 }
 
 static void	get_next_iteration(t_all *all)
@@ -69,7 +72,7 @@ static void	get_next_iteration(t_all *all)
 	i = 0;
 	while ((ant = all->iterations[all->mlx.cur_iter][i]))
 	{
-		draw_ant(all, ant->x1, ant->y1);
+		draw_ant(all, ant);
 		tmp = ant->path->next;
 		free(ant->path);
 		ant->path = tmp;
@@ -79,6 +82,40 @@ static void	get_next_iteration(t_all *all)
 	}
 	all->mlx.cur_iter++;
 	render_info(all);
+}
+
+double	percentage(double start, double end, double cur)
+{
+	double	placement;
+	double	distance;
+
+	placement = cur - start;
+	distance = end - start;
+	return ((distance == 0) ? 1.0 : (placement / distance));
+}
+
+void	get_light(int *value, int start, int end, double percent)
+{
+	*value = (int)((1 - percent) * start + percent * end);
+}
+
+int		get_gradient(double start, double end, double cur)
+{
+	double	percent;
+	int		red;
+	int		green;
+	int		blue;
+
+	if (start >= end)
+		return (END_ROOM_COLOR);
+	percent = percentage(start, end, cur);
+	get_light(&red, (START_ROOM_COLOR >> 16) & 0xFF,
+	(END_ROOM_COLOR >> 16) & 0xFF, percent);
+	get_light(&green, (START_ROOM_COLOR >> 8) & 0xFF,
+	(END_ROOM_COLOR >> 8) & 0xFF, percent);
+	get_light(&blue, START_ROOM_COLOR & 0xFF,
+	END_ROOM_COLOR & 0xFF, percent);
+	return ((red << 16) | (green << 8) | blue);
 }
 
 void	render_ants(t_all *all)
@@ -97,7 +134,7 @@ void	render_ants(t_all *all)
 		{
 			if (!ant->is_counted)
 				count_ant_params(all, ant);
-			draw_ant(all, ant->x1, ant->y1);
+			draw_ant(all, ant);
 			moove_ant(all, ant);
 			if (ant->x1 == ant->x2 && ant->y1 == ant->y2)
 			{
