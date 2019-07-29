@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 23:42:59 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 05:09:58 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 static void	clear_room(void *room, size_t size)
 {
-	ft_strdel(&((t_room *)room)->name);
-	ft_lstdel(&((t_room *)room)->doors, ft_lstclear);
+	ft_lstdel(&((t_room *)room)->doors, NULL);
 	ft_memdel((void **)&room);
+}
+
+static void	clear_ant(void *ant, size_t size)
+{
+	ft_lstdel(&((t_ant *)ant)->path, NULL);
+	ft_memdel((void **)&ant);
 }
 
 void		visu_hex_clear_exit(t_all *all, char *message, int fd)
@@ -32,10 +37,10 @@ void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 		mlx_destroy_window(all->mlx.ptr, all->mlx.win);
 		ft_memdel((void **)&all->mlx.ptr);
 	}
-	ft_strdel(&all->tmp.line);
 	ft_lstdel(&all->rooms, clear_room);
-	ft_lstdel(&all->ants, ft_lstclear);
+	ft_lstdel(&all->ants, clear_ant);
 	ft_lstdel(&all->out, ft_lstclear);
+	ft_lstdel(&all->input, ft_lstclear);
 	ft_arraydel((void ***)&all->iterations);
 	if (message)
 		ft_putendl_fd(message, fd);

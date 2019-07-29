@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:03:35 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 05:38:39 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 04:24:23 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			loop_hook(t_all *all)
 int			deal_key(int key, t_all *all)
 {
 	if (key == ESC)
-		all->exit(all, NULL, 0);
+		all->exit(all, NULL, 1);
 	else if (key == ENTER)
 		all->mlx.working = (all->mlx.working) ? 0 : 1;
 	else if (key == SPACE)

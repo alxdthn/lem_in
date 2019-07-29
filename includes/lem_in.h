@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 23:41:08 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/29 04:43:38 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,14 +155,16 @@ typedef struct	s_all
 {
 	t_mlx		mlx;
 	t_tmp		tmp;
+	t_list		*head;
+	t_list		*input;
+	t_list		*out;
 	t_list		*rooms;
 	t_list		*ants;
 	t_ways		*ways;
-	t_switchs	switchs;
 	t_room		**mas_rom;
-	t_list		*out;
-	t_ant		***iterations;
 	t_room		*start_room;
+	t_ant		***iterations;
+	t_switchs	switchs;
 	int			ant_count;
 	int			room_count;
 	char		prog;
