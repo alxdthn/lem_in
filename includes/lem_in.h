@@ -6,11 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/07/28 17:20:33 by skrystin         ###   ########.fr       */
-=======
-/*   Updated: 2019/07/28 05:57:11 by nalexand         ###   ########.fr       */
->>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
+/*   Updated: 2019/07/29 02:45:14 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +155,6 @@ typedef struct	s_all
 	t_tmp		tmp;
 	t_list		*rooms;
 	t_list		*ants;
-<<<<<<< HEAD
-	t_ways		**ways;
-=======
->>>>>>> 46f4315e1285062d7dcfd35a48828cd5245d9015
 	t_switchs	switchs;
 	t_room		**mas_rom;
 	t_list		*out;
