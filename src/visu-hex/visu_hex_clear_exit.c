@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 06:00:58 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:27:08 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	clear_ant(void *ant, size_t size)
 
 void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 {
+	all->out = all->out_head;
+	all->input = all->input_head;
 	if (all->mlx.ptr)
 	{
 		if (all->mlx.logo.ptr)

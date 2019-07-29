@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/29 06:33:50 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/29 21:13:39 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ COM_SRC = 	parce_map.c \
 			get_room.c \
 			get_door.c \
 			find_functions.c \
+			push_back.c \
 			debug.c
 LEM_SRC =	lem_in.c \
 			lem_in_clear_exit.c \

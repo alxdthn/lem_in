@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 06:59:54 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:24:33 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,10 @@ typedef struct	s_all
 {
 	t_mlx		mlx;
 	t_tmp		tmp;
-	t_list		*head;
 	t_list		*input;
+	t_list		*input_head;
 	t_list		*out;
+	t_list		*out_head;
 	t_list		*rooms;
 	t_list		*ants;
 	t_ways		*ways;
@@ -177,6 +178,7 @@ typedef struct	s_all
 void			lem_in_clear_exit(t_all *all, char *message, int fd);
 void			visu_hex_clear_exit(t_all *all, char *message, int fd);
 void			parce_input(t_all *all);
+void			push_back(t_list **lst, t_list *node, t_list **head);
 
 t_room			*find_room_in_doors_list_by_nb(t_list *rooms, int nb);
 t_room			*find_room_by_name(t_list *rooms, char *name);
