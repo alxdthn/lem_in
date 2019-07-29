@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/29 20:58:39 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:16:07 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ void        ft_close_doors(t_all *all)
 	while (tmp->way[i + 1])
 	{
 		rooms = tmp->way[i]->doors;
+		if (tmp->way[i]->visit_early == '1' && i != 0 && i != tmp->len)
+		{
+//			ft_printf("problem at- %s\n", tmp->way[i]->name);
+			tmp->way[i]->visit_early = '2';
+		}
+		else if (i != 0 && i != tmp->len)
+			tmp->way[i]->visit_early = '1';
+		// ft_printf("visit early - %s\n", tmp->way[i]->name);
 		while (rooms)
 		{
 			door = rooms->content;
@@ -45,7 +53,7 @@ void        ft_close_doors(t_all *all)
 void        ft_solver(t_all *all, t_list *begin)
 {
     ft_create_mas(all, all->rooms);
-	while (ft_bfs(all, all->rooms))
-		ft_close_doors(all);
-	ft_create_str(all, all->ways, all->ant_count, 1);
+	// while (ft_bfs(all, all->rooms))
+	// 	ft_close_doors(all);
+//	ft_create_str(all, all->ways, all->ant_count, 1);
 }

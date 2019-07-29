@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:24:33 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:16:22 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ typedef struct	s_room
 	//t_door		**doors;
 	t_list 		*doors;
 	char		type;
+	char		visit_early;
+	char		go_away;
 }				t_room;
 
 typedef struct	s_door
@@ -71,6 +73,7 @@ typedef struct	s_door
 	t_room		*room;
 	char		is_close;
 	char		is_print;
+	char		is_neg;
 }				t_door;
 
 typedef struct		s_que
