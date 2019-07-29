@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/29 21:13:39 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/30 00:41:30 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ LEM_SRC =	lem_in.c \
 			queue.c \
 			ways.c \
 			solver.c \
-			create_str.c
+			send_ants.c
 VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
