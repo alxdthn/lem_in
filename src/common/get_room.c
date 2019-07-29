@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_room.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 06:13:45 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:32:24 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	get_start_end(t_all *all, t_room *room)
 		room->type = END;
 		all->switchs.ended = 0;
 		all->switchs.end = 1;
+		all->end_room = room;
 	}
 }
 
@@ -54,6 +55,7 @@ void		get_room(t_all *all)
 	if (check_name_match(all, all->tmp.line))
 		return ;
 	ft_bzero(&new_room, sizeof(t_room));
+	new_room.visit = -1;
 	new_room.name = all->tmp.line;
 	new_room.nb = all->room_count++;
 	i = ft_strclen(all->tmp.line, ' ');

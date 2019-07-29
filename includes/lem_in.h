@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 20:40:17 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:32:25 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct	s_all
 	t_ways		*ways;
 	t_room		**mas_rom;
 	t_room		*start_room;
+	t_room		*end_room;
 	t_ant		***iterations;
 	t_switchs	switchs;
 	int			ant_count;

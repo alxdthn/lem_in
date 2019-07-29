@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:12:44 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:40:25 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,26 @@ void		ft_create_mas(t_all *all, t_list *begin)
 {
 	int		i;
 
-	all->room_count = ft_lstcount(all->rooms);
 	i = all->room_count - 2;
 	if (!(all->mas_rom = (t_room **)malloc(sizeof(t_room *)
 	* (all->room_count + 1))))
 		all->exit(all, ERROR, 2);
-	all->mas_rom[all->room_count] = 0;
+	all->mas_rom[all->room_count] = NULL;
 	while (begin)// && i != 0)
 	{
-	//	if (i != 0)
+		if (((t_room *)begin->content)->type == START)
+		 	all->mas_rom[0] = (t_room *)begin->content;
+		else if (((t_room *)begin->content)->type == END)
+		 	all->mas_rom[all->room_count - 1] = (t_room *)begin->content;
+		else
 		{
 			all->mas_rom[i] = begin->content;
-			all->mas_rom[i]->visit = -1;
+			i--;
 		}
 		begin = begin->next;
-		ft_printf("i - %d\n", i);
-		if (all->mas_rom[i]->type == START)
-			all->mas_rom[0] = all->mas_rom[i];
-		else if (all->mas_rom[i]->type == END)
-			all->mas_rom[all->room_count - 1] = all->mas_rom[i];
-		else
-			i--;
+		// ft_printf("i - %d\n", i);
 	}
-	ft_printf("start - %s, end - %s\n", all->mas_rom[0]->name, all->mas_rom[all->room_count - 1]->name);
+//	ft_printf("start - %s, end - %s\n", all->mas_rom[0]->name, all->mas_rom[all->room_count - 1]->name);
 }
 
 void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)

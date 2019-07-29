@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:13:15 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:32:39 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void        ft_close_doors(t_all *all)
 void        ft_solver(t_all *all, t_list *begin)
 {
     ft_create_mas(all, all->rooms);
-	// while (ft_bfs(all, all->rooms))
-	// 	ft_close_doors(all);
+	while (ft_bfs(all, all->rooms))
+		ft_close_doors(all);
 //	ft_create_str(all, all->ways, all->ant_count, 1);
 }
