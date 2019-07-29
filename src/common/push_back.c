@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in_clear_exit.c                                :+:      :+:    :+:   */
+/*   push_back.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:27:19 by nalexand         ###   ########.fr       */
+/*   Created: 2019/07/29 21:11:45 by nalexand          #+#    #+#             */
+/*   Updated: 2019/07/29 21:12:02 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	clear_room(void *room, size_t size)
+void	push_back(t_list **lst, t_list *node, t_list **head)
 {
-	ft_lstdel(&((t_room *)room)->doors, ft_lstclear);
-	ft_memdel((void **)&room);
-}
-
-void		lem_in_clear_exit(t_all *all, char *message, int fd)
-{
-	all->out = all->out_head;
-	ft_lstdel(&all->rooms, clear_room);
-	ft_lstdel(&all->out, ft_lstclear);
-	if (message)
-		ft_putendl_fd(message, fd);
-	if (fd == 1)
-		exit(EXIT_SUCCESS);
-	exit(EXIT_FAILURE);
+	if (*lst)
+	{
+		(*lst)->next = node;
+		(*lst) = (*lst)->next;
+	}
+	else
+	{
+		(*lst) = node;
+		*head = *lst;
+	}
 }

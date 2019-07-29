@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 05:21:18 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:26:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,6 @@ void	read_ants_to_list(t_all *all, t_list *lines, size_t size)
 	}
 }
 
-
-static void	push_back(t_list **lst, t_list *node, t_list **head)
-{
-	if (*lst)
-	{
-		(*lst)->next = node;
-		(*lst) = (*lst)->next;
-	}
-	else
-	{
-		(*lst) = node;
-		*head = *lst;
-	}
-}
-
 void	parce_ants(t_all *all)
 {
 	t_list	*node;
@@ -95,15 +80,12 @@ void	parce_ants(t_all *all)
 	while (get_next_line(0, &all->tmp.line) > 0)
 	{
 		if (!(node = ft_lstnew(NULL, 0)))
-		{
-			all->input = all->head;
 			all->exit(all, ERROR, 2);
-		}
 		node->content = all->tmp.line;
 		node->content_size = sizeof(char *);
-		push_back(&all->input, node, &all->head);
+		push_back(&all->input, node, &all->input_head);
 		iterations++;
 	}
-	all->input = all->head;
+	all->input = all->input_head;
 	read_ants_to_list(all, all->input, iterations);
 }

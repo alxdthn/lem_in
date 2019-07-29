@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 06:00:10 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 21:25:45 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ void		parce_input(t_all *all)
 			all->exit(all, ERROR, 2);
 		node->content = all->tmp.line;
 		node->content_size = sizeof(char *);
-		ft_lstadd(&all->out, node);
+		push_back(&all->out, node, &all->out_head);
 		parce_line(all);
 	}
+	all->out = all->out_head;
 	if (!all->switchs.start || !all->switchs.end)
 		all->exit(all, ERROR, 2);
 }

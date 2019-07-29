@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 00:17:39 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:45:44 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void	print_out(t_list *list)
 {
-	if (list->next)
-		print_out(list->next);
-	ft_putendl(list->content);
+	while (list)
+	{
+		ft_putendl(list->content);
+		list = list->next;
+	}
 }
 
 int			main(void)

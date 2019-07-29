@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_str.c                                       :+:      :+:    :+:   */
+/*   send_ants.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 22:54:57 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/29 00:15:35 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:41:18 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_create_str(t_all *all, t_ways *way, int ant, int name_an)
+void		send_ants(t_all *all, t_ways *way, int ant, int name_an)
 {
 	char	*str;
 	t_room	**tmp;
