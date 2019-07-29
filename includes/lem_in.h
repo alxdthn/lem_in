@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 02:45:14 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/28 23:41:08 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct	s_room
 	int			visit;
 	size_t		name_len;
 	char		*name;
+	int			ant;
+	//t_door		**doors;
 	t_list 		*doors;
 	char		type;
 }				t_room;
@@ -155,6 +157,7 @@ typedef struct	s_all
 	t_tmp		tmp;
 	t_list		*rooms;
 	t_list		*ants;
+	t_ways		*ways;
 	t_switchs	switchs;
 	t_room		**mas_rom;
 	t_list		*out;
@@ -203,9 +206,12 @@ void			draw_circle(t_img *img, t_line_params *params);
 void			draw_pixel_circle(t_img *img, t_line_params *params);
 void			draw_point(t_img *img, int x, int y);
 
-void			ft_bfs(t_all *all, t_list *begin);
+int				ft_bfs(t_all *all, t_list *begin);
 void			ft_push_back(t_room *room, t_que **q, t_all *all);
 void			ft_del_first(t_que **q);
 void			ft_create_mas(t_all *all, t_list *begin);
+void			ft_create_ways(t_all *all, int i, int end);
+void        	ft_solver(t_all *all, t_list *begin);
+void			ft_create_str(t_all *all, t_ways *way, int ant, int name_an);
 
 #endif
