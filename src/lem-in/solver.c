@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/29 00:54:47 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/29 03:42:00 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void        ft_solver(t_all *all, t_list *begin)
     ft_create_mas(all, all->rooms);
 	while (ft_bfs(all, all->rooms))
 		ft_close_doors(all);
-//	ft_create_str(all, all->ways, all->ant_count, 1);
+	ft_create_str(all, all->ways, all->ant_count, 1);
 }

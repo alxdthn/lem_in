@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 18:40:31 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/29 03:58:24 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 		all->exit(all, ERROR, 2);
 	if (!(ant = find_ant_by_name(all->ants, name)))
 	{
+		ft_bzero(&new_ant, sizeof(t_ant));
 		if (!(new_ant.path = ft_lstnew(NULL, 0))
 		|| !(node = ft_lstnew(&new_ant, sizeof(t_ant))))
 			all->exit(all, ERROR, 2);
-		new_ant.path->content = all->start_room;
-		new_ant.path->content_size = sizeof(t_room *);
-		new_ant.name = name;
-		new_ant.in_place = 0;
-		new_ant.is_counted = 0;
+		((t_ant *)node->content)->path->content = all->start_room;
+		((t_ant *)node->content)->path->content_size = sizeof(t_room *);
+		((t_ant *)node->content)->name = name;
 		ft_lstadd(&all->ants, node);
 		ant = (t_ant *)all->ants->content;
 	}
@@ -67,7 +66,6 @@ void	read_ants_to_list(t_all *all, t_list *lines, size_t size)
 				i++;
 		}
 		j++;
-		ft_memdel(&lines->content);
 		lines = lines->next;
 	}
 }
