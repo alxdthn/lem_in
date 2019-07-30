@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 04:56:48 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 21:53:11 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void		create_ways(t_all *all, int i, int end)
 	new->len = all->mas_rom[end]->visit;
 	new->next = 0;
     new->way = 0;
+	new->ants = 0;
 	ft_push_front_way(all, &new, all->mas_rom[end], new->len + 1);
 	while (i > 0)
 	{

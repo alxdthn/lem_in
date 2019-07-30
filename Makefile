@@ -6,7 +6,7 @@
 #    By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/30 01:54:46 by skrystin         ###   ########.fr        #
+#    Updated: 2019/07/30 18:31:54 by skrystin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ LEM_SRC =	lem_in.c \
 			ways.c \
 			solver.c \
 			send_ants.c \
-			independent_ways.c
+			independent_ways.c \
+			choose_way_and_ant.c
 VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \

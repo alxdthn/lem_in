@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 05:00:45 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 18:31:29 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef	struct		s_ways
 {
 	t_room			**way;
 	int				len;
+	int				ants;
 	struct s_ways	*next;
 }					t_ways;
 
@@ -229,5 +230,6 @@ void			create_str(t_all *all, t_ways *way, int ant, int name_an);
 int				is_independent_ways(t_all *all, t_room **room, int i);
 void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
+void			choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
 
 #endif

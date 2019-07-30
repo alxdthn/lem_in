@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 05:01:28 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 22:06:24 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,9 @@ void        solver(t_all *all, t_list *begin)
 		while (bfs(all, all->rooms))
 			close_doors(all);
 	}
+	if (all->dependent_ways)
 	{
+		choose_ways(all, all->ant_count, all->ways, all->dependent_ways);
 		ft_putstr("OK\n");
-		// clean_room_open_ways(all, all->mas_rom, 0, 0);
-		// delete_ways(all, 0);
-		// all->ways = 0;
-		// while (ft_bfs(all, all->rooms))
-		// 	ft_close_doors(all);
 	}
-	
-//	create_str(all, all->ways, all->ant_count, 1);
 }
