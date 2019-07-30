@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ways.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 23:22:45 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:43:39 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,57 @@ void        close_doors(t_all *all)
 	}
 }
 
+void		delete_ants_from_path(t_ways *first, t_ways *second)
+{
+	while (first)
+	{
+		(first)->ants = 0;
+		first = (first)->next;
+	}
+	while (second)
+	{
+		(second)->ants = 0;
+		second = (second)->next;
+	}
+}
+
 void        get_ways(t_all *all, t_list *begin)
 {
+	t_ways	*tmp;
+	
     create_mas(all, all->rooms);
 	while (bfs(all, all->rooms))
 		close_doors(all);
 	while (!is_independent_ways(all, all->mas_rom, 0))
 	{
 		clean_room_open_ways(all, all->mas_rom, 0, 0);
-		if (!(all->dependent_ways))
-			all->dependent_ways = all->ways;
-		else
-			delete_ways(all, 0);		
+		all->tmp_dep_way = all->ways;
+		// if (!(all->dependent_ways))
+		// 	all->dependent_ways = all->ways;
+		// else
+			all->ways = 0;
+		//	delete_ways(all, 0);		
 		all->ways = 0;
 		while (bfs(all, all->rooms))
 			close_doors(all);
+		if (!choose_ways(all, all->ant_count, all->ways, all->tmp_dep_way))
+		{
+			ft_putstr("Hi");
+			delete_ants_from_path(all->ways, all->tmp_dep_way);
+			all->ways = all->tmp_dep_way;
+			break;
+		}
+		delete_ants_from_path(all->ways, all->tmp_dep_way);
+		tmp = all->ways;
+		all->ways = all->tmp_dep_way;
+		all->tmp_dep_way = tmp;
+		if (!(all->dependent_ways))
+			all->dependent_ways = all->ways;
+		else
+			delete_ways(all, 0);
+		all->ways = all->tmp_dep_way;
 	}
-	if (all->dependent_ways)
+	if (all->dependent_ways && is_independent_ways(all, all->mas_rom, 0))
 		choose_ways(all, all->ant_count, all->ways, all->dependent_ways);
 	else
 		distribute_ants_to_ways(all, all->ways, all->ways, 0);

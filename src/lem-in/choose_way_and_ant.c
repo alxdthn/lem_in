@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/31 00:50:50 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:41:50 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 
 	ants = all->ant_count;
 	sum = begin->len + 1;
-//	ft_printf("begin - %d\n", begin->ants);
+	ft_printf("begin - %d\n", begin->ants);
 	while (ants > 0)
 	{
 		while (way)
 		{
-			if (sum < way->len + way->ants)
+			if (sum > way->len + way->ants)
 			{
 				way->ants++;
 				ants--;
@@ -70,24 +70,33 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 		way = begin;
 		sum++;
 	}
-	return ((begin->len) + begin->ants);
+	return (begin->len + begin->ants);
 }
 
-void	choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
+int		choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
 {
 	int indep_move;
 	int	dep_move;
 
-	clear_room_visit(all->mas_rom);
+//	if (is_independent_ways(all, all->mas_rom, 0))
+		clear_room_visit(all->mas_rom);
 	do_independent_this_ways(all, dep, dep, 0);
+	delete_ants_from_path(indep, dep);
 	indep_move = distribute_ants_to_ways(all, indep, indep, 0);
 	dep_move = distribute_ants_to_ways(all, dep, dep, 0);
 	if (indep_move > dep_move)
 	{
-		delete_ways(all, 0);
-		all->ways = all->dependent_ways;
-		all->dependent_ways = 0;
+		if (dep == all->dependent_ways)
+		{
+//			clear_room_visit(all->mas_rom);
+			delete_ways(all, 0);
+			all->ways = all->dependent_ways;
+			all->dependent_ways = 0;
+		}
+		ft_printf("indep - %d, dep - %d\n", indep_move, dep_move);
+		return (0);
 	}
+	return (1);
 }
 
 /*

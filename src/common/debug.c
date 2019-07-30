@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 05:22:05 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:35:57 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,19 @@ void	print_ant_path(t_list *ants, int name)
 	print_rooms_list(((t_ant *)ants->content)->path);
 }
 
-void	print_way(t_room **way, int way_number, int way_len)
+void	print_way(t_room **way, int way_number, int way_len, int way_ants)
 {
 	int		i;
 
-	ft_printf("path №%d (len %d): ", way_number, way_len);
+	ft_printf("path №%d (len %d, ants %d sum %d): ", way_number, way_len, way_ants, (way_ants) ? way_len + way_ants : 0);
 	i = 0;
-	while (way[i])
-	{
-		ft_printf("%.*s", way[i]->name_len, way[i]->name);
-		if (way[i + 1])
-			ft_printf(" -> ");
-		++i;
-	}
+	//while (way[i])
+	//{
+	//	ft_printf("%.*s", way[i]->name_len, way[i]->name);
+	//	if (way[i + 1])
+	//		ft_printf(" -> ");
+	//	++i;
+	//}
 }
 
 void	print_ways(t_all *all)
@@ -81,7 +81,7 @@ void	print_ways(t_all *all)
 	node = all->ways;
 	while (node)
 	{
-		print_way(node->way, node->nb, node->len);
+		print_way(node->way, node->nb, node->len, node->ants);
 		node = node->next;
 		ft_printf("\n");
 	}
@@ -101,7 +101,8 @@ void	print_ants(t_all *all)
 		{
 			print_way(((t_ant *)tmp_ant->content)->way->way,
 			((t_ant *)tmp_ant->content)->way->nb,
-			((t_ant *)tmp_ant->content)->way->len);
+			((t_ant *)tmp_ant->content)->way->len,
+			((t_ant *)tmp_ant->content)->way->ants);
 			ft_printf("\n");
 		}
 		else

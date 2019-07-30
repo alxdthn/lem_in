@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 21:01:52 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:20:33 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,24 +148,24 @@ static void	init_map(t_all *all)
 
 static void	count_ants_paths(t_all *all)
 {
-	t_list	*tmp_ant;
-	t_list	*tmp_path;
+	t_list	*ant;
+	t_list	*path;
 
-	tmp_ant = all->ants;
-	while (tmp_ant)
+	ant = all->ants;
+	while (ant)
 	{
-		tmp_path = ((t_ant *)tmp_ant->content)->path;
-		while (tmp_path)
+		path = ANT->path;
+		while (path)
 		{
-			if (tmp_path->next)
-				((t_ant *)tmp_ant->content)->end_point
-				+= ABS(((t_room *)tmp_path->content)->x
-				- ((t_room *)tmp_path->next->content)->x)
-				+ ABS(((t_room *)tmp_path->content)->y
-				- ((t_room *)tmp_path->next->content)->y);
-			tmp_path = tmp_path->next;
+			if (path->next)
+				ANT->end_point
+				+= ABS(((t_room *)path->content)->x
+				- ((t_room *)path->next->content)->x)
+				+ ABS(((t_room *)path->content)->y
+				- ((t_room *)path->next->content)->y);
+			path = path->next;
 		}
-		tmp_ant = tmp_ant->next;
+		ant = ant->next;
 	}
 }
 

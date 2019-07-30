@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:32:24 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:38:25 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		get_room(t_all *all)
 	if (all->tmp.line[i])
 		all->exit(all, ERROR, 2);
 	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
-		all->exit(all, ERROR, 2);		
+		all->exit(all, ERROR, 2);
 	get_start_end(all, node->content);
 	ft_lstadd(&all->rooms, node);
 }

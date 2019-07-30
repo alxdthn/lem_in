@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 23:18:42 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:38:00 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct	s_all
 	t_list		*rooms;
 	t_ways		*ways;
 	t_ways		*dependent_ways;
+	t_ways		*tmp_dep_way;
 	t_room		**mas_rom;
 	t_room		*start_room;
 	t_room		*end_room;
@@ -206,7 +207,7 @@ void			get_door(t_all *all);
 void 			print(t_all *all);
 void			print_ants(t_all *all);
 void			print_ant_path(t_list *ants, int name);
-void			print_way(t_room **way, int way_number, int way_len);
+void			print_way(t_room **way, int way_number, int way_len, int way_ants);
 void			print_ways(t_all *all);
 
 void			parce_ants(t_all *all);
@@ -241,7 +242,8 @@ void			create_str(t_all *all, t_ways *way, int ant, int name_an);
 int				is_independent_ways(t_all *all, t_room **room, int i);
 void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
-void			choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
+int				choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
 int				distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i);
+void			delete_ants_from_path(t_ways *first, t_ways *second);
 
 #endif
