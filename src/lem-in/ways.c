@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 04:13:10 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:56:48 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			ft_is_close(t_room *start, t_room *finish)
 	return (0);
 }
 
-void		ft_create_ways(t_all *all, int i, int end)
+void		create_ways(t_all *all, int i, int end)
 {
 	t_ways	*new;
 	t_list	*tmp;

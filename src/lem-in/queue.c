@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_queue.c                                         :+:      :+:    :+:   */
+/*   queue.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 21:57:04 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/27 22:34:53 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:59:24 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_push_back(t_room *room, t_que **q, t_all *all)
+void		q_push_back(t_room *room, t_que **q, t_all *all)
 {
 	t_que	*last;
 	t_que	*begin;
@@ -32,7 +32,7 @@ void		ft_push_back(t_room *room, t_que **q, t_all *all)
 	begin->next = last;
 }
 
-void		ft_del_first(t_que **q)
+void		del_first(t_que **q)
 {
 	t_que	*begin;
 
