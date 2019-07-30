@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 06:06:52 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 21:01:52 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ static void	init_map(t_all *all)
 	all->mlx.map_size = (x_size > y_size) ? y_size : x_size;
 	if (!all->mlx.map_size)
 		all->mlx.map_size = 1;
-	all->mlx.room_radius = 10;
-	all->mlx.ant_radius = 5;
+	all->mlx.room_radius = 50;
+	all->mlx.ant_radius = 25;
 	all->mlx.map_position_x = all->mlx.width / 2 - ((all->mlx.max_x - all->mlx.min_x) * all->mlx.map_size) / 2;
 	all->mlx.map_position_y = all->mlx.height / 2 - ((all->mlx.max_y - all->mlx.min_y) * all->mlx.map_size) / 2;
 	if (all->mlx.map_position_x < 0)
