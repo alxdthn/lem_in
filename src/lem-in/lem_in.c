@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:45:44 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 06:11:26 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	print_out(t_list *list)
 		ft_putendl(list->content);
 		list = list->next;
 	}
+	ft_putchar('\n');
 }
 
 int			main(void)
@@ -30,8 +31,11 @@ int			main(void)
 	all.exit = &lem_in_clear_exit;
 	parce_input(&all);
 	print_out(all.out);
-	ft_putchar('\n');
-	ft_solver(&all, all.rooms);
+	get_ways(&all, all.rooms);
+	send_ants(&all);
+	//print_ants(&all);
+	//print_ways(&all);
+
 //	print(&all);
 	//ft_printf("\n");
 	//ft_printf("L1-2 L2-3\nL1-7 L2-5\nL1-2 L2-2\nL1-7 L2-4\nL1-6 L2-0\nL1-5\nL1-2\nL1-4\nL1-0\n"); //for model_1

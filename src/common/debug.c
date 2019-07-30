@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 06:03:52 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 05:22:05 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,6 @@ static void	print_rooms_list(t_list *tmp)
 	ft_putchar('\n');
 }
 
-void	print_ants_list(t_list *ants)
-{
-	t_list	*tmp;
-	while (ants)
-	{
-		ft_printf("name: %d ", ((t_ant *)ants->content)->name);
-		tmp = ((t_ant *)ants->content)->path;
-		while (tmp)
-		{
-			ft_printf("%.*s ", ((t_room *)tmp->content)->name_len,
-			((t_room *)tmp->content)->name);
-			tmp = tmp->next;
-		}
-		ft_printf("\n");
-		ants = ants->next;
-	}
-}
-
 void		print(t_all *all)
 {
 	ft_printf("|___________name__________|___x___|___y___|\n");
@@ -75,4 +57,55 @@ void	print_ant_path(t_list *ants, int name)
 	while (ants && ((t_ant *)ants->content)->name != name)
 		ants = ants->next;
 	print_rooms_list(((t_ant *)ants->content)->path);
+}
+
+void	print_way(t_room **way, int way_number, int way_len)
+{
+	int		i;
+
+	ft_printf("path №%d (len %d): ", way_number, way_len);
+	i = 0;
+	while (way[i])
+	{
+		ft_printf("%.*s", way[i]->name_len, way[i]->name);
+		if (way[i + 1])
+			ft_printf(" -> ");
+		++i;
+	}
+}
+
+void	print_ways(t_all *all)
+{
+	t_ways	*node;
+
+	node = all->ways;
+	while (node)
+	{
+		print_way(node->way, node->nb, node->len);
+		node = node->next;
+		ft_printf("\n");
+	}
+}
+
+void	print_ants(t_all *all)
+{
+	t_list	*tmp_ant;
+
+	ft_printf("\nANTS\n______________\n");
+	ft_printf("_name_|_way_\n");
+	tmp_ant = all->ants;
+	while (tmp_ant)
+	{
+		ft_printf("%-6d| ", ((t_ant *)tmp_ant->content)->name);
+		if (((t_ant *)tmp_ant->content)->way)
+		{
+			print_way(((t_ant *)tmp_ant->content)->way->way,
+			((t_ant *)tmp_ant->content)->way->nb,
+			((t_ant *)tmp_ant->content)->way->len);
+			ft_printf("\n");
+		}
+		else
+			ft_printf("%p\n", ((t_ant *)tmp_ant->content)->way);
+		tmp_ant = tmp_ant->next;
+	}
 }

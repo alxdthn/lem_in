@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:10:26 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 06:40:54 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 05:12:17 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,40 +82,6 @@ static void	get_next_iteration(t_all *all)
 	}
 	all->mlx.cur_iter++;
 	render_info(all);
-}
-
-double	percentage(double start, double end, double cur)
-{
-	double	placement;
-	double	distance;
-
-	placement = cur - start;
-	distance = end - start;
-	return ((distance == 0) ? 1.0 : (placement / distance));
-}
-
-void	get_light(int *value, int start, int end, double percent)
-{
-	*value = (int)((1 - percent) * start + percent * end);
-}
-
-int		get_gradient(double start, double end, double cur)
-{
-	double	percent;
-	int		red;
-	int		green;
-	int		blue;
-
-	if (start >= end)
-		return (END_ROOM_COLOR);
-	percent = percentage(start, end, cur);
-	get_light(&red, (START_ROOM_COLOR >> 16) & 0xFF,
-	(END_ROOM_COLOR >> 16) & 0xFF, percent);
-	get_light(&green, (START_ROOM_COLOR >> 8) & 0xFF,
-	(END_ROOM_COLOR >> 8) & 0xFF, percent);
-	get_light(&blue, START_ROOM_COLOR & 0xFF,
-	END_ROOM_COLOR & 0xFF, percent);
-	return ((red << 16) | (green << 8) | blue);
 }
 
 void	render_ants(t_all *all)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:44:21 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 06:12:33 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,38 +60,28 @@ typedef struct	s_room
 	int			visit;
 	size_t		name_len;
 	char		*name;
-	int			ant;
-	//t_door		**doors;
+	int			ant_count;
+	int			path;
 	t_list 		*doors;
+	t_list		*ant;
 	char		type;
 	char		visit_early;
 	char		go_away;
 }				t_room;
 
-typedef struct	s_door
-{
-	t_room		*room;
-	char		is_close;
-	char		is_print;
-	char		is_neg;
-}				t_door;
-
-typedef struct		s_que
-{
-	t_room			*room;
-	struct s_que	*next;
-}					t_que;
-
 typedef	struct		s_ways
 {
 	t_room			**way;
 	int				len;
+	int				nb;
 	struct s_ways	*next;
 }					t_ways;
 
 typedef struct	s_ant
 {
 	t_list		*path;
+	t_ways		*way;
+	int			position;
 	double		x1;
 	double		y1;
 	double		x2;
@@ -109,6 +99,20 @@ typedef struct	s_ant
 	char		is_counted;
 	char		in_place;
 }				t_ant;
+
+typedef struct	s_door
+{
+	t_room		*room;
+	char		is_close;
+	char		is_print;
+	char		is_neg;
+}				t_door;
+
+typedef struct		s_que
+{
+	t_room			*room;
+	struct s_que	*next;
+}					t_que;
 
 typedef struct	s_tmp
 {
@@ -175,7 +179,9 @@ typedef struct	s_all
 	t_switchs	switchs;
 	int			ant_count;
 	int			room_count;
+	int			way_count;
 	char		prog;
+	char		debug;
 	void		(*exit)(struct s_all *, char *, int);
 }				t_all;
 
@@ -194,8 +200,10 @@ void			get_room(t_all *all);
 void			get_door(t_all *all);
 
 void 			print(t_all *all);
-void			print_ants_list(t_list *ants);
+void			print_ants(t_all *all);
 void			print_ant_path(t_list *ants, int name);
+void			print_way(t_room **way, int way_number, int way_len);
+void			print_ways(t_all *all);
 
 void			parce_ants(t_all *all);
 void			visualisation_init(t_all *all);
@@ -223,7 +231,8 @@ void			ft_push_back(t_room *room, t_que **q, t_all *all);
 void			ft_del_first(t_que **q);
 void			ft_create_mas(t_all *all, t_list *begin);
 void			ft_create_ways(t_all *all, int i, int end);
-void        	ft_solver(t_all *all, t_list *begin);
+void        	get_ways(t_all *all, t_list *begin);
 void			ft_create_str(t_all *all, t_ways *way, int ant, int name_an);
+void			send_ants(t_all *all);
 
 #endif

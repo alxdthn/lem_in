@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:16:02 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 02:33:59 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ void		ft_create_ways(t_all *all, int i, int end)
 	if (!(new = (t_ways *)malloc(sizeof(t_ways))))
 		all->exit(all, ERROR, 2);
 	new->len = all->mas_rom[end]->visit;
-	new->next = 0;
-    new->way = 0;
+	new->next = NULL;
+    new->way = NULL;
+    new->nb = ++all->way_count;
 	ft_push_front_way(all, &new, all->mas_rom[end], new->len + 1);
 	while (i > 0)
 	{
@@ -65,12 +66,4 @@ void		ft_create_ways(t_all *all, int i, int end)
 		i--;
 	}
 	ft_add_way(all, new);
-    i = 0;
-    while (new->way[i])
-    {
-        ft_putstr(new->way[i]->name);
-        ft_putchar('\n');
-        i++;
-    }
-	ft_putchar('\n');
 }
