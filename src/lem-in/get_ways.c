@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ways.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 22:25:07 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 23:22:45 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void        get_ways(t_all *all, t_list *begin)
 		close_doors(all);
 	while (!is_independent_ways(all, all->mas_rom, 0))
 	{
-		ft_putstr("KO");
 		clean_room_open_ways(all, all->mas_rom, 0, 0);
 		if (!(all->dependent_ways))
 			all->dependent_ways = all->ways;
@@ -68,8 +67,7 @@ void        get_ways(t_all *all, t_list *begin)
 			close_doors(all);
 	}
 	if (all->dependent_ways)
-	{
 		choose_ways(all, all->ant_count, all->ways, all->dependent_ways);
-		ft_putstr("OK\n");
-	}
+	else
+		distribute_ants_to_ways(all, all->ways, all->ways, 0);
 }

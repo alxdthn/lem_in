@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:27:19 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 23:08:32 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	clear_room(void *room, size_t size)
 void		lem_in_clear_exit(t_all *all, char *message, int fd)
 {
 	all->out = all->out_head;
+	all->ants = all->ants_head;
 	ft_lstdel(&all->rooms, clear_room);
 	ft_lstdel(&all->out, ft_lstclear);
 	if (message)

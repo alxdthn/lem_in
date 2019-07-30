@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 22:24:37 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 23:18:42 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define END_ROOM_COLOR 0xeb4034
 # define BACKGROUND_COLOR 0xFFFFFF
 # define ROOM_FIL_COLOR BACKGROUND_COLOR
+# define ANT ((t_ant *)ant->content)
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx_keys.h"
@@ -63,7 +64,6 @@ typedef struct	s_room
 	int			ant_count;
 	int			path;
 	t_list 		*doors;
-	t_list		*ant;
 	char		type;
 	char		visit_early;
 	char		go_away;
@@ -170,8 +170,9 @@ typedef struct	s_all
 	t_list		*input_head;
 	t_list		*out;
 	t_list		*out_head;
-	t_list		*rooms;
 	t_list		*ants;
+	t_list		*ants_head;
+	t_list		*rooms;
 	t_ways		*ways;
 	t_ways		*dependent_ways;
 	t_room		**mas_rom;
@@ -191,6 +192,7 @@ void			lem_in_clear_exit(t_all *all, char *message, int fd);
 void			visu_hex_clear_exit(t_all *all, char *message, int fd);
 void			parce_input(t_all *all);
 void			push_back(t_list **lst, t_list *node, t_list **head);
+void			clear_room_visit(t_room **mas_rom);
 
 t_room			*find_room_in_doors_list_by_nb(t_list *rooms, int nb);
 t_room			*find_room_by_name(t_list *rooms, char *name);
@@ -240,5 +242,6 @@ int				is_independent_ways(t_all *all, t_room **room, int i);
 void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
 void			choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
+int				distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i);
 
 #endif

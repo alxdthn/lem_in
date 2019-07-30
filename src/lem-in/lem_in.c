@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 22:26:47 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 22:44:42 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ static void	print_out(t_list *list)
 		list = list->next;
 	}
 	ft_putchar('\n');
+}
+
+void	clear_room_visit(t_room **mas_rom)
+{
+	int		i;
+
+	i = 0;
+	while (mas_rom[i])
+		mas_rom[i++]->visit_early = '\0';
 }
 
 int			main(void)

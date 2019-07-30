@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   choose_way_and_ant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 22:21:32 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 22:44:55 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	clean_room(t_all *all, t_room **mas_rom, int i)
-{
-	while (mas_rom[i])
-	{
-		mas_rom[i++]->visit_early = '\0';
-	}
-}
 
 void	remove_way(t_ways *prev, t_ways **dep, int i, int stop)
 {
@@ -87,7 +79,7 @@ void	choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
 	int indep_move;
 	int	dep_move;
 
-	clean_room(all, all->mas_rom, 0);
+	clear_room_visit(all->mas_rom);
 	do_independent_this_ways(all, dep, dep, 0);
 	indep_move = distribute_ants_to_ways(all, indep, indep, 0);
 	dep_move = distribute_ants_to_ways(all, dep, dep, 0);
