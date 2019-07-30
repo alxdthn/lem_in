@@ -6,13 +6,13 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:40:25 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 05:00:55 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_create_mas(t_all *all, t_list *begin)
+void		create_mas(t_all *all, t_list *begin)
 {
 	int		i;
 
@@ -53,7 +53,7 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 		if ((*q)->room->go_away)
 		{
 		//	(*q)->room->go_away = '\0';
-			// ft_printf("go_aw - %s\n", (*q)->room->name);
+		//	ft_printf("go_aw - %s\n", (*q)->room->name);
 			tmp = doors->content;
 			while (doors->next && (!tmp->room->visit_early || tmp->is_close) && tmp->room->visit_early != '2')
 			{
@@ -64,8 +64,8 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 			}
 			// ft_printf("room - %s\n", tmp->room->name);
 			if (tmp->room->visit == -1 && !tmp->is_close && tmp->room->visit_early == '1')
-				ft_push_back(tmp->room, &new, all);
-			ft_del_first(q);
+				q_push_back(tmp->room, &new, all);
+			del_first(q);
 			continue;
 		}
 		while (doors)
@@ -73,15 +73,19 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 			tmp = doors->content;
 		//	ft_printf("from - %s visit - %d, to - %s visit - %d\n", (*q)->room->name, (*q)->room->visit, tmp->room->name, tmp->room->visit);
 			if (tmp->room->visit == -1 && !tmp->is_close && tmp->room->visit_early != '2')
-				ft_push_back(tmp->room, &new, all);
-			if (!(*q)->room->visit_early && tmp->room->visit_early && tmp->room->visit == -1)
+			{
+			//	if (tmp->room->name[0] == 'D')
+			//		ft_putstr(tmp->room->name);
+				q_push_back(tmp->room, &new, all);
+			}
+			if (!(*q)->room->visit_early && tmp->room->visit_early && tmp->room->visit == -1 && !tmp->is_close)
 			{
 			//	ft_printf("from - %s visit - %d, to - %s visit - %d\n", (*q)->room->name, (*q)->room->visit, tmp->room->name, tmp->room->visit);
 				tmp->room->go_away = '1';
 			}
 			doors = doors->next;
 		}
-		ft_del_first(q);
+		del_first(q);
 	}
 	*nbr += 1;
 	*q = new;
@@ -96,14 +100,14 @@ void		ft_clean_index(t_all *all)
 		all->mas_rom[nbr++]->visit = -1;
 }
 
-int			ft_bfs(t_all *all, t_list *begin)
+int			bfs(t_all *all, t_list *begin)
 {
 	t_que	*q;
 	int		nbr;
 
 	nbr = 0;
 	q = 0;
-	ft_push_back(all->mas_rom[0], &q, all);
+	q_push_back(all->mas_rom[0], &q, all);
 	while (q && all->mas_rom[all->room_count - 1]->visit == -1)
 		ft_go_to_graph(&q, all, &nbr);
 	//ft_putnbr(all->mas_rom[all->room_count - 1]->type);
@@ -113,7 +117,7 @@ int			ft_bfs(t_all *all, t_list *begin)
 		ft_clean_index(all);
 		return (0);
 	}
-	ft_create_ways(all, all->mas_rom[all->room_count - 1]->visit,
+	create_ways(all, all->mas_rom[all->room_count - 1]->visit,
 	all->room_count - 1);
 	// nbr = 0;
 	// while (all->mas_rom[nbr])

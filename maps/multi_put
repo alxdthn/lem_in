@@ -1,0 +1,17 @@
+25
+##start
+A 15 0
+B 0 10
+C 10 10
+D 20 10
+E 30 10
+##end
+F 15 20
+A-B
+B-F
+A-C
+C-F
+A-D
+D-F
+A-E
+E-F

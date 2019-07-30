@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/30 06:11:03 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/30 22:27:25 by skrystin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,9 @@ LEM_SRC =	lem_in.c \
 			queue.c \
 			ways.c \
 			get_ways.c \
-			send_ants.c
+			send_ants.c \
+			independent_ways.c \
+			choose_way_and_ant.c
 VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
