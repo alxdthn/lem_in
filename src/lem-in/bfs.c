@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:40:25 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 03:55:42 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 		if ((*q)->room->go_away)
 		{
 		//	(*q)->room->go_away = '\0';
-			// ft_printf("go_aw - %s\n", (*q)->room->name);
+		//	ft_printf("go_aw - %s\n", (*q)->room->name);
 			tmp = doors->content;
 			while (doors->next && (!tmp->room->visit_early || tmp->is_close) && tmp->room->visit_early != '2')
 			{
@@ -73,8 +73,12 @@ void		ft_go_to_graph(t_que **q, t_all *all, int *nbr)
 			tmp = doors->content;
 		//	ft_printf("from - %s visit - %d, to - %s visit - %d\n", (*q)->room->name, (*q)->room->visit, tmp->room->name, tmp->room->visit);
 			if (tmp->room->visit == -1 && !tmp->is_close && tmp->room->visit_early != '2')
+			{
+			//	if (tmp->room->name[0] == 'D')
+			//		ft_putstr(tmp->room->name);
 				ft_push_back(tmp->room, &new, all);
-			if (!(*q)->room->visit_early && tmp->room->visit_early && tmp->room->visit == -1)
+			}
+			if (!(*q)->room->visit_early && tmp->room->visit_early && tmp->room->visit == -1 && !tmp->is_close)
 			{
 			//	ft_printf("from - %s visit - %d, to - %s visit - %d\n", (*q)->room->name, (*q)->room->visit, tmp->room->name, tmp->room->visit);
 				tmp->room->go_away = '1';

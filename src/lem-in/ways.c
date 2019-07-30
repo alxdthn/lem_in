@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ways.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 00:16:02 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/30 04:13:10 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,24 @@ void        ft_add_way(t_all *all, t_ways *new)
     }
 }
 
+int			ft_is_close(t_room *start, t_room *finish)
+{
+	t_list	*tmp;
+
+	tmp = start->doors;
+	while (tmp)
+	{
+		if (((t_door *)tmp->content)->room == finish &&
+		((t_door *)tmp->content)->is_close)
+			return (1);
+		else if (((t_door *)tmp->content)->room == finish &&
+		!((t_door *)tmp->content)->is_close)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void		ft_create_ways(t_all *all, int i, int end)
 {
 	t_ways	*new;
@@ -56,11 +74,13 @@ void		ft_create_ways(t_all *all, int i, int end)
 	{
 		tmp = new->way[i]->doors;
 		door = tmp->content;
-		while (door->room->visit != i - 1)
+		while (door->room->visit != i - 1 || ft_is_close(door->room, new->way[i]))
 		{
 			tmp = tmp->next;
 			door = tmp->content;
 		}
+		// if ()
+		// 	ft_putstr(door->room->name);
 		ft_push_front_way(all, &new, door->room, new->len);
 		i--;
 	}

@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:44:21 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 02:52:21 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct	s_all
 	t_list		*rooms;
 	t_list		*ants;
 	t_ways		*ways;
+	t_ways		*dependent_ways;
 	t_room		**mas_rom;
 	t_room		*start_room;
 	t_room		*end_room;
@@ -225,5 +226,8 @@ void			ft_create_mas(t_all *all, t_list *begin);
 void			ft_create_ways(t_all *all, int i, int end);
 void        	ft_solver(t_all *all, t_list *begin);
 void			ft_create_str(t_all *all, t_ways *way, int ant, int name_an);
+int				is_independent_ways(t_all *all, t_room **room, int i);
+void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
+void			delete_ways(t_all *all, int i);
 
 #endif
