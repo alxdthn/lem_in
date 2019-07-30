@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 22:44:42 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:39:30 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int			main(void)
 	all.prog = LEM_IN;
 	all.exit = &lem_in_clear_exit;
 	parce_input(&all);
-	print_out(all.out);
+	//print_out(all.out);
 	get_ways(&all, all.rooms);
-	send_ants(&all);
+	//send_ants(&all);
+	print_ways(&all);
 	//print_ants(&all);
-	//print_ways(&all);
 
 //	print(&all);
 	//ft_printf("\n");

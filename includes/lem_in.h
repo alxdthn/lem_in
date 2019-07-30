@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 23:18:42 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:33:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void			get_door(t_all *all);
 void 			print(t_all *all);
 void			print_ants(t_all *all);
 void			print_ant_path(t_list *ants, int name);
-void			print_way(t_room **way, int way_number, int way_len);
+void			print_way(t_room **way, int way_number, int way_len, int way_ants);
 void			print_ways(t_all *all);
 
 void			parce_ants(t_all *all);

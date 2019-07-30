@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 22:44:55 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:29:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,18 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 			way = begin;
 			continue;
 		}
-		while (way && (way->len) + way->ants <= (way->next->len) + way->next->ants
-		&& (way->len) + way->ants <= (begin->len) + begin->ants)
+		while (way->len + way->ants <= way->next->len + way->next->ants
+		&& (way->len + way->ants < begin->len + begin->ants || way == begin))
 		{
 			way->ants++;
 			ants--;
 		}
-		way = way->next;
+		if (way != begin && way->len + way->ants == begin->len + begin->ants)
+			way = begin;
+		else
+			way = way->next;
 	}
-	return ((begin->len) + begin->ants);
+	return (begin->len + begin->ants);
 }
 
 void	choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
