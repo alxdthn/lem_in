@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_way_and_ant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 22:44:55 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:50:50 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,24 @@ void	do_independent_this_ways(t_all *all, t_ways *dep, t_ways *prev, int i)
 int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 {
 	int	ants;
+	int	sum;
 
 	ants = all->ant_count;
+	sum = begin->len + 1;
 //	ft_printf("begin - %d\n", begin->ants);
 	while (ants > 0)
 	{
-		if (!way->next)
+		while (way)
 		{
-			way->ants++;
-			ants--;
-			way = begin;
-			continue;
+			if (sum < way->len + way->ants)
+			{
+				way->ants++;
+				ants--;
+			}
+			way = way->next;
 		}
-		while (way && (way->len) + way->ants <= (way->next->len) + way->next->ants
-		&& (way->len) + way->ants <= (begin->len) + begin->ants)
-		{
-			way->ants++;
-			ants--;
-		}
-		way = way->next;
+		way = begin;
+		sum++;
 	}
 	return ((begin->len) + begin->ants);
 }

@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 05:00:55 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/30 23:57:09 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int			bfs(t_all *all, t_list *begin)
 	q_push_back(all->mas_rom[0], &q, all);
 	while (q && all->mas_rom[all->room_count - 1]->visit == -1)
 		ft_go_to_graph(&q, all, &nbr);
+	free(q);
 	//ft_putnbr(all->mas_rom[all->room_count - 1]->type);
 	if (all->mas_rom[all->room_count - 1]->visit == -1)
 	{
