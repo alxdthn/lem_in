@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/31 03:28:44 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/31 23:45:54 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,32 @@ void	remove_way(t_ways *prev, t_ways **dep, int i, int stop)
 	*dep = NULL;
 }
 
-void	do_independent_this_ways(t_all *all, t_ways *dep, t_ways *prev, int i)
+void	do_independent_this_ways(t_all *all, t_ways **dep, t_ways *prev, int i)
 {
-	if (!dep->next)
+	t_ways	*beg;
+
+	beg = *dep;
+	if (!(*dep)->next)
 		return ;
-	while (dep)
+//	ft_putstr("fsdf ");
+	while (*dep)
 	{
-		while (dep->way[i])
+		while ((*dep)->way[i])
 		{
-			if (dep->way[i]->visit_early)
+			if ((*dep)->way[i]->visit_early)
 			{
-				remove_way(prev, &dep, 0, i);
+				remove_way(prev, dep, 0, i);
 				break ;
 			}
-			dep->way[i]->visit_early = '1';
+			(*dep)->way[i]->visit_early = '1';
 			i++;
 		}
-		if (dep != prev)
+		if ((*dep) != prev)
 			prev = prev->next;
 		if (prev)
-			dep = prev->next;
+			*dep = prev->next;
 	}
+	*dep = beg;
 }
 
 int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
@@ -54,13 +59,13 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 	int	sum;
 
 	ants = all->ant_count;
-	sum = begin->len + 1;
+	sum = 1;
 //	ft_printf("begin - %d\n", begin->ants);
 	while (ants > 0)
 	{
 		while (way)
 		{
-			if (sum > way->len + way->ants)
+			while (sum > way->len + way->ants && ants)
 			{
 				way->ants++;
 				ants--;
@@ -73,17 +78,18 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 	return (begin->len + begin->ants);
 }
 
-void	choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
+void	choose_ways(t_all *all, int ant, t_ways **indep, t_ways **dep)
 {
 	int indep_move;
 	int	dep_move;
 
-	if (!is_independent_ways(all, all->mas_rom, 0))
-		do_independent_this_ways(all, indep, indep, 0);
 	clear_room_visit(all->mas_rom);
-	do_independent_this_ways(all, dep, dep, 0);
-	indep_move = distribute_ants_to_ways(all, indep, indep, 0);
-	dep_move = distribute_ants_to_ways(all, dep, dep, 0);
+	if (!is_independent_ways(all, all->mas_rom, 0))
+//	ft_putchar('\n');
+		do_independent_this_ways(all, indep, *indep, 0);
+	do_independent_this_ways(all, dep, *dep, 0);
+	indep_move = distribute_ants_to_ways(all, *indep, *indep, 0);
+	dep_move = distribute_ants_to_ways(all, *dep, *dep, 0);
 	if (indep_move > dep_move)
 	{
 		delete_ways(all, 0);

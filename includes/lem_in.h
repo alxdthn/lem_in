@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 17:45:04 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/31 23:19:27 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ void			draw_point(t_img *img, int x, int y);
 
 void        	get_ways(t_all *all, t_list *begin);
 void			send_ants(t_all *all);
-int				bfs(t_all *all, t_list *begin);
+int				bfs(t_all *all, t_list *begin, int flag);
 void			q_push_back(t_room *room, t_que **q, t_all *all);
 void			del_first(t_que **q);
 void			create_mas(t_all *all, t_list *begin);
@@ -242,7 +242,7 @@ void			create_str(t_all *all, t_ways *way, int ant, int name_an);
 int				is_independent_ways(t_all *all, t_room **room, int i);
 void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
-void			choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
+void			choose_ways(t_all *all, int ant, t_ways **indep, t_ways **dep);
 int				distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i);
 
 #endif
