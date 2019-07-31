@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 01:46:40 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 04:21:04 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/07/31 17:46:06 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ void	clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i)
 					// ((t_door *)second->content)->room->name, ((t_door *)tmp->content)->room->name, ((t_door *)second->content)->is_close, ((t_door *)tmp->content)->is_close);
 					((t_door *)second->content)->is_close = '\0';
 					((t_door *)tmp->content)->is_close = '\0';
+					((t_door *)second->content)->is_neccessary = '1';
+					((t_door *)tmp->content)->is_neccessary = '1';
 				}
 				else
 				{
-					// ft_printf("\nfirst room - %s, second room - %s; close first - %c, close second - %c\n",
-					// ((t_door *)second->content)->room->name, ((t_door *)tmp->content)->room->name, ((t_door *)second->content)->is_close, ((t_door *)tmp->content)->is_close);
+				//	ft_printf("\nfirst room - %s, second room - %s; close first - %c, close second - %c\n",
+				//	((t_door *)second->content)->room->name, ((t_door *)tmp->content)->room->name, ((t_door *)second->content)->is_close, ((t_door *)tmp->content)->is_close);
 				}
 			}
 			tmp = tmp->next;

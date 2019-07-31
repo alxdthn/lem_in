@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/11 16:58:18 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/29 02:19:34 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/31 03:22:29 by skrystin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,9 +108,7 @@ LFT_SRC =	ft_arraydel.c \
 			ft_check_file_format.c \
 			ft_lstcount.c \
 
-GNL_SRC =	get_next_line.c \
-			clear_fd_node.c \
-			write_func.c
+GNL_SRC =	get_next_line.c
 
 PF_SRC =	ft_printf.c \
 			pf_ltoa_base.c \

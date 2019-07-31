@@ -3,105 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vsanta <vsanta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/11 22:19:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:02:12 by nalexand         ###   ########.fr       */
+/*   Created: 2019/04/14 16:05:42 by vsanta            #+#    #+#             */
+/*   Updated: 2019/07/12 20:59:07 by vsanta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		init_new_fd(t_gnl *gnl)
+static	int		ft_to_line(char **line, char **tmp, int ret)
 {
-	t_fd	new_fd;
-	t_list	*node;
-	t_list	*tmp;
+	char	*tmp_b;
+	int		n_ind;
 
-	tmp = gnl->fd_lst;
-	while (tmp)
+	n_ind = 0;
+	while ((*tmp)[n_ind] != '\0' && (*tmp)[n_ind] != '\n')
+		n_ind++;
+	if ((*tmp)[0] == '\0' && ret == 0)
 	{
-		if (((t_fd *)tmp->content)->fd == gnl->fd)
-		{
-			gnl->cur_fd = (t_fd **)&tmp->content;
-			return (0);
-		}
-		tmp = tmp->next;
+		ft_strdel(tmp);
+		return (0);
 	}
-	ft_bzero(&new_fd, sizeof(t_fd));
-	new_fd.fd = gnl->fd;
-	new_fd.buf = NULL;
-	if (!(node = ft_lstnew(&new_fd, sizeof(t_fd))))
+	if ((*line = ft_strsub(*tmp, 0, n_ind)) == NULL)
 		return (-1);
-	ft_lstadd(&gnl->fd_lst, node);
-	gnl->cur_fd = (t_fd **)&node->content;
-	return (0);
+	if ((tmp_b = ft_strsub(*tmp, n_ind + 1, ft_strlen(*tmp) - n_ind)) == NULL)
+		return (-1);
+	free(*tmp);
+	*tmp = tmp_b;
+	return (1);
 }
 
-static ssize_t	extract_line(t_gnl *gnl)
+static	int		ft_free_tmpfd(char **tmp)
 {
-	t_list	*tmp;
-	char	*tmp_str;
-
-	gnl->lst_ofset = 0;
-	if ((*gnl->cur_fd)->buf->next)
-	{
-		tmp = (*gnl->cur_fd)->buf->next;
-		while (tmp)
-		{
-			gnl->lst_ofset += tmp->content_size;
-			tmp = tmp->next;
-		}
-	}
-	tmp_str = ft_memchr(CONT, '\n', SIZE);
-	gnl->node_ofset = (tmp_str) ? (ssize_t)tmp_str - (ssize_t)CONT : SIZE;
-	gnl->ret = gnl->node_ofset + gnl->lst_ofset + 1;
-	if (!(*gnl->line = ft_strnew(gnl->ret - 1)))
-		return (gnl->ret = -1);
-	write_line(gnl);
-	return (0);
+	free(*tmp);
+	return (-1);
 }
 
-static ssize_t	get_new_line(t_gnl *gnl)
+int				get_next_line(const int fd, char **line)
 {
-	t_list	*new_buf;
+	char			buf[BUFF_SIZE + 1];
+	static	char	*tmp[MAX_FD + 1];
+	char			*tmp_b;
+	int				ret;
 
-	while (!(*gnl->cur_fd)->buf || !(ft_memchr(CONT, '\n', SIZE)))
+	if (line == NULL || fd < 0 || fd > MAX_FD)
+		return (-1);
+	if (tmp[fd] == NULL)
+		if ((tmp[fd] = ft_strnew(0)) == NULL)
+			return (-1);
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		if (!(gnl->read_ret = read(gnl->fd, gnl->buf, BUFF_SIZE)))
+		buf[ret] = '\0';
+		if ((tmp_b = ft_strjoin(tmp[fd], buf)) == NULL)
+			return (ft_free_tmpfd(&tmp[fd]));
+		free(tmp[fd]);
+		tmp[fd] = tmp_b;
+		if (ft_strchr(buf, '\n'))
 			break ;
-		if (!(new_buf = ft_lstnew(gnl->buf, gnl->read_ret)))
-			return (gnl->ret = -1);
-		ft_lstadd(&(*gnl->cur_fd)->buf, new_buf);
 	}
-	if (!(*gnl->cur_fd)->buf && !gnl->read_ret)
-		return (gnl->ret = 0);
-	extract_line(gnl);
-	return (0);
-}
-
-ssize_t			get_next_line(const int fd, char **line)
-{
-	static t_gnl	gnl;
-	char			tmp_buf[0];
-
-	if (fd < 0 || line == NULL
-	|| (gnl.read_ret = read(fd, tmp_buf, 0)) < 0)
+	if (ret < 0)
 		return (-1);
-	gnl.ret = 0;
-	gnl.fd = fd;
-	gnl.line = line;
-	if (init_new_fd(&gnl) == -1)
-	{
-		ft_lstdel(&gnl.fd_lst, fd_lst_clear);
-		return (-1);
-	}
-	get_new_line(&gnl);
-	if (gnl.ret == -1)
-		ft_lstdel(&gnl.fd_lst, fd_lst_clear);
-	if (!(*gnl.cur_fd)->buf && !gnl.read_ret)
-		clear_fd_node(&gnl);
-	if (gnl.ret > 0)
-		gnl.ret = 1;
-	return (gnl.ret);
+	return (ft_to_line(line, &tmp[fd], ret));
 }
