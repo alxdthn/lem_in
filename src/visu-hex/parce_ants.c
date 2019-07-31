@@ -6,18 +6,33 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:26:19 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 01:14:49 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
+static t_list	*create_new_ant(t_all *all, int name)
+{
+	t_ant	new_ant;
+	t_list	*ant;
+
+	ft_bzero(&new_ant, sizeof(t_ant));
+	if (!(new_ant.path = ft_lstnew(NULL, 0))
+	|| !(ant = ft_lstnew(&new_ant, sizeof(t_ant))))
+		all->exit(all, ERROR, 2);
+	ANT->path->content = all->start_room;
+	ANT->path->content_size = sizeof(t_room *);
+	ANT->name = name;
+	ft_lstadd(&all->ants, ant);
+	return (ant);
+}
+
 static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 {
+	t_list	*ant;
+	t_list	*path;
 	int		name;
-	t_ant	*ant;
-	t_ant	new_ant;
-	t_list	*node;
 
 	if (line[(*i)++] != 'L')
 		all->exit(all, ERROR, 2);
@@ -25,53 +40,45 @@ static t_ant	*init_ant(t_all *all, size_t *i, size_t *j, char *line)
 	if (line[(*i)++] != '-')
 		all->exit(all, ERROR, 2);
 	if (!(ant = find_ant_by_name(all->ants, name)))
-	{
-		ft_bzero(&new_ant, sizeof(t_ant));
-		if (!(new_ant.path = ft_lstnew(NULL, 0))
-		|| !(node = ft_lstnew(&new_ant, sizeof(t_ant))))
-			all->exit(all, ERROR, 2);
-		((t_ant *)node->content)->path->content = all->start_room;
-		((t_ant *)node->content)->path->content_size = sizeof(t_room *);
-		((t_ant *)node->content)->name = name;
-		ft_lstadd(&all->ants, node);
-		ant = (t_ant *)all->ants->content;
-	}
-	if (!(node = ft_lstnew(NULL, 0))
-	|| !(node->content = find_room_by_name(all->rooms, line + *i)))
+		ant = create_new_ant(all, name);
+	if (!(path = ft_lstnew(NULL, 0))
+	|| !(path->content = find_room_by_name(all->rooms, line + *i)))
 		all->exit(all, ERROR, 2);
-	node->content_size = sizeof(t_room *);
-	ft_lstpushback(&ant->path, node);
-	return (ant);
+	path->content_size = sizeof(t_room *);
+	ft_lstpushback(&ANT->path, path);
+	return (ant->content);
 }
 
-void	read_ants_to_list(t_all *all, t_list *lines, size_t size)
+static void		read_ants_to_list(t_all *all, t_list *lines, size_t s)
 {
 	size_t	i;
 	size_t	j;
 	size_t	k;
 
 	j = 0;
-	all->iterations = (t_ant ***)ft_memalloc(sizeof(t_ant **) * (size + 1));
+	if (!(all->iterations = (t_ant ***)ft_memalloc(sizeof(t_ant **) * (s + 1))))
+		all->exit(all, ERROR, 2);
 	while (lines)
 	{
 		i = 0;
 		k = 0;
-		all->iterations[j] = (t_ant **)ft_memalloc(sizeof(t_ant *) * (ft_strccount((char *)lines->content, 'L') + 1));
-		while (((char *)lines->content)[i])
+		if (!(all->iterations[j] = (t_ant **)ft_memalloc(sizeof(t_ant *)
+		* (ft_strccount(LINE, 'L') + 1))))
+			all->exit(all, ERROR, 2);
+		while (LINE[i])
 		{
-			all->iterations[j][k++] = init_ant(all, &i, &j, (char *)lines->content);
-			while (((char *)lines->content)[i] && ((char *)lines->content)[i] != ' ')
+			all->iterations[j][k++] = init_ant(all, &i, &j, LINE);
+			while (LINE[i] && LINE[i] != ' ')
 				i++;
-			if (((char *)lines->content)[i] == ' ')
+			if (LINE[i] == ' ')
 				i++;
 		}
 		j++;
-		ft_memdel(&lines->content);
 		lines = lines->next;
 	}
 }
 
-void	parce_ants(t_all *all)
+void			parce_ants(t_all *all)
 {
 	t_list	*node;
 	size_t	iterations;

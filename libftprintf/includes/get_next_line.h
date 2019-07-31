@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/29 02:05:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:06:02 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 07:04:53 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,10 @@ typedef struct		s_gnl
 	ssize_t			lst_ofset;
 	ssize_t			node_ofset;
 	int				fd;
-	char			**line;
+	char			*tmp_ptr;
 }					t_gnl;
 
 void				clear_fd_node(t_gnl *gnl);
 void				fd_lst_clear(void *content, size_t size);
-void				write_line(t_gnl *gnl);
 
 #endif

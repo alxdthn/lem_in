@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/11 16:58:18 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/29 02:19:34 by nalexand         ###   ########.fr        #
+#    Updated: 2019/07/31 07:00:54 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ C_FLAGS = -g -Wall -Werror -Wextra
 HEADER = -I includes
 PF_HEAD = ./includes/ft_printf.h
 LFT_HEAD = ./includes/libft.h
+GNL_HEAD = ./includes/get_next_line.h
 
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -109,8 +110,7 @@ LFT_SRC =	ft_arraydel.c \
 			ft_lstcount.c \
 
 GNL_SRC =	get_next_line.c \
-			clear_fd_node.c \
-			write_func.c
+			clear_fd_node.c
 
 PF_SRC =	ft_printf.c \
 			pf_ltoa_base.c \

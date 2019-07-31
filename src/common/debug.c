@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 00:35:57 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 01:54:00 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,28 @@ void	print_ants(t_all *all)
 		else
 			ft_printf("%p\n", ((t_ant *)tmp_ant->content)->way);
 		tmp_ant = tmp_ant->next;
+	}
+}
+
+void	print_iterations(t_all *all)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (all->iterations[i])
+	{
+		j = 0;
+		ft_printf("iteration: № %d\n", i);
+		ft_printf("---------------\n");
+		while (all->iterations[i][j])
+		{
+			ft_printf("name: %d\n", all->iterations[i][j]->name);
+			ft_printf("x1: %d\n", all->iterations[i][j]->x1);
+			ft_printf("y1: %d\n", all->iterations[i][j]->y1);
+			j++;
+		}
+		ft_printf("---------------\n");
+		i++;
 	}
 }

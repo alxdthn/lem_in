@@ -6,13 +6,13 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:10:26 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 05:12:17 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 07:34:49 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void draw_ant(t_all *all, t_ant *ant)
+static void	draw_ant(t_all *all, t_ant *ant)
 {
 	t_line_params	params;
 	int				radius;
@@ -43,24 +43,30 @@ static void	count_ant_params(t_all *all, t_ant *ant)
 	}
 	ant->delta_x = ABS(ant->x2 - ant->x1);
 	ant->delta_y = ABS(ant->y2 - ant->y1);
-	ant->dir_x = (ant->x1 < ant->x2) ? 1 : -1 ;
-	ant->dir_y = (ant->y1 < ant->y2) ? 1 : -1 ;
+	ant->dir_x = (ant->x1 < ant->x2) ? 1 : -1;
+	ant->dir_y = (ant->y1 < ant->y2) ? 1 : -1;
 	ant->speed_x = ant->delta_x / all->mlx.speed;
 	ant->speed_y = ant->delta_y / all->mlx.speed;
 	ant->is_counted = 1;
 }
 
-static void moove_ant(t_all *all, t_ant *ant)
+static void	moove_ant(t_all *all, t_ant *ant)
 {
-	if (ABS(ant->x1 - ant->x2) < 1.0)
+	if (ABS(ant->x1 - ant->x2) < 0.1)
 		ant->x1 = ant->x2;
 	else
 		ant->x1 += ant->speed_x * ant->dir_x;
-	if (ABS(ant->y1 - ant->y2) < 1.0)
+	if (ABS(ant->y1 - ant->y2) < 0.1)
 		ant->y1 = ant->y2;
 	else
 		ant->y1 += ant->speed_y * ant->dir_y;
 	ant->cur_point += ant->speed_x + ant->speed_y;
+	if (ant->x1 == ant->x2 && ant->y1 == ant->y2)
+	{
+		ant->in_place = 1;
+		if (((t_room *)ant->path->next->content)->type == END)
+			all->mlx.ants_in_end++;
+	}
 }
 
 static void	get_next_iteration(t_all *all)
@@ -84,7 +90,7 @@ static void	get_next_iteration(t_all *all)
 	render_info(all);
 }
 
-void	render_ants(t_all *all)
+void		render_ants(t_all *all)
 {
 	size_t	j;
 	t_ant	*ant;
@@ -102,12 +108,6 @@ void	render_ants(t_all *all)
 				count_ant_params(all, ant);
 			draw_ant(all, ant);
 			moove_ant(all, ant);
-			if (ant->x1 == ant->x2 && ant->y1 == ant->y2)
-			{
-				ant->in_place = 1;
-				if (((t_room *)ant->path->next->content)->type == END)
-					all->mlx.ants_in_end++;
-			}
 			flag = 1;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 23:15:01 by nalexand          #+#    #+#             */
-/*   Updated: 2019/04/15 03:49:36 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 04:25:27 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*ft_strnew(size_t size)
 
 	if ((size + 1) == 0)
 		return (NULL);
-	if (!(str = ft_memalloc(size + 1)))
+	if (!(str = malloc(size + 1)))
 		return (NULL);
+	str[size] = '\0';
 	return (str);
 }

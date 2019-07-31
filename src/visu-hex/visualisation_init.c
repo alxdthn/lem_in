@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:07:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 06:02:16 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:30:41 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,11 @@ static void	mlx_init_params(t_all *all)
 	all->mlx.map.size_line /= 4;
 	all->mlx.map.size = all->mlx.width * all->mlx.height;
 	all->mlx.ants.ptr = mlx_new_image(all->mlx.ptr, all->mlx.width, all->mlx.height);
-	all->mlx.ants.data = (int *)mlx_get_data_addr(all->mlx.ants.ptr, &all->mlx.ants.bpp, &all->mlx.ants.size_line, &all->mlx.ants.endian);
+	all->mlx.ants.data = (int *)mlx_get_data_addr(all->mlx.ants.ptr,
+	&all->mlx.ants.bpp, &all->mlx.ants.size_line, &all->mlx.ants.endian);
 	all->mlx.ants.size_line /= 4;
 	all->mlx.ants.size = all->mlx.width * all->mlx.height;
+	ft_memset(all->mlx.ants.data, 0xFF000000, sizeof(int) * all->mlx.ants.size);
 }
 
 void		visualisation_init(t_all *all)

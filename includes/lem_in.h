@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 00:33:19 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 03:06:49 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@
 # define END 2
 # define ABS(x) ((x) > 0 ? (x) : -(x))
 # define ANT_COLOR 0x34abeb
-# define WAY_COLOR 0x000000
+# define INFO_COLOR 0x005dba
+# define WAY_COLOR 0x404040
 # define ROOM_BORDER WAY_COLOR
+# define ROOM_NAME_COLOR INFO_COLOR
 # define START_ROOM_COLOR 0xff9d00
 # define END_ROOM_COLOR 0xeb4034
 # define BACKGROUND_COLOR 0xFFFFFF
 # define ROOM_FIL_COLOR BACKGROUND_COLOR
 # define ANT ((t_ant *)ant->content)
+# define LINE ((char *)lines->content)
+# define ROOM ((t_room *)room->content)
 # include "libft.h"
 # include "ft_printf.h"
 # include "mlx_keys.h"
@@ -141,6 +145,7 @@ typedef struct	s_mlx
 	void		*win;
 	char		*info_iter;
 	char		*info_ant_in_end;
+	char		*info_count_of_ants;
 	int			width;
 	int			height;
 	int			size;
@@ -158,6 +163,7 @@ typedef struct	s_mlx
 	int			cur_iter;
 	int			speed;
 	int			ants_in_end;
+	int			min_path_size;
 	char		working;
 	char		names;
 }				t_mlx;
@@ -197,17 +203,11 @@ void			clear_room_visit(t_room **mas_rom);
 t_room			*find_room_in_doors_list_by_nb(t_list *rooms, int nb);
 t_room			*find_room_by_name(t_list *rooms, char *name);
 t_door			*find_door_by_room_nb(t_room *room, int nb);
-t_ant			*find_ant_by_name(t_list *ants, int name);
+t_list			*find_ant_by_name(t_list *ants, int name);
 void			get_ants(t_all *all);
 void			get_sharp(t_all *all);
 void			get_room(t_all *all);
 void			get_door(t_all *all);
-
-void 			print(t_all *all);
-void			print_ants(t_all *all);
-void			print_ant_path(t_list *ants, int name);
-void			print_way(t_room **way, int way_number, int way_len, int way_ants);
-void			print_ways(t_all *all);
 
 void			parce_ants(t_all *all);
 void			visualisation_init(t_all *all);
@@ -243,5 +243,14 @@ void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
 void			choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep);
 int				distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i);
+/*
+** debug
+*/
+void 			print(t_all *all);
+void			print_ants(t_all *all);
+void			print_ant_path(t_list *ants, int name);
+void			print_way(t_room **way, int way_number, int way_len, int way_ants);
+void			print_ways(t_all *all);
+void			print_iterations(t_all *all);
 
 #endif

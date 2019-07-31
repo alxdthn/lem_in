@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:27:39 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 04:45:01 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:52:36 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,16 @@ t_door	*find_door_by_room_nb(t_room *room, int nb)
 	return (NULL);
 }
 
-t_ant	*find_ant_by_name(t_list *ants, int name)
+t_list	*find_ant_by_name(t_list *ants, int name)
 {
-	t_list	*tmp;
+	t_list	*ant;
 
-	tmp = ants;
-	while (tmp)
+	ant = ants;
+	while (ant)
 	{
-		if (((t_ant *)tmp->content)->name == name)
-			return ((t_ant *)tmp->content);
-		tmp = tmp->next;
+		if (ANT->name == name)
+			return (ant);
+		ant = ant->next;
 	}
 	return (NULL);
 }

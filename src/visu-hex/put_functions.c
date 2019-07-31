@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 02:58:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 03:00:07 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 02:02:05 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,25 @@ void	put_ants(t_all *all)
 void	put_info(t_all *all)
 {
 	mlx_string_put(all->mlx.ptr, all->mlx.win,
-	10, 75, ANT_COLOR, all->mlx.info_iter);
+	20, 75, INFO_COLOR, all->mlx.info_count_of_ants);
 	mlx_string_put(all->mlx.ptr, all->mlx.win,
-	10, 100, ANT_COLOR, all->mlx.info_ant_in_end);
+	20, 100, INFO_COLOR, all->mlx.info_iter);
+	mlx_string_put(all->mlx.ptr, all->mlx.win,
+	20, 125, INFO_COLOR, all->mlx.info_ant_in_end);
 }
 
 void	put_names(t_all *all)
 {
-	t_list	*tmp;
+	t_list	*room;
 
-	tmp = all->rooms;
-	while (tmp)
+	room = all->rooms;
+	while (room)
 	{
-		((t_room *)tmp->content)->name[((t_room *)tmp->content)->name_len] = '\0';
+		ROOM->name[ROOM->name_len] = '\0';
 		mlx_string_put(all->mlx.ptr, all->mlx.win,
-		((t_room *)tmp->content)->x - ((t_room *)tmp->content)->name_len * 5,
-		((t_room *)tmp->content)->y - 11,
-		WAY_COLOR,
-		((t_room *)tmp->content)->name);
-		((t_room *)tmp->content)->name[((t_room *)tmp->content)->name_len] = ' ';
-		tmp = tmp->next;
+		ROOM->x - ROOM->name_len * 5,
+		ROOM->y - 11, ROOM_NAME_COLOR, ROOM->name);
+		ROOM->name[ROOM->name_len] = ' ';
+		room = room->next;
 	}
 }

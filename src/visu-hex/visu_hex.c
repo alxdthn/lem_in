@@ -6,34 +6,11 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 00:20:33 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 07:44:07 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	print_iterations(t_all *all)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	while (all->iterations[i])
-	{
-		j = 0;
-		ft_printf("iteration: № %d\n", i);
-		ft_printf("---------------\n");
-		while (all->iterations[i][j])
-		{
-			ft_printf("name: %d\n", all->iterations[i][j]->name);
-			ft_printf("x1: %d\n", all->iterations[i][j]->x1);
-			ft_printf("y1: %d\n", all->iterations[i][j]->y1);
-			j++;
-		}
-		ft_printf("---------------\n");
-		i++;
-	}
-}
 
 static void	get_min_max(t_all *all)
 {
@@ -115,41 +92,43 @@ static void	reset_crds(t_all *all)
 	tmp = all->rooms;
 	while (tmp)
 	{
-		((t_room *)tmp->content)->x = ((t_room *)tmp->content)->x * all->mlx.map_size + all->mlx.map_position_x;
-		((t_room *)tmp->content)->y = ((t_room *)tmp->content)->y * all->mlx.map_size + all->mlx.map_position_y;
+		((t_room *)tmp->content)->x = ((t_room *)tmp->content)->x
+		* all->mlx.map_size + all->mlx.map_position_x;
+		((t_room *)tmp->content)->y = ((t_room *)tmp->content)->y
+		* all->mlx.map_size + all->mlx.map_position_y;
 		tmp = tmp->next;
 	}
 }
 
-static void	init_map(t_all *all)
+static void	init_sizes(t_all *all)
 {
 	int		x_size;
 	int		y_size;
+	int		min_max_x;
+	int		min_max_y;
 
-	get_min_max(all);
-	normalize(all);
-	x_size = (all->mlx.width - all->mlx.width / 5) / (all->mlx.max_x - all->mlx.min_x);
-	y_size = (all->mlx.height - all->mlx.height / 5) / (all->mlx.max_y - all->mlx.min_y);
-	all->mlx.map_size = (x_size > y_size) ? y_size : x_size;
-	if (!all->mlx.map_size)
+	if (!(min_max_x = all->mlx.max_x - all->mlx.min_x))
+		min_max_x = 1;
+	if (!(min_max_y = all->mlx.max_y - all->mlx.min_y))
+		min_max_y = 1;
+	x_size = (all->mlx.width - all->mlx.width / 5) / (min_max_x);
+	y_size = (all->mlx.height - all->mlx.height / 5) / (min_max_y);
+	if (!(all->mlx.map_size = (x_size > y_size) ? y_size : x_size))
 		all->mlx.map_size = 1;
-	all->mlx.room_radius = 50;
-	all->mlx.ant_radius = 25;
-	all->mlx.map_position_x = all->mlx.width / 2 - ((all->mlx.max_x - all->mlx.min_x) * all->mlx.map_size) / 2;
-	all->mlx.map_position_y = all->mlx.height / 2 - ((all->mlx.max_y - all->mlx.min_y) * all->mlx.map_size) / 2;
-	if (all->mlx.map_position_x < 0)
+	if ((all->mlx.map_position_x = all->mlx.width / 2
+	- (min_max_x * all->mlx.map_size) / 2) < 0)
 		all->mlx.map_position_x = 0;
-	if (all->mlx.map_position_y < 0)
+	if ((all->mlx.map_position_y = all->mlx.height / 2
+	- ((min_max_y) * all->mlx.map_size) / 2) < 0)
 		all->mlx.map_position_y = 0;
-	all->mlx.pixel_size = 3;
-	all->mlx.speed = 80;
-	reset_crds(all);
 }
+
 
 static void	count_ants_paths(t_all *all)
 {
 	t_list	*ant;
 	t_list	*path;
+	int		path_size;
 
 	ant = all->ants;
 	while (ant)
@@ -158,36 +137,60 @@ static void	count_ants_paths(t_all *all)
 		while (path)
 		{
 			if (path->next)
-				ANT->end_point
-				+= ABS(((t_room *)path->content)->x
+			{
+				path_size = ABS(((t_room *)path->content)->x
 				- ((t_room *)path->next->content)->x)
 				+ ABS(((t_room *)path->content)->y
 				- ((t_room *)path->next->content)->y);
+				ANT->end_point += path_size;
+				if (path_size < all->mlx.min_path_size || !all->mlx.min_path_size)
+					all->mlx.min_path_size = path_size;
+			}
 			path = path->next;
 		}
 		ant = ant->next;
 	}
 }
 
-int		main(void)
+static void	init_map(t_all *all)
+{
+	visualisation_init(all);
+	get_min_max(all);
+	normalize(all);
+	init_sizes(all);
+	reset_crds(all);
+	count_ants_paths(all);
+	ft_printf("%min_path: %d\n", all->mlx.min_path_size);
+	if ((all->mlx.room_radius = all->mlx.min_path_size / 3) < 4)
+		all->mlx.room_radius = 4;
+	if (all->mlx.room_radius > 50)
+		all->mlx.room_radius = 50;
+	ft_printf("%room: %d\n", all->mlx.room_radius);
+	if ((all->mlx.ant_radius = all->mlx.room_radius / 2) < 3)
+		all->mlx.ant_radius = 3;
+	ft_printf("ant: %d\n", all->mlx.ant_radius);	
+	if ((all->mlx.pixel_size = all->mlx.room_radius / 15) < 2)
+		all->mlx.pixel_size = 2;
+	ft_printf("pixel: %d\n", all->mlx.pixel_size);
+	ft_printf("size: %d\n", all->mlx.map_size);	
+	all->mlx.speed = all->mlx.map_size / 3 + 20;
+}
+
+int			main(void)
 {
 	t_all	all;
 
 	ft_bzero(&all, sizeof(t_all));
 	all.prog = VISU_HEX;
 	all.exit = &visu_hex_clear_exit;
-	visualisation_init(&all);
 	parce_input(&all);
 	parce_ants(&all);
 	init_map(&all);
-	count_ants_paths(&all);
-	//print(&all);
-	//print_ants_list(all.ants);
 	render_map(&all);
 	render_info(&all);
 	put_map(&all);
 	put_logo(&all);
-	all.mlx.ants.pixel_color = ANT_COLOR;
+	put_info(&all);
 	all.mlx.ants.pixel_size = all.mlx.pixel_size;
 	mlx_loop_hook(all.mlx.ptr, loop_hook, &all);
 	mlx_loop(all.mlx.ptr);
