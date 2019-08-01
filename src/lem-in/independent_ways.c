@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   independent_ways.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 01:46:40 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 03:00:02 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:04:54 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		is_independent_ways(t_all *all, t_room **room, int i)
 	{
 		if (room[i]->visit_early == '2' && i != 0 && i != all->room_count - 1)
 		{
-		//	ft_putstr(room[i]->name);
 			return (0);
 		}
 		i++;
@@ -42,15 +41,8 @@ void	clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i)
 					second = second->next;
 				if (!((t_door *)second->content)->is_close)
 				{
-					// ft_printf("\nroom toopen 1 - %s, room toopen 2 room - %s; close first - %c, close second - %c\n",
-					// ((t_door *)second->content)->room->name, ((t_door *)tmp->content)->room->name, ((t_door *)second->content)->is_close, ((t_door *)tmp->content)->is_close);
 					((t_door *)second->content)->is_close = '\0';
 					((t_door *)tmp->content)->is_close = '\0';
-				}
-				else
-				{
-					// ft_printf("\nfirst room - %s, second room - %s; close first - %c, close second - %c\n",
-					// ((t_door *)second->content)->room->name, ((t_door *)tmp->content)->room->name, ((t_door *)second->content)->is_close, ((t_door *)tmp->content)->is_close);
 				}
 			}
 			tmp = tmp->next;
@@ -76,5 +68,4 @@ void	delete_ways(t_all *all, int i)
 		i = 0;
 		way = next;
 	}
-//	free(all->ways);
 }

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ways.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 02:32:56 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:05:44 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void        ft_push_front_way(t_all *all, t_way *way, t_room *room, int len)
+void		ft_push_front_way(t_all *all, t_way *way, t_room *room, int len)
 {
-    if (!way)
-        return ;
-    if (!way->path)
-    {
-        if (!(way->path = (t_room **)malloc((sizeof(t_room *) * (len + 1)))))
-            all->exit(all, ERROR, 2);
+	if (!way)
+		return ;
+	if (!way->path)
+	{
+		if (!(way->path = (t_room **)malloc((sizeof(t_room *) * (len + 1)))))
+			all->exit(all, ERROR, 2);
         way->path[len] = NULL;
     }
     way->path[room->visit] = room;

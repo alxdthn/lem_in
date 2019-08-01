@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 14:29:59 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:01:11 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,27 +92,3 @@ void	choose_ways(t_all *all, int ant, t_list *indep, t_list *dep)
 		all->dependent_ways = 0;
 	}
 }
-
-/*
-25
-##start
-A 0 10
-B 10 0
-C 20 0
-D 20 10
-E 10 10
-F 15 20
-G 30 20
-##end
-H 30 10
-A-B
-A-E
-B-C
-C-D
-E-D
-E-F
-D-F
-F-G
-G-H
-D-H
- */

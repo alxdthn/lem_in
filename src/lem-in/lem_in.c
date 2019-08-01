@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 14:47:02 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:01:41 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_out(t_list *list)
 	ft_putchar('\n');
 }
 
-void	clear_room_visit(t_room **mas_rom)
+void		clear_room_visit(t_room **mas_rom)
 {
 	int		i;
 
@@ -42,10 +42,8 @@ int			main(int ac, char **av)
 		all.fd = open(av[1], O_RDONLY);
 	parce_input(&all);
 	print_out(all.out);
-	get_ways(&all, all.rooms);
+	get_ways(&all, all.rooms, 1000);
 	send_ants(&all);
-	//print_ways(&all, 0);
-	//print_ants(&all);
 	all.exit(&all, NULL, 1);
 	return (0);
 }

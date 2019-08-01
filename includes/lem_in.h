@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 11:40:43 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:00:53 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void			put_usage(void);
 ** lem-in
 */
 void			lem_in_clear_exit(t_all *all, char *message, int fd);
-void        	get_ways(t_all *all, t_list *begin);
+void        	get_ways(t_all *all, t_list *begin, int i);
 void			send_ants(t_all *all);
 int				bfs(t_all *all, t_list *begin);
 void			q_push_back(t_room *room, t_que **q, t_all *all);
