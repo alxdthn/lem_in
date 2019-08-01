@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/11 16:58:18 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/31 07:00:54 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/01 10:56:02 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,8 @@ LFT_SRC =	ft_arraydel.c \
 			ft_lstmap.c \
 			ft_lstnew.c \
 			ft_lstpushback.c \
+			ft_lstswap.c \
+			ft_lstsort.c \
 			ft_memalloc.c \
 			ft_memccpy.c \
 			ft_memchr.c \

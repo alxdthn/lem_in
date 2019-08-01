@@ -10,7 +10,7 @@
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
 		"args": [
-			"davids"
+			"david"
 		],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}/maps",
@@ -47,7 +47,10 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/visu-hex",
-		"args": ["maps/david"],
+		"args": [
+			"-e",
+			"out"
+		],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}/",
 		"environment": [],

@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_lstswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/11 12:23:05 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 12:47:42 by nalexand         ###   ########.fr       */
+/*   Created: 2019/08/01 10:55:27 by nalexand          #+#    #+#             */
+/*   Updated: 2019/08/01 10:55:39 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_swap(void *ptr1, void *ptr2)
-{
-	void	*tmp;
+#include "libft.h"
 
-	tmp = ptr1;
-	ptr1 = ptr2;
-	ptr2 = tmp;
+void	ft_lstswap(t_list *lst1, t_list *lst2)
+{
+	void	*tmp_content;
+	size_t	tmp_content_size;
+
+	tmp_content = lst1->content;
+	tmp_content_size = lst1->content_size;
+	lst1->content = lst2->content;
+	lst1->content_size = lst2->content_size;
+	lst2->content = tmp_content;
+	lst2->content_size = tmp_content_size;
 }

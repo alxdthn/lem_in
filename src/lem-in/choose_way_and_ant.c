@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 03:15:37 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:27:41 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,25 @@ void	do_independent_this_ways(t_all *all, t_list *dep, t_list *prev, int i)
 
 int		distribute_ants_to_ways(t_all *all, t_list *way, t_list *begin, int i)
 {
-	int	ants;
+	int		ants;
+	int		sum;
 
 	ants = all->ant_count;
+	sum = 0;
 //	ft_printf("begin - %d\n", begin->ants);
 	while (ants > 0)
 	{
-		if (!way->next)
+		while (way)
 		{
-			WAY->ants++;
-			ants--;
-			way = begin;
-			continue;
-		}
-		while (WAY->len + WAY->ants <= WAY_P(next)->len + WAY_P(next)->ants
-		&& (WAY->len + WAY->ants < WAY_N(begin)->len + WAY_N(begin)->ants || way == begin))
-		{
-			WAY->ants++;
-			ants--;
-		}
-		if (way != begin && WAY->len + WAY->ants == WAY_N(begin)->len + WAY_N(begin)->ants)
-			way = begin;
-		else
+			if (sum > WAY->len + WAY->ants)
+			{
+				WAY->ants++;
+				ants--;
+			}
 			way = way->next;
+		}
+		way = begin;
+		sum++;
 	}
 	return (WAY_N(begin)->len + WAY_N(begin)->ants);
 }

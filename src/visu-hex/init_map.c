@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 05:30:31 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 08:18:11 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	count_ants_paths(t_all *all)
 
 void	init_map(t_all *all)
 {
-	visualisation_init(all);
 	get_min_max(all);
 	normalize(all);
 	init_sizes(all);

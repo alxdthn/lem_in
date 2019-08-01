@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 01:55:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 02:11:28 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:06:32 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstclear(void *content, size_t size);
 void				ft_lstpushback(t_list **alst, t_list *lst);
+void				ft_lstsort(t_list *lst, int (*f)(t_list *, t_list *));
+void				ft_lstswap(t_list *a, t_list *b);
 size_t				ft_lstcount(t_list *lst);
 
 int					ft_intlen(int n);

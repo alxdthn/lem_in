@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:11:10 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 06:18:15 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:42:31 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	read_flags(t_all *all, char c)
 		all->mlx.flags.print_rooms = 1;
 	else if (c == 't')
 		all->mlx.flags.print_iterations = 1;
+	else if (c == 'm')
+		all->mlx.flags.print_merge_err = 1;
 	else
 	{
 		ft_putendl("Error: unknown flag!");

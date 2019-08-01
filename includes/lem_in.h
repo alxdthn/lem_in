@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 06:15:52 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:40:43 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ typedef struct	s_room
 	char		type;
 	char		visit_early;
 	char		go_away;
+	char		normalized;
 }				t_room;
 
-typedef	struct		s_way
+typedef	struct	s_way
 {
-	t_room			**path;
-	int				len;
-	int				ants;
-	int				nb;
-}					t_way;
+	t_room		**path;
+	int			len;
+	int			ants;
+	int			nb;
+}				t_way;
 
 typedef struct	s_ant
 {
@@ -153,6 +154,7 @@ typedef struct	s_flags
 	char		print_info;
 	char		print_rooms;
 	char		print_iterations;
+	char		print_merge_err;
 }				t_flags;
 
 typedef struct	s_mlx

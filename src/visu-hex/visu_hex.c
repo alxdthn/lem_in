@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 06:22:46 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 11:23:32 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void	visu_part(t_all *all)
 {
 	if (!all->mlx.flags.no_visu)
 	{
+		visualisation_init(all);
 		if (all->mlx.flags.normalize_map)
 			normalize_rooms(all);
 		init_map(all);

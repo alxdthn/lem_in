@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 04:59:55 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 07:20:39 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	print_rooms_list(t_list *room)
 			ft_printf("%{blu}");
 		else if (ROOM->type == END)
 			ft_printf("%{red}");
-		ft_printf("|%-25.*s|  %-4d|   %-4d|   %-4d|%{eoc}",
-		ROOM->name_len, ROOM->name, ROOM->way_nb, ROOM->x, ROOM->y);
+		ft_printf("|%-25.*s|  %-4d|   %-4d|   %-4d|%d|%{eoc}",
+		ROOM->name_len, ROOM->name, ROOM->way_nb, ROOM->x, ROOM->y, ROOM->normalized);
 		if (ROOM->doors)
 			print_doors_list(ROOM->doors);
 		ft_putchar('\n');
