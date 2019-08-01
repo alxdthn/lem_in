@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:05:44 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:09:36 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void		ft_push_front_way(t_all *all, t_way *way, t_room *room, int len)
 	{
 		if (!(way->path = (t_room **)malloc((sizeof(t_room *) * (len + 1)))))
 			all->exit(all, ERROR, 2);
-        way->path[len] = NULL;
-    }
-    way->path[room->visit] = room;
+		way->path[len] = NULL;
+	}
+	way->path[room->visit] = room;
 }
 
 int			ft_is_close(t_room *start, t_room *finish)
@@ -48,14 +48,15 @@ void		create_way(t_all *all, int i, int end)
 	t_list	*door;
 
 	new_way.len = all->mas_rom[end]->visit;
-    new_way.path = NULL;
+	new_way.path = NULL;
 	new_way.ants = 0;
-    new_way.nb = ++all->way_count;
+	new_way.nb = ++all->way_count;
 	ft_push_front_way(all, &new_way, all->mas_rom[end], new_way.len + 1);
 	while (i > 0)
 	{
 		door = new_way.path[i]->doors;
-		while (DOOR->room->visit != i - 1 || ft_is_close(DOOR->room, new_way.path[i]))
+		while (DOOR->room->visit != i - 1 ||
+		ft_is_close(DOOR->room, new_way.path[i]))
 			door = door->next;
 		ft_push_front_way(all, &new_way, DOOR->room, new_way.len);
 		i--;

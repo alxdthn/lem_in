@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:00:32 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:10:25 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		close_doors(t_all *all)
 	}
 }
 
-void        get_ways(t_all *all, t_list *begin, int i)
+void		get_ways(t_all *all, t_list *begin, int i)
 {
     create_mas(all, all->rooms);
 	if (!bfs(all, all->rooms))
