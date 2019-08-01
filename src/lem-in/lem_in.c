@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 22:18:39 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 14:47:02 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			main(int ac, char **av)
 	print_out(all.out);
 	get_ways(&all, all.rooms);
 	send_ants(&all);
-	//print_ways(&all);
+	//print_ways(&all, 0);
 	//print_ants(&all);
 	all.exit(&all, NULL, 1);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 03:16:03 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 14:41:18 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,11 @@ int			bfs(t_all *all, t_list *begin)
 	q_push_back(all->mas_rom[0], &q, all);
 	while (q && all->mas_rom[all->room_count - 1]->visit == -1)
 		ft_go_to_graph(&q, all, &nbr);
+	while (q)
+		del_first(&q);
 	//ft_putnbr(all->mas_rom[all->room_count - 1]->type);
+	if (nbr > 100)
+		all->mas_rom[all->room_count - 1]->visit = -1;
 	if (all->mas_rom[all->room_count - 1]->visit == -1)
 	{
 //		ft_putstr(all->mas_rom[all->room_count - 1]->name);

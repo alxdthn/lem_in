@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_way_and_ant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 13:27:41 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 14:29:59 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	choose_ways(t_all *all, int ant, t_list *indep, t_list *dep)
 	int indep_move;
 	int	dep_move;
 
+	clear_room_visit(all->mas_rom);
+	if (!is_independent_ways(all, all->mas_rom, 0))
+		do_independent_this_ways(all, indep, indep, 0);
 	clear_room_visit(all->mas_rom);
 	do_independent_this_ways(all, dep, dep, 0);
 	indep_move = distribute_ants_to_ways(all, indep, indep, 0);
