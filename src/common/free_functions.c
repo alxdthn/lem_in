@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:44:17 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 16:49:05 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:08:35 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	clear_ant(void *ant, size_t size)
 
 void	clear_way(void *way, size_t size)
 {
-	static int	i;
-
-	ft_printf("del %d %d\n", i++, ((t_way *)way)->len);
 	free(((t_way *)way)->path);
 	free(way);
 }

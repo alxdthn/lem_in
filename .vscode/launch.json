@@ -11,10 +11,10 @@
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
 		"args": [
-			"wiki_map"
+			"bad_link6"
 		],
 		"stopAtEntry": false,
-		"cwd": "${workspaceFolder}/maps",
+		"cwd": "${workspaceFolder}/",
 		"environment": [],
 		"externalConsole": true,
 		"MIMode": "lldb"
