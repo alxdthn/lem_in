@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:27:39 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 00:52:36 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 03:45:10 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ t_list	*find_ant_by_name(t_list *ants, int name)
 		if (ANT->name == name)
 			return (ant);
 		ant = ant->next;
+	}
+	return (NULL);
+}
+
+t_list	*find_way_by_nb(t_list *way, int nb)
+{
+	while (way)
+	{
+		if (WAY->nb == nb)
+			return (way);
+		way = way->next;
 	}
 	return (NULL);
 }

@@ -6,13 +6,13 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/16 16:26:39 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/16 16:26:40 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 04:31:31 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	flags_new(t_flags *flags)
+static void	flags_new(t_fflags *flags)
 {
 	flags->sharp = 0;
 	flags->minus = 0;

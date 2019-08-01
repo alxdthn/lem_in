@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 20:10:20 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 01:39:35 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 04:32:10 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void		render(t_all *all)
 {
 	put_map(all);
-	if (all->mlx.names)
+	if (all->mlx.flags.names)
 		put_names(all);
-	if (all->iterations[all->mlx.cur_iter])
+	if (all->iterations && all->iterations[all->mlx.cur_iter])
 	{
-		if (all->mlx.working)
+		if (all->mlx.flags.working)
 			render_ants(all);
 		put_ants(all);
 	}

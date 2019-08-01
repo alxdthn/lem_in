@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:11:50 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 01:54:00 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 04:59:55 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,94 +20,85 @@ static void	print_doors_list(t_list *tmp)
 	((t_door *)tmp->content)->room->name);
 }
 
-static void	print_rooms_list(t_list *tmp)
+static void	print_rooms_list(t_list *room)
 {
-	size_t	name_len;
-	char	*name;
-	int		x;
-	int		y;
-
-	if (tmp->next)
-		print_rooms_list(tmp->next);
-	name_len = ((t_room *)tmp->content)->name_len;
-	name = ((t_room *)tmp->content)->name;
-	x = ((t_room *)tmp->content)->x;
-	y = ((t_room *)tmp->content)->y;
-	if (((t_room *)tmp->content)->type == START)
-		ft_printf("|%{blu}-25.*s|%{blu}-7d|%{blu}-7d|", name_len, name, x, y);
-	else if (((t_room *)tmp->content)->type == END)
-		ft_printf("|%{red}-25.*s|%{red}-7d|%{red}-7d|", name_len, name, x, y);
-	else
-		ft_printf("|%-25.*s|%-7d|%-7d|", name_len, name, x, y);
-	if (((t_room *)tmp->content)->doors)
-		print_doors_list(((t_room *)tmp->content)->doors);
-	ft_putchar('\n');
+	while (room)
+	{
+		if (ROOM->type == START)
+			ft_printf("%{blu}");
+		else if (ROOM->type == END)
+			ft_printf("%{red}");
+		ft_printf("|%-25.*s|  %-4d|   %-4d|   %-4d|%{eoc}",
+		ROOM->name_len, ROOM->name, ROOM->way_nb, ROOM->x, ROOM->y);
+		if (ROOM->doors)
+			print_doors_list(ROOM->doors);
+		ft_putchar('\n');
+		room = room->next;
+	}
 }
 
 void		print(t_all *all)
 {
-	ft_printf("|___________name__________|___x___|___y___|\n");
+	ft_printf("|___________name__________|_path_|___x___|___y___|\n");
 	print_rooms_list(all->rooms);
-	ft_printf("|_________________________|_______|_______|\n");
+	ft_printf("|_________________________|______|_______|_______|\n");
 	ft_printf("ants: %d\n", all->ant_count);
 }
 
-void	print_ant_path(t_list *ants, int name)
+void	print_ant_path(t_list *ant, int name)
 {
-	while (ants && ((t_ant *)ants->content)->name != name)
-		ants = ants->next;
-	print_rooms_list(((t_ant *)ants->content)->path);
+	while (ant && ANT->name != name)
+		ant = ant->next;
+	print_rooms_list(ANT->path);
 }
 
-void	print_way(t_room **way, int way_number, int way_len, int way_ants)
+void	print_way(t_list *way, char print_path)
 {
-	int		i;
+	int		room;
 
-	ft_printf("path №%d (len %d, ants %d sum %d): ", way_number, way_len, way_ants, (way_ants) ? way_len + way_ants : 0);
-	i = 0;
-	//while (way[i])
-	//{
-	//	ft_printf("%.*s", way[i]->name_len, way[i]->name);
-	//	if (way[i + 1])
-	//		ft_printf(" -> ");
-	//	++i;
-	//}
-}
-
-void	print_ways(t_all *all)
-{
-	t_ways	*node;
-
-	node = all->ways;
-	while (node)
+	ft_printf("path №%d (len %d, ants %d sum %d): ",
+	WAY->nb, WAY->len, WAY->ants, (WAY->ants) ? WAY->len + WAY->ants : 0);
+	room = 0;
+	while (print_path && WAY->path[room])
 	{
-		print_way(node->way, node->nb, node->len, node->ants);
-		node = node->next;
-		ft_printf("\n");
+		ft_printf("%.*s", WAY->path[room]->name_len, WAY->path[room]->name);
+		if (WAY->path[room + 1])
+			ft_printf(" -> ");
+		++room;
+	}
+	ft_putchar('\n');
+}
+
+void	print_ways(t_all *all, char print_path)
+{
+	t_list	*way;
+
+	way = all->ways;
+	while (way)
+	{
+		print_way(way, print_path);
+		way = way->next;
 	}
 }
 
 void	print_ants(t_all *all)
 {
-	t_list	*tmp_ant;
+	t_list	*ant;
 
 	ft_printf("\nANTS\n______________\n");
 	ft_printf("_name_|_way_\n");
-	tmp_ant = all->ants;
-	while (tmp_ant)
+	ant = all->ants;
+	while (ant)
 	{
-		ft_printf("%-6d| ", ((t_ant *)tmp_ant->content)->name);
-		if (((t_ant *)tmp_ant->content)->way)
+		ft_printf("%-6d| ", ANT->name);
+		if (ANT->way)
 		{
-			print_way(((t_ant *)tmp_ant->content)->way->way,
-			((t_ant *)tmp_ant->content)->way->nb,
-			((t_ant *)tmp_ant->content)->way->len,
-			((t_ant *)tmp_ant->content)->way->ants);
+			print_way(ANT->way, 1);
 			ft_printf("\n");
 		}
 		else
-			ft_printf("%p\n", ((t_ant *)tmp_ant->content)->way);
-		tmp_ant = tmp_ant->next;
+			ft_printf("%p\n", ANT->way);
+		ant = ant->next;
 	}
 }
 
@@ -124,12 +115,19 @@ void	print_iterations(t_all *all)
 		ft_printf("---------------\n");
 		while (all->iterations[i][j])
 		{
-			ft_printf("name: %d\n", all->iterations[i][j]->name);
-			ft_printf("x1: %d\n", all->iterations[i][j]->x1);
-			ft_printf("y1: %d\n", all->iterations[i][j]->y1);
+			ft_printf("name: L%d\n", all->iterations[i][j]->name);
 			j++;
 		}
 		ft_printf("---------------\n");
 		i++;
 	}
+}
+
+void	print_info(t_all *all)
+{
+	ft_printf("min_path: %d\n", all->mlx.min_path_size);
+	ft_printf("room: %d\n", all->mlx.room_radius);
+	ft_printf("ant: %d\n", all->mlx.ant_radius);	
+	ft_printf("pixel: %d\n", all->mlx.pixel_size);
+	ft_printf("size: %d\n", all->mlx.map_size);	
 }

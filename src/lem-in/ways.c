@@ -3,88 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ways.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 22:27:20 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 02:32:56 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void        ft_push_front_way(t_all *all, t_ways **ways, t_room *room, int len)
+void        ft_push_front_way(t_all *all, t_way *way, t_room *room, int len)
 {
-    if (!*ways)
+    if (!way)
         return ;
-    if (!(*ways)->way)
+    if (!way->path)
     {
-        if (!((*ways)->way = (t_room **)malloc((sizeof(t_room *) * (len + 1)))))
+        if (!(way->path = (t_room **)malloc((sizeof(t_room *) * (len + 1)))))
             all->exit(all, ERROR, 2);
-        (*ways)->way[len] = 0;
+        way->path[len] = NULL;
     }
-    (*ways)->way[room->visit] = room;
-}
-
-void        ft_add_way(t_all *all, t_ways *new)
-{
-    t_ways  *tmp;
-
-    if (!all->ways)
-        all->ways = new;
-    else
-    {
-        tmp = all->ways;
-        while (tmp->next)
-            tmp = tmp->next;
-        tmp->next = new;
-    }
+    way->path[room->visit] = room;
 }
 
 int			ft_is_close(t_room *start, t_room *finish)
 {
-	t_list	*tmp;
+	t_list	*door;
 
-	tmp = start->doors;
-	while (tmp)
+	door = start->doors;
+	while (door)
 	{
-		if (((t_door *)tmp->content)->room == finish &&
-		((t_door *)tmp->content)->is_close)
+		if (DOOR->room == finish && DOOR->is_close)
 			return (1);
-		else if (((t_door *)tmp->content)->room == finish &&
-		!((t_door *)tmp->content)->is_close)
+		else if (DOOR->room == finish && !DOOR->is_close)
 			return (0);
-		tmp = tmp->next;
+		door = door->next;
 	}
 	return (0);
 }
 
-void		create_ways(t_all *all, int i, int end)
+void		create_way(t_all *all, int i, int end)
 {
-	t_ways	*new;
-	t_list	*tmp;
-	t_door	*door;
+	t_way	new_way;
+	t_list	*node;
+	t_list	*door;
 
-	if (!(new = (t_ways *)malloc(sizeof(t_ways))))
-		all->exit(all, ERROR, 2);
-	new->len = all->mas_rom[end]->visit;
-	new->next = NULL;
-    new->way = NULL;
-    new->nb = ++all->way_count;
-	new->ants = 0;
-	ft_push_front_way(all, &new, all->mas_rom[end], new->len + 1);
+	new_way.len = all->mas_rom[end]->visit;
+    new_way.path = NULL;
+	new_way.ants = 0;
+    new_way.nb = ++all->way_count;
+	ft_push_front_way(all, &new_way, all->mas_rom[end], new_way.len + 1);
 	while (i > 0)
 	{
-		tmp = new->way[i]->doors;
-		door = tmp->content;
-		while (door->room->visit != i - 1 || ft_is_close(door->room, new->way[i]))
-		{
-			tmp = tmp->next;
-			door = tmp->content;
-		}
-		// if ()
-		// 	ft_putstr(door->room->name);
-		ft_push_front_way(all, &new, door->room, new->len);
+		door = new_way.path[i]->doors;
+		while (DOOR->room->visit != i - 1 || ft_is_close(DOOR->room, new_way.path[i]))
+			door = door->next;
+		ft_push_front_way(all, &new_way, DOOR->room, new_way.len);
 		i--;
 	}
-	ft_add_way(all, new);
+	if (!(node = ft_lstnew(&new_way, sizeof(t_way))))
+		all->exit(all, ERROR, 2);
+	ft_lstpushback(&all->ways, node);
 }

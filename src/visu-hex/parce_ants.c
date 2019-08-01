@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 15:52:59 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 01:14:49 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:08:03 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			parce_ants(t_all *all)
 	size_t	iterations;
 
 	iterations = 0;
-	while (get_next_line(0, &all->tmp.line) > 0)
+	while (get_next_line(all->fd, &all->tmp.line) > 0)
 	{
 		if (!(node = ft_lstnew(NULL, 0)))
 			all->exit(all, ERROR, 2);
@@ -94,5 +94,6 @@ void			parce_ants(t_all *all)
 		iterations++;
 	}
 	all->input = all->input_head;
-	read_ants_to_list(all, all->input, iterations);
+	if (all->input)
+		read_ants_to_list(all, all->input, iterations);
 }

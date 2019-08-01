@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 20:17:43 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 20:19:44 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:32:32 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	draw_pixel(t_img *img, int x, int y)
 		img->data[point] = img->pixel_color;
 }
 
-void	draw_pixel_circle(t_img *img, t_line_params *params)
+void		draw_pixel_circle(t_img *img, t_line_params *params)
 {
 	int error;
 
@@ -33,7 +33,7 @@ void	draw_pixel_circle(t_img *img, t_line_params *params)
 		draw_pixel(img, params->x1 - params->x2, params->y1 + params->y2);
 		draw_pixel(img, params->x1 - params->x2, params->y1 - params->y2);
 		error = 2 * (params->delta_x + params->y2);
-       	if ((params->delta_x < 0) && (error <= 0))
+		if ((params->delta_x < 0) && (error <= 0))
 			params->delta_x += 2 * ++params->x2;
 		else if ((params->delta_x > 0) && (error > 0))
 			params->delta_x -= 2 * --params->y2;
@@ -42,10 +42,10 @@ void	draw_pixel_circle(t_img *img, t_line_params *params)
 	}
 }
 
-void	draw_point(t_img *img, int x, int y)
+void		draw_point(t_img *img, int x, int y)
 {
 	t_line_params	params;
-	int 			radius;
+	int				radius;
 
 	if (img->pixel_size == 1)
 		draw_pixel(img, x, y);
@@ -64,7 +64,7 @@ void	draw_point(t_img *img, int x, int y)
 	}
 }
 
-void	draw_line(t_img *img, t_line_params *params)
+void		draw_line(t_img *img, t_line_params *params)
 {
 	int		error;
 	int		error2;
@@ -87,7 +87,7 @@ void	draw_line(t_img *img, t_line_params *params)
 	}
 }
 
-void	draw_circle(t_img *img, t_line_params *params)
+void		draw_circle(t_img *img, t_line_params *params)
 {
 	int error;
 
@@ -99,9 +99,9 @@ void	draw_circle(t_img *img, t_line_params *params)
 		draw_point(img, params->x1 - params->x2, params->y1 + params->y2);
 		draw_point(img, params->x1 - params->x2, params->y1 - params->y2);
 		error = 2 * (params->delta_x + params->y2);
-       	if ((params->delta_x < 0) && (error <= 0))
+		if (params->delta_x < 0 && error <= 0)
 			params->delta_x += 2 * ++params->x2;
-		else if ((params->delta_x > 0) && (error > 0))
+		else if (params->delta_x > 0 && error > 0)
 			params->delta_x -= 2 * --params->y2;
 		else
 			params->delta_x += 2 * (++params->x2 - --params->y2);

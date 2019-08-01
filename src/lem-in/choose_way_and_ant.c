@@ -6,39 +6,39 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/31 00:29:19 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 03:15:37 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	remove_way(t_ways *prev, t_ways **dep, int i, int stop)
+void	remove_way(t_list *prev, t_list **dep, int i, int stop)
 {
 	while (i < stop)
 	{
-		(*dep)->way[i]->visit_early = '\0';
+		WAY_N((*dep))->path[i]->visit_early = '\0';
 		i++;
 	}
 	prev->next = (*dep)->next;
-	free((*dep)->way);
+	free(WAY_N((*dep))->path);
 	free(*dep);
 	*dep = NULL;
 }
 
-void	do_independent_this_ways(t_all *all, t_ways *dep, t_ways *prev, int i)
+void	do_independent_this_ways(t_all *all, t_list *dep, t_list *prev, int i)
 {
 	if (!dep->next)
 		return ;
 	while (dep)
 	{
-		while (dep->way[i])
+		while (WAY_N(dep)->path[i])
 		{
-			if (dep->way[i]->visit_early)
+			if (WAY_N(dep)->path[i]->visit_early)
 			{
 				remove_way(prev, &dep, 0, i);
 				break ;
 			}
-			dep->way[i]->visit_early = '1';
+			WAY_N(dep)->path[i]->visit_early = '1';
 			i++;
 		}
 		if (dep != prev)
@@ -48,7 +48,7 @@ void	do_independent_this_ways(t_all *all, t_ways *dep, t_ways *prev, int i)
 	}
 }
 
-int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
+int		distribute_ants_to_ways(t_all *all, t_list *way, t_list *begin, int i)
 {
 	int	ants;
 
@@ -58,26 +58,26 @@ int		distribute_ants_to_ways(t_all *all, t_ways *way, t_ways *begin, int i)
 	{
 		if (!way->next)
 		{
-			way->ants++;
+			WAY->ants++;
 			ants--;
 			way = begin;
 			continue;
 		}
-		while (way->len + way->ants <= way->next->len + way->next->ants
-		&& (way->len + way->ants < begin->len + begin->ants || way == begin))
+		while (WAY->len + WAY->ants <= WAY_P(next)->len + WAY_P(next)->ants
+		&& (WAY->len + WAY->ants < WAY_N(begin)->len + WAY_N(begin)->ants || way == begin))
 		{
-			way->ants++;
+			WAY->ants++;
 			ants--;
 		}
-		if (way != begin && way->len + way->ants == begin->len + begin->ants)
+		if (way != begin && WAY->len + WAY->ants == WAY_N(begin)->len + WAY_N(begin)->ants)
 			way = begin;
 		else
 			way = way->next;
 	}
-	return (begin->len + begin->ants);
+	return (WAY_N(begin)->len + WAY_N(begin)->ants);
 }
 
-void	choose_ways(t_all *all, int ant, t_ways *indep, t_ways *dep)
+void	choose_ways(t_all *all, int ant, t_list *indep, t_list *dep)
 {
 	int indep_move;
 	int	dep_move;

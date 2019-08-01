@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 06:09:28 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 00:17:17 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 02:50:10 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 static void	init_ants(t_all *all)
 {
-	t_ways	*current_way;
+	t_list	*way;
 	t_list	*node;
 	t_ant	new_ant;
 	int		i;
 
 	i = 1;
-	current_way = all->ways;
+	way = all->ways;
 	ft_bzero(&new_ant, sizeof(t_ant));
 	while (i <= all->ant_count)
 	{
 		new_ant.name = i++;
-		while (current_way)
+		while (way)
 		{
-			if (current_way->ants)
+			if (WAY->ants)
 			{
-				new_ant.way = current_way;
-				current_way->ants--;
+				new_ant.way = way;
+				WAY->ants--;
+				way = way->next;
+				if (!way)
+					way = all->ways;
 				break ;
 			}
-			current_way = current_way->next;
-			if (!current_way)
-				current_way = all->ways;
+			way = way->next;
+			if (!way)
+				way = all->ways;
 		}
 		if (!(node = ft_lstnew(&new_ant, sizeof(t_ant))))
 			all->exit(all, ERROR, 2);
@@ -46,23 +49,23 @@ static void	init_ants(t_all *all)
 
 static void	moove_ant(t_all *all, t_list *ant, char flag)
 {
-	if (ANT->way->way[ANT->position + 1]->visit_early == 0)
+	if (ANT_WAY->path[ANT->position + 1]->visit_early == 0)
 	{
 		if (flag)
 			ft_putchar(' ');
 		ft_printf("L%d-%.*s", ANT->name,
-		ANT->way->way[ANT->position + 1]->name_len,
-		ANT->way->way[ANT->position + 1]->name);
-		if (ANT->way->way[ANT->position + 1]->type != END)
-			ANT->way->way[ANT->position + 1]->visit_early = 1;
-		ANT->way->way[ANT->position++]->visit_early = 0;
+		ANT_WAY->path[ANT->position + 1]->name_len,
+		ANT_WAY->path[ANT->position + 1]->name);
+		if (ANT_WAY->path[ANT->position + 1]->type != END)
+			ANT_WAY->path[ANT->position + 1]->visit_early = 1;
+		ANT_WAY->path[ANT->position++]->visit_early = 0;
 	}
 }
 
 void	send_ants(t_all *all)
 {
 	t_list	*ant;
-	t_ways	*ways;
+	t_list	*way;
 	char	flag;
 
 	flag = 1;
@@ -74,7 +77,7 @@ void	send_ants(t_all *all)
 		ant = all->ants;
 		while (ant)
 		{
-			if (ANT->position != ANT->way->len)
+			if (ANT->position != ANT_WAY->len)
 			{
 				moove_ant(all, ant, flag);
 				flag = 1;

@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/07/30 22:45:06 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/01 06:16:05 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ COM_SRC = 	parce_map.c \
 			get_room.c \
 			get_door.c \
 			find_functions.c \
+			free_functions.c \
 			push_back.c \
 			debug.c
 LEM_SRC =	lem_in.c \
@@ -52,7 +53,13 @@ LEM_SRC =	lem_in.c \
 VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
+			validate_functions.c \
+			init_map.c \
+			init_map_functions.c \
+			init_new_way.c \
+			normalize_rooms.c \
 			parce_ants.c \
+			parce_flags.c \
 			key_handle.c \
 			render.c \
 			render_map.c \
@@ -60,6 +67,7 @@ VIS_SRC =	visu_hex.c \
 			render_info.c \
 			put_functions.c \
 			draw_functions.c \
+			put_usage.c \
 			gradient.c
 
 COM_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(COM_SRC)))

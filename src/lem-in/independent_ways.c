@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   independent_ways.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 01:46:40 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 04:21:04 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 03:00:02 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ void	clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i)
 
 void	delete_ways(t_all *all, int i)
 {
-	t_ways	*tmp;
-	t_ways	*next;
+	t_list	*way;
+	t_list	*next;
 
-	tmp = all->ways;
-	while (tmp)
+	way = all->ways;
+	while (way)
 	{
-		next = tmp->next;
-		free(tmp->way);
-		free(tmp);
+		next = way->next;
+		free(WAY->path);
+		free(way);
 		i = 0;
-		tmp = next;
+		way = next;
 	}
 //	free(all->ways);
 }

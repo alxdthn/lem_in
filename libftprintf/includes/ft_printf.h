@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mihail <mihail@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 15:27:31 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/23 17:25:46 by mihail           ###   ########.fr       */
+/*   Updated: 2019/08/01 04:30:43 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@
 # include <stdarg.h>
 # include "libft.h"
 
-typedef	struct			s_flags
+typedef	struct			s_fflags
 {
 	char				sharp;
 	char				zero;
 	char				minus;
 	char				plus;
 	char				space;
-}						t_flags;
+}						t_fflags;
 
 typedef struct			s_size
 {
@@ -52,7 +52,7 @@ typedef struct			s_size
 
 typedef struct			s_ftask
 {
-	t_flags				flags;
+	t_fflags			flags;
 	t_size				size;
 	char				*clr;
 	int					width;

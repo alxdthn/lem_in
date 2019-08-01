@@ -9,9 +9,11 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
-		"args": [],
+		"args": [
+			"davids"
+		],
 		"stopAtEntry": false,
-		"cwd": "${workspaceFolder}",
+		"cwd": "${workspaceFolder}/maps",
 		"environment": [],
 		"externalConsole": true,
 		"MIMode": "lldb"
@@ -45,7 +47,7 @@
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/visu-hex",
-		"args": [],
+		"args": ["maps/david"],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}/",
 		"environment": [],

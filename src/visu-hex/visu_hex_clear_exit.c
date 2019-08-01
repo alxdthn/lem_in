@@ -6,28 +6,14 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:52:07 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:27:08 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:47:15 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	clear_room(void *room, size_t size)
+static void	mlx_clear(t_all *all)
 {
-	ft_lstdel(&((t_room *)room)->doors, ft_lstclear);
-	ft_memdel((void **)&room);
-}
-
-static void	clear_ant(void *ant, size_t size)
-{
-	ft_lstdel(&((t_ant *)ant)->path, NULL);
-	ft_memdel((void **)&ant);
-}
-
-void		visu_hex_clear_exit(t_all *all, char *message, int fd)
-{
-	all->out = all->out_head;
-	all->input = all->input_head;
 	if (all->mlx.ptr)
 	{
 		if (all->mlx.logo.ptr)
@@ -39,13 +25,20 @@ void		visu_hex_clear_exit(t_all *all, char *message, int fd)
 		mlx_destroy_window(all->mlx.ptr, all->mlx.win);
 		ft_memdel((void **)&all->mlx.ptr);
 	}
+}
+
+void		visu_hex_clear_exit(t_all *all, char *message, int fd)
+{
+	all->out = all->out_head;
+	all->input = all->input_head;
+	mlx_clear(all);
 	ft_lstdel(&all->rooms, clear_room);
 	ft_lstdel(&all->ants, clear_ant);
 	ft_lstdel(&all->out, ft_lstclear);
 	ft_lstdel(&all->input, ft_lstclear);
+	ft_lstdel(&all->ways, clear_way);
 	ft_arraydel((void ***)&all->iterations);
-	if (message)
-		ft_putendl_fd(message, fd);
+	error_handle(all, message, fd);
 	if (fd == 1)
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);

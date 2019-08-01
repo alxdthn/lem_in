@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 01:01:33 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/07/31 22:18:39 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ void	clear_room_visit(t_room **mas_rom)
 		mas_rom[i++]->visit_early = '\0';
 }
 
-int			main(void)
+int			main(int ac, char **av)
 {
 	t_all	all;
 
 	ft_bzero(&all, sizeof(t_all));
 	all.prog = LEM_IN;
 	all.exit = &lem_in_clear_exit;
+	if (ac == 2)
+		all.fd = open(av[1], O_RDONLY);
 	parce_input(&all);
 	print_out(all.out);
 	get_ways(&all, all.rooms);

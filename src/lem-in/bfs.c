@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bfs.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 05:00:55 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 03:16:03 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			bfs(t_all *all, t_list *begin)
 		ft_clean_index(all);
 		return (0);
 	}
-	create_ways(all, all->mas_rom[all->room_count - 1]->visit,
+	create_way(all, all->mas_rom[all->room_count - 1]->visit,
 	all->room_count - 1);
 	// nbr = 0;
 	// while (all->mas_rom[nbr])

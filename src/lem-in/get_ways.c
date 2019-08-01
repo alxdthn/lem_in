@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/07/30 23:22:45 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 02:58:44 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,36 @@
 
 void        close_doors(t_all *all)
 {
-    t_ways  *tmp;
-	t_door	*door;
-	t_list	*rooms;
+    t_list  *way;
+	t_list	*door;
+	t_list	*room;
 	int		i;
 	
-	tmp = all->ways;
-	if (!tmp)
+	way = all->ways;
+	if (!way)
 		return ;
-	while (tmp->next)
-		tmp = tmp->next;
+	while (way->next)
+		way = way->next;
 	i = 0;
-	while (tmp->way[i + 1])
+	while (WAY->path[i + 1])
 	{
-		rooms = tmp->way[i]->doors;
-		if (tmp->way[i]->visit_early == '1' && i != 0 && i != tmp->len)
+		if (WAY->path[i]->visit_early == '1' && i != 0 && i != WAY->len)
 		{
 //			ft_printf("problem at- %s\n", tmp->way[i]->name);
-			tmp->way[i]->visit_early = '2';
+			WAY->path[i]->visit_early = '2';
 		}
-		else if (i != 0 && i != tmp->len)
-			tmp->way[i]->visit_early = '1';
+		else if (i != 0 && i != WAY->len)
+			WAY->path[i]->visit_early = '1';
 		// ft_printf("visit early - %s\n", tmp->way[i]->name);
-		while (rooms)
+		door = WAY->path[i]->doors;
+		while (door)
 		{
-			door = rooms->content;
-			if (door->room == tmp->way[i + 1])
+			if (DOOR->room == WAY->path[i + 1])
 			{
-				door->is_close = '1';
+				DOOR->is_close = '1';
 				break ;
 			}
-			rooms = rooms->next;
+			door = door->next;
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 21:25:45 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 06:00:50 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		parce_input(t_all *all)
 	int		ret;
 	t_list	*node;
 
-	while ((ret = get_next_line(0, &all->tmp.line)))
+	while ((ret = get_next_line(all->fd, &all->tmp.line)))
 	{
 		if (ret < 0 || !all->tmp.line)
 			all->exit(all, ERROR, 2);

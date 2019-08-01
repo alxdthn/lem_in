@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   put_map.c                                          :+:      :+:    :+:   */
+/*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 21:07:21 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/27 15:43:56 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 05:34:36 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	draw_room(t_all *all, t_room *room)
 	params.y1 = room->y;
 	params.x2 = 0;
 	params.y2 = all->mlx.room_radius;
-   	params.delta_x = 1 - 2 * all->mlx.room_radius;
+	params.delta_x = 1 - 2 * all->mlx.room_radius;
 	draw_circle(&all->mlx.map, &params);
 	radius = all->mlx.room_radius - all->mlx.pixel_size + 1;
 	while (--radius >= 0)
@@ -62,15 +62,15 @@ static void	draw_room(t_all *all, t_room *room)
 			all->mlx.map.pixel_color = ROOM_FIL_COLOR;
 		params.x2 = 0;
 		params.y2 = radius;
-	   	params.delta_x = 1 - 2 * radius;
+		params.delta_x = 1 - 2 * radius;
 		draw_circle(&all->mlx.map, &params);
 	}
 }
 
-void	render_map(t_all *all)
+void		render_map(t_all *all)
 {
-	t_list *tmp;
-	int 	i;
+	t_list	*tmp;
+	int		i;
 
 	i = 0;
 	all->mlx.map.pixel_size = all->mlx.pixel_size;
