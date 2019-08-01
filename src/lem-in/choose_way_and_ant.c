@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:01:11 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:14:21 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		distribute_ants_to_ways(t_all *all, t_list *way, t_list *begin, int i)
 
 	ants = all->ant_count;
 	sum = 0;
-//	ft_printf("begin - %d\n", begin->ants);
 	while (ants > 0)
 	{
 		while (way)

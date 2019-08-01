@@ -6,11 +6,35 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 21:57:04 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 14:39:35 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:39:51 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void		create_mas(t_all *all, t_list *begin)
+{
+	int		i;
+
+	i = all->room_count - 2;
+	if (!(all->mas_rom = (t_room **)malloc(sizeof(t_room *)
+	* (all->room_count + 1))))
+		all->exit(all, ERROR, 2);
+	all->mas_rom[all->room_count] = NULL;
+	while (begin)
+	{
+		if (((t_room *)begin->content)->type == START)
+			all->mas_rom[0] = (t_room *)begin->content;
+		else if (((t_room *)begin->content)->type == END)
+			all->mas_rom[all->room_count - 1] = (t_room *)begin->content;
+		else
+		{
+			all->mas_rom[i] = begin->content;
+			i--;
+		}
+		begin = begin->next;
+	}
+}
 
 void		q_push_back(t_room *room, t_que **q, t_all *all)
 {

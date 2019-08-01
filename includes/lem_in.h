@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 15:00:53 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 15:40:00 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,6 +286,7 @@ void			clean_room_open_ways(t_all *all, t_room **room, t_list *second, int i);
 void			delete_ways(t_all *all, int i);
 void			choose_ways(t_all *all, int ant, t_list *indep, t_list *dep);
 int				distribute_ants_to_ways(t_all *all, t_list *way, t_list *begin, int i);
+void			create_mas(t_all *all, t_list *begin);
 /*
 ** debug
 */
