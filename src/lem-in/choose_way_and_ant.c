@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_way_and_ant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:01:11 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 17:01:28 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	remove_way(t_list *prev, t_list **dep, int i, int stop)
 	}
 	prev->next = (*dep)->next;
 	free(WAY_N((*dep))->path);
+	free((*dep)->content);
 	free(*dep);
 	*dep = NULL;
 }
@@ -87,8 +88,8 @@ void	choose_ways(t_all *all, int ant, t_list *indep, t_list *dep)
 	dep_move = distribute_ants_to_ways(all, dep, dep, 0);
 	if (indep_move > dep_move)
 	{
-		delete_ways(all, 0);
+		ft_lstdel(&all->ways, clear_way);
 		all->ways = all->dependent_ways;
-		all->dependent_ways = 0;
+		all->dependent_ways = NULL;
 	}
 }

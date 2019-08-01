@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:21:46 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/28 03:17:57 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:38:35 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	get_rooms(t_all *all, t_room **room_a, t_room **room_b)
 	|| !(*room_a = find_room_by_name(all->rooms, all->tmp.line)))
 		all->exit(all, ERROR, 2);
 	if (!(len_b = ft_strlen(all->tmp.line + len_a + 1))
-	|| all->tmp.line[len_a + len_b + 1]
+	|| all->tmp.line[len_a + len_b + 2]
 	|| !(*room_b = find_room_by_name(all->rooms, all->tmp.line + len_a + 1)))
 		all->exit(all, ERROR, 2);
 }

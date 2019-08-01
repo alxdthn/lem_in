@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ways.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 19:17:19 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:09:36 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:52:09 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ void		create_way(t_all *all, int i, int end)
 		ft_push_front_way(all, &new_way, DOOR->room, new_way.len);
 		i--;
 	}
+	static int	s;
+
+	ft_printf("new %d len %d\n", s++, new_way.len);
 	if (!(node = ft_lstnew(&new_way, sizeof(t_way))))
 		all->exit(all, ERROR, 2);
 	ft_lstpushback(&all->ways, node);

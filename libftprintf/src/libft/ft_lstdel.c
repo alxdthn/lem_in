@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 08:10:05 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/29 04:53:55 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 16:21:46 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	t_list *tmp;
-
+	t_list	*tmp;
 
 	while (*alst)
 	{
