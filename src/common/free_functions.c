@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:44:17 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 17:08:35 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:05:25 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	clear_room(void *room, size_t size)
 {
-	
 	ft_lstdel(&((t_room *)room)->doors, ft_lstclear);
 	free(room);
 }

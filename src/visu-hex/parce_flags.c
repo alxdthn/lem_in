@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:11:10 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 11:42:31 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:22:11 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ static void	read_flags(t_all *all, char c)
 		all->mlx.flags.print_way_info_path = 1;
 	else if (c == 'e')
 		all->mlx.flags.print_err = 1;
-	else if (c == 'n')
-		all->mlx.flags.normalize_map = 1;
 	else if (c == 'i')
 		all->mlx.flags.print_info = 1;
 	else if (c == 'a')

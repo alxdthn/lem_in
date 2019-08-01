@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 11:23:32 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:36:59 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	visu_part(t_all *all)
 	if (!all->mlx.flags.no_visu)
 	{
 		visualisation_init(all);
-		if (all->mlx.flags.normalize_map)
-			normalize_rooms(all);
 		init_map(all);
 		render_map(all);
 		render_info(all);
@@ -44,8 +42,9 @@ static void	visu_part(t_all *all)
 
 static void	print_part(t_all *all)
 {
-	if (all->mlx.flags.print_err || all->mlx.flags.print_way_info
-	|| all->mlx.flags.print_way_info_path)
+	if (all->iterations && (all->mlx.flags.print_err
+	|| all->mlx.flags.print_way_info
+	|| all->mlx.flags.print_way_info_path))
 	{
 		validate_iterations(all);
 		validate_ways(all);

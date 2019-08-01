@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_room.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/30 00:32:24 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:23:02 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ static int	check_name_match(t_all *all, char *name)
 	return (0);
 }
 
-void		get_room(t_all *all)
+void		get_room(t_all *all, size_t i)
 {
-	size_t	i;
 	t_room	new_room;
 	t_list	*node;
 
@@ -69,7 +68,7 @@ void		get_room(t_all *all)
 	if (all->tmp.line[i])
 		all->exit(all, ERROR, 2);
 	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
-		all->exit(all, ERROR, 2);		
+		all->exit(all, ERROR, 2);
 	get_start_end(all, node->content);
 	ft_lstadd(&all->rooms, node);
 }

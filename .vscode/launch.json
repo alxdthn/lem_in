@@ -49,11 +49,11 @@
 		"request": "launch",
 		"program": "${workspaceFolder}/visu-hex",
 		"args": [
-			"-e",
-			"out"
+			"-w",
+			"2-2"
 		],
 		"stopAtEntry": false,
-		"cwd": "${workspaceFolder}/",
+		"cwd": "${workspaceFolder}/maps",
 		"environment": [],
 		"externalConsole": true,
 		"MIMode": "lldb"

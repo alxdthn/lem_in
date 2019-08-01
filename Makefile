@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/08/01 06:16:05 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/01 18:19:00 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ COM_SRC = 	parce_map.c \
 			find_functions.c \
 			free_functions.c \
 			push_back.c \
-			debug.c
+			name_cmp.c \
+			debug.c \
+			debug2.c
 LEM_SRC =	lem_in.c \
 			lem_in_clear_exit.c \
 			bfs.c \
@@ -54,10 +56,10 @@ VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
 			validate_functions.c \
+			validate_iterations.c \
 			init_map.c \
 			init_map_functions.c \
 			init_new_way.c \
-			normalize_rooms.c \
 			parce_ants.c \
 			parce_flags.c \
 			key_handle.c \

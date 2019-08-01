@@ -6,36 +6,11 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:27:39 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 03:45:10 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:17:55 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-int		costyl(char c)
-{
-	if (c == ' ')
-		return (0);
-	else if (c == '\0')
-		return (0);
-	else if (c == '-')
-		return (0);
-	return (1);
-}
-
-int		name_cmp(const char *s1, const char *s2)
-{
-	size_t		i;
-
-	i = 0;
-	while (costyl(s1[i]) || costyl(s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		++i;
-	}
-	return (1);
-}
 
 t_room	*find_room_by_name(t_list *rooms, char *name)
 {

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 20:17:43 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 14:06:03 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:23:55 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,22 @@ static void	draw_pixel(t_img *img, int x, int y)
 
 void		draw_pixel_circle(t_img *img, t_line_params *params)
 {
-	int error;
-	float	y;
+	int		error;
 
 	error = 0;
-	y = params->y2;
-	while (y >= 0)
+	while (params->y2 >= 0)
 	{
 		draw_pixel(img, params->x1 + params->x2, params->y1 + params->y2);
 		draw_pixel(img, params->x1 + params->x2, params->y1 - params->y2);
 		draw_pixel(img, params->x1 - params->x2, params->y1 + params->y2);
 		draw_pixel(img, params->x1 - params->x2, params->y1 - params->y2);
-		error = 2 * (params->delta_x + y);
+		error = 2 * (params->delta_x + params->y2);
 		if (params->delta_x < 0 && error <= 0)
 			params->delta_x += 2 * ++params->x2;
 		else if (params->delta_x > 0 && error > 0)
-			params->delta_x -= 2 * --y;
+			params->delta_x -= 2 * --params->y2;
 		else
-			params->delta_x += 2 * (++params->x2 - --y);
+			params->delta_x += 2 * (++params->x2 - --params->y2);
 	}
 }
 

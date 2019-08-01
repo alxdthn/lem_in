@@ -6,21 +6,16 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 06:09:28 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 02:50:10 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:04:38 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	init_ants(t_all *all)
+static void	init_ants(t_all *all, int i, t_list *way, t_list *node)
 {
-	t_list	*way;
-	t_list	*node;
 	t_ant	new_ant;
-	int		i;
 
-	i = 1;
-	way = all->ways;
 	ft_bzero(&new_ant, sizeof(t_ant));
 	while (i <= all->ant_count)
 	{
@@ -31,13 +26,11 @@ static void	init_ants(t_all *all)
 			{
 				new_ant.way = way;
 				WAY->ants--;
-				way = way->next;
-				if (!way)
+				if (!(way = way->next))
 					way = all->ways;
 				break ;
 			}
-			way = way->next;
-			if (!way)
+			if (!(way = way->next))
 				way = all->ways;
 		}
 		if (!(node = ft_lstnew(&new_ant, sizeof(t_ant))))
@@ -62,7 +55,7 @@ static void	moove_ant(t_all *all, t_list *ant, char flag)
 	}
 }
 
-void	send_ants(t_all *all)
+void		send_ants(t_all *all)
 {
 	t_list	*ant;
 	t_list	*way;
@@ -70,7 +63,7 @@ void	send_ants(t_all *all)
 
 	flag = 1;
 	clear_room_visit(all->mas_rom);
-	init_ants(all);
+	init_ants(all, 1, all->ways, NULL);
 	while (flag)
 	{
 		flag = 0;

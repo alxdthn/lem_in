@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 18:03:36 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 06:00:50 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:20:26 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	parce_line(t_all *all)
 		else
 		{
 			if (!all->switchs.rooms)
-				get_room(all);
+				get_room(all, 0);
 			if (all->switchs.rooms)
 				get_door(all);
 		}

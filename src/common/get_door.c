@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:21:46 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 17:18:04 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/01 18:19:17 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void		get_door(t_all *all)
 	ft_lstadd(&room_a->doors, node);
 	new_door.room = room_a;
 	if (!(node = ft_lstnew(&new_door, sizeof(t_door))))
-		all->exit(all, ERROR, 2);		
+		all->exit(all, ERROR, 2);
 	ft_lstadd(&room_b->doors, node);
 }
