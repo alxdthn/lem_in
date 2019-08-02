@@ -6,7 +6,7 @@
 /*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/27 18:26:49 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 15:39:41 by skrystin         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:51:47 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			bfs(t_all *all, t_list *begin)
 		ft_go_to_graph(&q, all, &nbr);
 	while (q)
 		del_first(&q);
-	if (nbr > 100)
+	if (nbr > 95)
 		all->mas_rom[all->room_count - 1]->visit = -1;
 	if (all->mas_rom[all->room_count - 1]->visit == -1)
 	{

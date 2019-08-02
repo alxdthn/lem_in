@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_way_and_ant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:22:59 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 17:05:27 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:44:34 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	remove_way(t_list *prev, t_list **dep, int i, int stop)
 {
-	while (i < stop)
+	while (i < stop && WAY_N((*dep))->path[i])
 	{
 		WAY_N((*dep))->path[i]->visit_early = '\0';
 		i++;
@@ -30,7 +30,7 @@ void	do_independent_this_ways(t_all *all, t_list *dep, t_list *prev, int i)
 {
 	if (!dep->next)
 		return ;
-	while (dep)
+	while (dep && dep->content && WAY_N(dep)->path && WAY_N(dep)->len > i)
 	{
 		while (WAY_N(dep)->path[i])
 		{

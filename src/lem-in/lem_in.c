@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:21:11 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 17:02:14 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:34:43 by skrystin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			main(int ac, char **av)
 		all.fd = open(av[1], O_RDONLY);
 	parce_input(&all);
 	print_out(all.out);
-	get_ways(&all, all.rooms, 1000);
+	get_ways(&all, all.rooms, 300);
 	send_ants(&all);
 	all.exit(&all, NULL, 1);
 	return (0);
