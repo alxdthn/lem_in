@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:21:46 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 18:19:17 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 12:58:19 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ static void	get_rooms(t_all *all, t_room **room_a, t_room **room_b)
 	if (!(len_a = ft_strclen(all->tmp.line, '-'))
 	|| all->tmp.line[len_a] != '-'
 	|| !(*room_a = find_room_by_name(all->rooms, all->tmp.line)))
-		all->exit(all, ERROR, 2);
+		all->exit(all, "Error: bad link!", 2);
 	if (!(len_b = ft_strclen(all->tmp.line + len_a + 1, ' '))
 	|| all->tmp.line[len_a + len_b + 1]
 	|| !(*room_b = find_room_by_name(all->rooms, all->tmp.line + len_a + 1)))
-		all->exit(all, ERROR, 2);
+		all->exit(all, "Error: bad link!", 2);
 }
 
 void		get_door(t_all *all)

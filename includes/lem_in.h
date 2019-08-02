@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 18:32:36 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 12:38:34 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,11 @@ typedef struct		s_flags
 	char			no_visu;
 	char			print_way_info;
 	char			print_way_info_path;
-	char			print_err;
 	char			print_info;
 	char			print_rooms;
-	char			print_iterations;
-	char			print_merge_err;
+	char			validate_room_merge;
+	char			validate_path_merge;
+	char			validate_iterations;
 }					t_flags;
 
 typedef struct		s_mlx
@@ -246,7 +246,7 @@ void				init_sizes(t_all *all);
 void				reset_crds(t_all *all);
 void				count_ants_paths(t_all *all);
 void				visualisation_init(t_all *all);
-int					init_new_way(t_all *all, t_list *ant, int counter);
+int					init_ways(t_all *all);
 void				init_map(t_all *all);
 int					loop_hook(t_all *all);
 int					deal_key(int key, t_all *all);
@@ -262,14 +262,13 @@ void				put_names(t_all *all);
 int					get_gradient(double start, double end, double cur);
 char				*get_line(t_list *lines, int line_number);
 void				validate_iterations(t_all *all);
-void				validate_ways(t_all *all);
+void				validate_path_merge(t_all *all);
+void				validate_room_merge(t_all *all);
 void				draw_line(t_img *img, t_line_params *params);
 void				draw_circle(t_img *img, t_line_params *params);
 void				draw_pixel_circle(t_img *img, t_line_params *params);
 void				draw_point(t_img *img, int x, int y);
 void				put_usage(void);
-char				*get_iteration_error(char *error,
-					t_list *lst, int line_number);
 /*
 ** lem-in
 */

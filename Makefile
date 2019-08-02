@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/08/01 18:19:00 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/02 12:42:01 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,12 @@ LEM_SRC =	lem_in.c \
 VIS_SRC =	visu_hex.c \
 			visu_hex_clear_exit.c \
 			visualisation_init.c \
-			validate_functions.c \
+			validate_path_merge.c \
 			validate_iterations.c \
+			validate_room_merge.c \
 			init_map.c \
 			init_map_functions.c \
-			init_new_way.c \
+			init_ways.c \
 			parce_ants.c \
 			parce_flags.c \
 			key_handle.c \

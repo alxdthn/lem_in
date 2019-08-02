@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:35:53 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 18:36:59 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 12:44:58 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static void	visu_part(t_all *all)
 		all->mlx.ants.pixel_size = all->mlx.pixel_size;
 		if (all->mlx.flags.print_info)
 			print_info(all);
-		if (all->iterations && all->mlx.flags.print_iterations)
-			print_iterations(all);
 		mlx_loop_hook(all->mlx.ptr, loop_hook, all);
 		mlx_loop(all->mlx.ptr);
 	}
@@ -42,19 +40,22 @@ static void	visu_part(t_all *all)
 
 static void	print_part(t_all *all)
 {
-	if (all->iterations && (all->mlx.flags.print_err
-	|| all->mlx.flags.print_way_info
-	|| all->mlx.flags.print_way_info_path))
+	if (all->iterations)
 	{
-		validate_iterations(all);
-		validate_ways(all);
+		init_ways(all);
+		if (all->mlx.flags.validate_room_merge)
+			validate_room_merge(all);
+		if (all->mlx.flags.validate_path_merge)
+			validate_path_merge(all);
+		if (all->mlx.flags.validate_iterations)
+			validate_iterations(all);
+		if (all->mlx.flags.print_way_info_path)
+			print_ways(all, 1);
+		if (all->mlx.flags.print_way_info)
+			print_ways(all, 0);
 	}
 	if (all->mlx.flags.print_rooms)
 		print(all);
-	if (all->mlx.flags.print_way_info_path)
-		print_ways(all, 1);
-	if (all->mlx.flags.print_way_info)
-		print_ways(all, 0);
 }
 
 int			main(int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 05:11:10 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 18:22:11 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 12:34:25 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static void	read_flags(t_all *all, char c)
 		all->mlx.flags.print_way_info = 1;
 	else if (c == 'W')
 		all->mlx.flags.print_way_info_path = 1;
-	else if (c == 'e')
-		all->mlx.flags.print_err = 1;
-	else if (c == 'i')
+	else if (c == 'b')
 		all->mlx.flags.print_info = 1;
 	else if (c == 'a')
 		all->mlx.flags.print_rooms = 1;
-	else if (c == 't')
-		all->mlx.flags.print_iterations = 1;
-	else if (c == 'm')
-		all->mlx.flags.print_merge_err = 1;
+	else if (c == 'p')
+		all->mlx.flags.validate_path_merge = 1;
+	else if (c == 'r')
+		all->mlx.flags.validate_room_merge = 1;
+	else if (c == 'i')
+		all->mlx.flags.validate_iterations = 1;
 	else
 	{
 		ft_putendl("Error: unknown flag!");

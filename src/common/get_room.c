@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/01 18:23:02 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 13:08:43 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		get_room(t_all *all, size_t i)
 	t_list	*node;
 
 	if (all->tmp.line[0] == 'L')
-		all->exit(all, ERROR, 2);
+		all->exit(all, "Error: bad room", 2);
 	if (check_name_match(all, all->tmp.line))
 		return ;
 	ft_bzero(&new_room, sizeof(t_room));
@@ -60,13 +60,13 @@ void		get_room(t_all *all, size_t i)
 	i = ft_strclen(all->tmp.line, ' ');
 	new_room.name_len = i;
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
-		all->exit(all, ERROR, 2);
+		all->exit(all, "Error: bad room coordinate", 2);
 	new_room.x = ft_satoi(all->tmp.line, &i);
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
-		all->exit(all, ERROR, 2);
+		all->exit(all, "Error: bad room coordinate", 2);
 	new_room.y = ft_satoi(all->tmp.line, &i);
-	if (all->tmp.line[i])
-		all->exit(all, ERROR, 2);
+	if (all->tmp.line[i] && all->tmp.line[i] != '\r')
+		all->exit(all, "Error: bad room coordinate", 2);
 	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
 		all->exit(all, ERROR, 2);
 	get_start_end(all, node->content);
