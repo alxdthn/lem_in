@@ -5,13 +5,14 @@
 	"version": "0.2.0",
 	"configurations": [
 
+
 	{
 		"name": "(lldb) lem-in",
 		"type": "cppdbg",
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
 		"args": [
-			"bad_link6"
+			"input20"
 		],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}/",
