@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 22:19:55 by nalexand          #+#    #+#             */
-/*   Updated: 2019/07/31 07:05:46 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 15:25:54 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static ssize_t	get_new_line(t_gnl *gnl, char **line)
 	? (ssize_t)gnl->tmp_ptr - (ssize_t)CONT : SIZE;
 	gnl->ret = (gnl->tmp_ptr || !gnl->read_ret)
 	? gnl->node_ofset + gnl->lst_ofset + 1 : gnl->node_ofset + 1;
-	if (!(*line = ft_memalloc(gnl->ret)))
+	if (!(*line = ft_strnew(gnl->ret - 1)))
 		return (gnl->ret = -1);
 	write_line(gnl, line);
 	return (0);

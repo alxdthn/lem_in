@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skrystin <skrystin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/20 17:22:42 by nalexand          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/08/02 12:38:34 by nalexand         ###   ########.fr       */
-=======
-/*   Updated: 2019/08/02 13:38:02 by skrystin         ###   ########.fr       */
->>>>>>> 2fe5c6ada9594eab00a0369c1f9b26d9431e4714
+/*   Updated: 2019/08/02 16:20:18 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +14,7 @@
 # define LEM_IN_H
 # define LEM_IN 42
 # define VISU_HEX 21
+# define LIMIT 300
 # define ERROR "Error"
 # define START 1
 # define END 2
@@ -209,6 +206,7 @@ typedef struct		s_all
 	t_room			*end_room;
 	t_ant			***iterations;
 	t_switchs		switchs;
+	int				flag;
 	int				ant_count;
 	int				room_count;
 	int				way_count;
@@ -237,6 +235,7 @@ void				clear_ant(void *content, size_t size);
 void				clear_way(void *content, size_t size);
 void				error_handle(t_all *all, char *message, int fd);
 int					name_cmp(const char *s1, const char *s2);
+size_t				read_name(char *name);
 /*
 ** visu-hex
 */
@@ -279,7 +278,7 @@ void				put_usage(void);
 void				lem_in_clear_exit(t_all *all, char *message, int fd);
 void				get_ways(t_all *all, t_list *begin, int i);
 void				send_ants(t_all *all);
-int					bfs(t_all *all, t_list *begin);
+int					bfs(t_all *all, t_list *begin, int flag);
 void				q_push_back(t_room *room, t_que **q, t_all *all);
 void				del_first(t_que **q);
 void				create_mas(t_all *all, t_list *begin);

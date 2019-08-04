@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 20:04:39 by skrystin          #+#    #+#             */
-/*   Updated: 2019/08/01 17:12:31 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:16:55 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void		one_step(t_all *all)
 void		get_ways(t_all *all, t_list *begin, int i)
 {
 	create_mas(all, all->rooms);
-	if (!bfs(all, all->rooms))
-		all->exit(all, ERROR, 2);
+	if (!bfs(all, all->rooms, i))
+		all->exit(all, "Error: no path", 2);
 	close_doors(all, 0, all->ways);
 	if (((t_way *)all->ways->content)->len == 1)
 		return (one_step(all));
-	while (bfs(all, all->rooms))
+	while (bfs(all, all->rooms, i))
 		close_doors(all, 0, all->ways);
 	while (!is_independent_ways(all, all->mas_rom, 0) && i--)
 	{
@@ -64,7 +64,7 @@ void		get_ways(t_all *all, t_list *begin, int i)
 		else
 			ft_lstdel(&all->ways, clear_way);
 		all->ways = NULL;
-		while (bfs(all, all->rooms))
+		while (bfs(all, all->rooms, i))
 			close_doors(all, 0, all->ways);
 	}
 	if (all->dependent_ways)

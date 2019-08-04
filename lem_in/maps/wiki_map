@@ -1,0 +1,21 @@
+3
+##start
+A 0 10
+B 10 0
+C 20 0
+D 20 10
+E 10 10
+F 15 20
+G 30 20
+##end
+H 30 10
+A-B
+A-E
+B-C
+C-D
+E-D
+E-F
+D-F
+F-G
+G-H
+D-H

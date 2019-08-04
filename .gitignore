@@ -6,7 +6,5 @@
 /visu-hex
 *.a
 *out
-YOBA*
-DIMON
 generator
 test.c

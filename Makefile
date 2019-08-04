@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/08/02 12:42:01 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/03 12:40:30 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ COM_SRC = 	parce_map.c \
 			free_functions.c \
 			push_back.c \
 			name_cmp.c \
+			read_name.c \
 			debug.c \
 			debug2.c
 LEM_SRC =	lem_in.c \
@@ -94,7 +95,7 @@ $(LEM_LIB): $(LEM_OBJ)
 $(VIS_LIB): $(VIS_OBJ) 
 	@ar rc $@ $^
 
-$(OBJ_DIR)%.o: $(SRC_DIR)$(COM_DIR)%.c $(HEAD)
+$(OBJ_DIR)%.o: $(SRC_DIR)$(COM_DIR)%.c $(HEAD) $(OBJ)
 	@mkdir -p $(OBJ_DIR)
 	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
 $(OBJ_DIR)%.o: $(SRC_DIR)$(LEM_DIR)%.c $(HEAD)

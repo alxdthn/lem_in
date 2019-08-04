@@ -12,11 +12,7 @@
 		"request": "launch",
 		"program": "${workspaceFolder}/lem-in",
 		"args": [
-<<<<<<< HEAD
 			"father3"
-=======
-			"input20"
->>>>>>> 2fe5c6ada9594eab00a0369c1f9b26d9431e4714
 		],
 		"stopAtEntry": false,
 		"cwd": "${workspaceFolder}/maps",

@@ -6,7 +6,7 @@
 /*   By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/21 18:28:27 by nalexand          #+#    #+#             */
-/*   Updated: 2019/08/02 13:08:43 by nalexand         ###   ########.fr       */
+/*   Updated: 2019/08/02 16:20:00 by nalexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		get_room(t_all *all, size_t i)
 	new_room.visit = -1;
 	new_room.name = all->tmp.line;
 	new_room.nb = all->room_count++;
-	i = ft_strclen(all->tmp.line, ' ');
+	i = read_name(all->tmp.line);
 	new_room.name_len = i;
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
 		all->exit(all, "Error: bad room coordinate", 2);
@@ -65,7 +65,7 @@ void		get_room(t_all *all, size_t i)
 	if (!all->tmp.line[i++] || !ft_isint(all->tmp.line + i))
 		all->exit(all, "Error: bad room coordinate", 2);
 	new_room.y = ft_satoi(all->tmp.line, &i);
-	if (all->tmp.line[i] && all->tmp.line[i] != '\r')
+	if (all->tmp.line[i])
 		all->exit(all, "Error: bad room coordinate", 2);
 	if (!(node = ft_lstnew(&new_room, sizeof(t_room))))
 		all->exit(all, ERROR, 2);

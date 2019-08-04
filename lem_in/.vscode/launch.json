@@ -1,0 +1,67 @@
+{
+	// Use IntelliSense to learn about possible attributes.
+	// Hover to view descriptions of existing attributes.
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
+
+
+	{
+		"name": "(lldb) lem-in",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/lem-in",
+		"args": [
+<<<<<<< HEAD
+			"father3"
+=======
+			"input20"
+>>>>>>> 2fe5c6ada9594eab00a0369c1f9b26d9431e4714
+		],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}/maps",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "lldb"
+	},
+	{
+		"name": "(lldb) test",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/a.out",
+		"args": [],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}",
+		"environment": [],
+		"externalConsole": false,
+		"MIMode": "lldb"
+	},
+	{
+		"name": "(lldb) v_checker",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/valid_checker/v_checker",
+		"args": [],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}/valid_checker",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "lldb"
+	},
+	{
+		"name": "(lldb) visu-hex",
+		"type": "cppdbg",
+		"request": "launch",
+		"program": "${workspaceFolder}/visu-hex",
+		"args": [
+			"-w",
+			"2-2"
+		],
+		"stopAtEntry": false,
+		"cwd": "${workspaceFolder}/maps",
+		"environment": [],
+		"externalConsole": true,
+		"MIMode": "lldb"
+	}
+	]
+}

@@ -6,23 +6,21 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/11 16:58:18 by nalexand          #+#    #+#              #
-#    Updated: 2019/08/01 10:56:02 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/03 15:24:28 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.PHONY: debug all clean fclean re
+.SECONDARY: $(LFT_OBJ) $(PF_OBJ) $(GNL_OBJ)
+override ARFLAGS = rcs
+HEADDERS = get_next_line.h libft.h ft_printf.h
+VPATH = src/libft:src/ft_printf:src/gnl:includes
 FT_PRINTF = libftprintf.a
 LIBFT = libft.a
-C_FLAGS = -g -Wall -Werror -Wextra
+override CFLAGS += -Wall -Werror -Wextra
 HEADER = -I includes
-PF_HEAD = ./includes/ft_printf.h
-LFT_HEAD = ./includes/libft.h
-GNL_HEAD = ./includes/get_next_line.h
 
-SRC_DIR = src/
 OBJ_DIR = obj/
-PF_DIR = ft_printf/
-LFT_DIR = libft/
-GNL_DIR = gnl/
 
 LFT_SRC =	ft_arraydel.c \
 			ft_satoi.c \
@@ -138,28 +136,30 @@ PF_SRC =	ft_printf.c \
 			pf_fun.c \
 			pf_debug.c
 
-LFT_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(LFT_SRC)))
 PF_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(PF_SRC)))
+LFT_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(LFT_SRC)))
 GNL_OBJ = $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(GNL_SRC)))
 
 all: $(FT_PRINTF)
 
-$(FT_PRINTF): $(LFT_OBJ) $(PF_OBJ) $(GNL_OBJ)
-	@ar rc $@ $^
-	ranlib $@
-$(LIBFT): $(LFT_OBJ) $(GNL_OBJ)
-	@ar rc $@ $^
-	ranlib $@
+GOALS = all $(LIBFT) $(FT_PRINTF) re fclean clean
 
-$(OBJ_DIR)%.o: $(SRC_DIR)$(LFT_DIR)%.c $(LFT_HEAD) $(GNL_HEAD)
-	@mkdir -p $(OBJ_DIR)
-	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
-$(OBJ_DIR)%.o: $(SRC_DIR)$(PF_DIR)%.c $(PF_HEAD) $(LFT_HEAD) $(GNL_HEAD)
-	@mkdir -p $(OBJ_DIR)
-	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
-$(OBJ_DIR)%.o: $(SRC_DIR)$(GNL_DIR)%.c $(GNL_HEAD) $(LFT_HEAD)
-	@mkdir -p $(OBJ_DIR)
-	gcc $(C_FLAGS) -c $< -o $@ $(HEADER)
+debug:: override CFLAGS =-g
+ifneq ($(MAKECMDGOALS),$(GOALS))
+debug:: all
+endif
+
+$(FT_PRINTF):: $(OBJ_DIR)
+$(FT_PRINTF):: $(FT_PRINTF)($(LFT_OBJ) $(PF_OBJ) $(GNL_OBJ))
+
+$(LIBFT):: $(OBJ_DIR)
+$(LIBFT):: $(LIBFT)($(LFT_OBJ) $(GNL_OBJ))
+
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)%.o: %.c $(HEADDERS)
+	gcc $(CFLAGS) -c $< -o $@ $(HEADER)
 
 clean:
 	@rm -rf $(OBJ_DIR)
