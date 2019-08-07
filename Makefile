@@ -6,7 +6,7 @@
 #    By: nalexand <nalexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/29 16:28:19 by nalexand          #+#    #+#              #
-#    Updated: 2019/08/03 12:40:30 by nalexand         ###   ########.fr        #
+#    Updated: 2019/08/07 20:24:19 by nalexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,11 +110,11 @@ clean:
 	rm -f $(LEM_LIB)
 	rm -f $(VIS_LIB)
 	rm -rf $(OBJ_DIR)
+	rm -rf *.dSYM
 
 fclean: clean
 	rm -f $(LEM)
 	rm -f $(VIS)
-	rm -rf *.dSYM
 
 fclean_all: fclean
 	make -C libftprintf/ fclean
